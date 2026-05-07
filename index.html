@@ -2,21 +2,16 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: blob:">
   <title>Algebra 1 Practice</title>
   <style>
-    body { color: #ffdd00; font-family: sans-serif; overflow: hidden; margin: 0; padding: 0; background-color: #000000; }
+    body { background-color: #000; color: #ffdd00; margin: 0; overflow: hidden; }
     #app, #loading { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-    .screen { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background-color: #000000; }
-    .progress-bar-outer { border: 1px solid currentColor; height: 10px; width: 200px; }
-    .progress-bar-inner { height: 100%; width: 0; background-color: currentColor; }
+    .screen { display: flex; align-items: center; justify-content: center; height: 100vh; }
   </style>
 </head>
 <body>
   <div id="app"></div>
   <div id="loading" class="screen">
-    <div class="progress-bar-outer"><div class="progress-bar-inner" id="loader"></div></div>
     <p>Loading Math Lab...</p>
   </div>
   <script src="https://packager.turbowarp.org/scaffolding-60.2.1.js"></script>
