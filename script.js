@@ -1,16 +1,13 @@
-// Clean Load Script for math-and-science-work
-// This replaces the 50-page file to stop the lag.
-
+// Clean Script for Everywhere Dash
 fetch('assets/project_data.xml')
   .then(response => response.text())
   .then(data => {
-    // This command imports your 5 pages of levels into the game
+    // Correct command for TurboWarp/Ge-NET-ry engines
     if (typeof loadLevelLibrary === 'function') {
         loadLevelLibrary(data);
-    } else {
-        // Fallback for different engine versions
+    } else if (window.Game) {
         Game.importSave(data);
     }
-    console.log("Your levels have been loaded successfully!");
+    console.log("Levels loaded successfully from assets.");
   })
-  .catch(err => console.error("Error loading levels:", err));
+  .catch(err => console.error("Could not find project_data.xml in assets folder. Use the Import button."));
