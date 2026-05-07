@@ -1,12 +1,22 @@
-// Clean Script - math-and-science-work
-fetch('assets/project_data.xml')
-  .then(res => res.text())
-  .then(xmlData => {
-    // Wait for engine to wake up
-    setTimeout(() => {
-      try {
-        if (typeof loadLevelLibrary === 'function') loadLevelLibrary(xmlData);
-        else if (window.Game) Game.importSave(xmlData);
-      } catch (e) { console.log("Manual import ready."); }
-    }, 2000);
-  });
+// Force Load Script
+window.onload = () => {
+    console.log("Starting engine...");
+    fetch('assets/project_data.xml')
+        .then(response => response.text())
+        .then(xmlData => {
+            // Wait 1 second then force the import
+            setTimeout(() => {
+                if (window.loadLevelLibrary) {
+                    loadLevelLibrary(xmlData);
+                } else if (window.Game) {
+                    Game.importSave(xmlData);
+                }
+                // Kill the loading screen manually
+                const loader = document.getElementById('loading');
+                if (loader) loader.style.display = 'none';
+            }, 1000);
+        })
+        .catch(() => {
+            document.getElementById('loading').innerHTML = "<p>Ready. Use Manual Import.</p>";
+        });
+};
