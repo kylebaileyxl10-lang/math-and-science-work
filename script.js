@@ -1,18 +1,12 @@
-// Clean Script with Delay for Friday
-setTimeout(() => {
-    fetch('assets/project_data.xml')
-      .then(response => response.text())
-      .then(data => {
-          // Try loading levels after engine starts
-          try {
-              if (typeof loadLevelLibrary === 'function') {
-                  loadLevelLibrary(data);
-              } else if (window.Game) {
-                  Game.importSave(data);
-              }
-              console.log("Levels loaded successfully.");
-          } catch (e) {
-              console.log("Auto-load failed. Use the manual Import button.");
-          }
-      });
-}, 3000); // 3-second delay to stop the lag/crash
+// Clean Script - math-and-science-work
+fetch('assets/project_data.xml')
+  .then(res => res.text())
+  .then(xmlData => {
+    // Wait for engine to wake up
+    setTimeout(() => {
+      try {
+        if (typeof loadLevelLibrary === 'function') loadLevelLibrary(xmlData);
+        else if (window.Game) Game.importSave(xmlData);
+      } catch (e) { console.log("Manual import ready."); }
+    }, 2000);
+  });
