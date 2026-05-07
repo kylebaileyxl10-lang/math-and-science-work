@@ -1,13 +1,18 @@
-// Clean Script for Everywhere Dash
-fetch('assets/project_data.xml')
-  .then(response => response.text())
-  .then(data => {
-    // Correct command for TurboWarp/Ge-NET-ry engines
-    if (typeof loadLevelLibrary === 'function') {
-        loadLevelLibrary(data);
-    } else if (window.Game) {
-        Game.importSave(data);
-    }
-    console.log("Levels loaded successfully from assets.");
-  })
-  .catch(err => console.error("Could not find project_data.xml in assets folder. Use the Import button."));
+// Clean Script with Delay for Friday
+setTimeout(() => {
+    fetch('assets/project_data.xml')
+      .then(response => response.text())
+      .then(data => {
+          // Try loading levels after engine starts
+          try {
+              if (typeof loadLevelLibrary === 'function') {
+                  loadLevelLibrary(data);
+              } else if (window.Game) {
+                  Game.importSave(data);
+              }
+              console.log("Levels loaded successfully.");
+          } catch (e) {
+              console.log("Auto-load failed. Use the manual Import button.");
+          }
+      });
+}, 3000); // 3-second delay to stop the lag/crash
