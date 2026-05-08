@@ -8,5 +8,5 @@
     "renderMode": 1,
     "engineDir": "./",
     "modules": ["cocos2d"],
-    "jsList": []
+    "jsList": ["script.js"]
 }
