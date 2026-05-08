@@ -4,7 +4,6 @@ async function initGame() {
     const loaderUI = document.getElementById('loader-ui');
     const startTime = Date.now();
 
-    // 1. Progress Timer Text
     const timer = setInterval(() => {
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
         status.innerHTML = `Analyzing Math Data... (${elapsed}s)`;
@@ -13,7 +12,7 @@ async function initGame() {
     try {
         if (bar) bar.style.width = '40%';
         
-        // 2. Fetch Data
+        // Fetch XML manually to avoid Synchronous XMLHttpRequest errors
         console.log("Fetching project_data.xml...");
         const res = await fetch('assets/project_data.xml');
         if (!res.ok) throw new Error("Missing XML");
@@ -21,7 +20,6 @@ async function initGame() {
         
         if (bar) bar.style.width = '100%';
 
-        // 3. Engine Detection Loop
         let attempts = 0;
         let check = setInterval(() => {
             attempts++;
@@ -30,31 +28,33 @@ async function initGame() {
             if (liteEngineFound) {
                 clearInterval(check);
                 clearInterval(timer);
-                console.log("Engine found. Booting Renderer...");
+                console.log("Engine found. Initializing Renderer...");
 
+                // The official hook for Cocos2d-JS Lite
                 cc.game.onStart = function() {
-                    console.log("Renderer Initialized.");
+                    console.log("Renderer Ready. Injecting Data.");
                     if (loaderUI) loaderUI.style.display = 'none';
-                    if (window.loadLevelLibrary) loadLevelLibrary(xml);
+                    if (window.loadLevelLibrary) {
+                        loadLevelLibrary(xml);
+                    }
                 };
 
-                // Forces engine to bind to the canvas ID in index.html
+                // Added delay to ensure the DOM is painted
                 setTimeout(() => {
                     try {
                         cc.game.run("gameCanvas");
                     } catch (e) {
                         console.error("Boot failure:", e);
                     }
-                }, 400); 
+                }, 500); 
             }
 
-            // Timeout after 30 seconds
             if (attempts > 60) {
                 clearInterval(check);
                 clearInterval(timer);
                 status.innerHTML = "Sync Error: Please Refresh.";
             }
-        }, 500); // Check every 0.5s
+        }, 500);
 
     } catch (e) {
         if (timer) clearInterval(timer);
