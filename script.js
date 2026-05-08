@@ -21,31 +21,26 @@ async function initGame() {
             attempts++;
             const liteEngineFound = (typeof cc !== 'undefined' && cc.game);
 
-            if (liteEngineFound) {
+         if (liteEngineFound) {
                 clearInterval(check);
                 clearInterval(timer);
-                console.log("Engine detected. Forcing canvas binding...");
+                console.log("Engine found. Booting Renderer...");
 
-                // The "Secret Sauce" to fix the tagName error
+                cc.game.onStart = function() {
+                    console.log("Renderer Initialized.");
+                    if (loaderUI) loaderUI.style.display = 'none';
+                    if (window.loadLevelLibrary) loadLevelLibrary(xml);
+                };
+
+                // This forces the engine to use the config and the canvas
                 setTimeout(() => {
                     try {
-                        cc.container = document.getElementById('Cocos2dGameContainer');
-                        cc._canvas = document.getElementById('gameCanvas');
-                        cc.game.run();
-                        if (window.loadLevelLibrary) loadLevelLibrary(xml);
-                        if (loaderUI) loaderUI.style.display = 'none';
+                        cc.game.run("gameCanvas");
                     } catch (e) {
-                        console.error("Manual binding failed:", e);
+                        console.error("Boot failure:", e);
                     }
-                }, 300); // Wait 0.3s for iPad Safari to paint the DOM
+                }, 400); 
             }
-
-            if (attempts > 60) {
-                clearInterval(check);
-                status.innerHTML = "Math Lab Error: Try Refreshing.";
-            }
-        }, 500);
-
     } catch (e) {
         status.innerHTML = "Error: Check /assets/folder.";
     }
