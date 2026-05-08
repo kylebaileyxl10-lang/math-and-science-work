@@ -4,62 +4,24 @@
     <meta charset="utf-8">
     <title>Algebra 1 Practice</title>
     <style>
-        body { 
-            background: #000; 
-            margin: 0; 
-            overflow: hidden; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            height: 100vh; 
-            color: #fff;
-            font-family: sans-serif;
-        }
-
-        #loader-ui {
-            position: absolute;
-            width: 300px;
-            text-align: center;
-            z-index: 20;
-        }
-
-        #progress-container {
-            width: 100%;
-            height: 10px;
-            background: #333;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-
-        #bar {
-            width: 0%;
-            height: 100%;
-            background: #4CAF50;
-            transition: width 0.3s;
-        }
-
-        #status {
-            font-size: 14px;
-            color: #aaa;
-        }
-
+        body { background: #000; margin: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100vh; color: #fff; font-family: sans-serif; }
+        #loader-ui { position: absolute; width: 300px; text-align: center; z-index: 20; }
+        #progress-container { width: 100%; height: 10px; background: #333; border-radius: 5px; margin-bottom: 10px; overflow: hidden; }
+        #bar { width: 0%; height: 100%; background: #4CAF50; transition: width 0.3s; }
+        #status { font-size: 14px; color: #aaa; }
+        #Cocos2dGameContainer { width: 800px; height: 450px; position: relative; }
         canvas { width: 100%; height: 100%; }
-        #Cocos2dGameContainer { width: 100%; height: 100%; }
     </style>
 </head>
 <body>
-
     <div id="loader-ui">
         <div id="loading">Initializing Math Analysis...</div>
-        <div id="progress-container">
-            <div id="bar"></div>
-        </div>
+        <div id="progress-container"><div id="bar"></div></div>
         <div id="status">Connecting to Lab Assets...</div>
     </div>
 
     <div id="Cocos2dGameContainer">
-        <canvas id="gameCanvas"></canvas>
+        <canvas id="gameCanvas" width="800" height="450"></canvas>
     </div>
 
     <script src="cocos2d.js"></script>
