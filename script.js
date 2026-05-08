@@ -1,5 +1,5 @@
 async function initGame() {
-    // 1. Hook into the new HTML elements
+    // 1. Hook into the HTML elements
     const bar = document.getElementById('bar');
     const status = document.getElementById('status');
     const loaderUI = document.getElementById('loader-ui');
@@ -12,62 +12,59 @@ async function initGame() {
     }, 100);
 
     try {
-        // 3. Start the progress bar
-        if (bar) bar.style.width = '30%';
+        // 3. Update Progress
+        if (bar) bar.style.width = '40%';
         
         // 4. Fetch the level data
         console.log("Fetching project_data.xml...");
         const res = await fetch('assets/project_data.xml');
         
-        if (!res.ok) throw new Error("Math Data file (project_data.xml) missing in /assets/ folder.");
+        if (!res.ok) throw new Error("Math Data file missing in /assets/.");
 
         const xml = await res.text();
         if (bar) bar.style.width = '100%';
-        console.log("Math data loaded. Waiting for engine...");
+        console.log("Math data loaded. Detecting Lite Engine...");
 
-        // 5. Engine Detection Loop
+        // 5. Updated Engine Detection Loop for Lite Version
         let attempts = 0;
         let check = setInterval(() => {
             attempts++;
             
-            // Check for any of the common GD-web engine entry points
-            const engine = window.loadLevelLibrary || window.Game || window.Scaffolding;
+            // Check for the 'cc' object from cocos2d-js-v3.13-lite
+            const liteEngineFound = (typeof cc !== 'undefined' && cc.game);
+            const standardEngine = window.loadLevelLibrary || window.Game;
 
-            if (engine) {
+            if (liteEngineFound || standardEngine) {
                 clearInterval(check);
                 clearInterval(timer);
-                console.log("Engine found! Launching Lab...");
+                console.log("Engine active! Launching Lab...");
                 
-                // Hide the loader and show the game
+                // Hide loader
                 if (loaderUI) loaderUI.style.display = 'none';
                 
-                // Start based on which engine loaded
-                if (window.loadLevelLibrary) {
+                // Start the Lite Engine
+                if (liteEngineFound) {
+                    cc.game.run(); 
+                    // If you have a specific level loading function, call it here:
+                    if (window.loadLevelLibrary) loadLevelLibrary(xml);
+                } else if (window.loadLevelLibrary) {
                     loadLevelLibrary(xml);
-                } else if (window.Game) {
-                    Game.importSave(xml);
-                } else if (window.Scaffolding) {
-                    const s = new Scaffolding.Scaffolding();
-                    s.setup();
-                    s.loadProject(xml);
                 }
             }
 
-            // 6. Timeout after 30 seconds (Better for iPad Mini 4 on slow Wi-Fi)
-            if (attempts > 60) {
+            // 6. Timeout for iPad Mini 4 performance
+            if (attempts > 80) {
                 clearInterval(check);
                 clearInterval(timer);
-                status.innerHTML = "Math Lab Error: Engine Blocked. <br> <span style='color:#ff4444; font-size:12px;'>Wait a moment and refresh.</span>";
-                console.error("The engine script (cocos2d) failed to initialize in time.");
+                status.innerHTML = "Math Lab Error: Sync Failure. <br> <span style='color:#ff4444; font-size:12px;'>Check cocos2d.js file size.</span>";
             }
         }, 500);
 
     } catch (e) {
         clearInterval(timer);
-        status.innerHTML = "Error: Math Data not found. Check /assets/.";
-        console.error("Critical Load Failure:", e);
+        status.innerHTML = "Critical Error: Check /assets/ folder.";
+        console.error("Load Failure:", e);
     }
 }
 
-// Kick off the initialization
 initGame();
