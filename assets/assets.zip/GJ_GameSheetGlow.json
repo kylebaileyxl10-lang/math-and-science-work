@@ -1,0 +1,4009 @@
+{
+  "plist": {
+    "dict": {
+      "key": [
+        "frames",
+        "metadata"
+      ],
+      "dict": [
+        {
+          "key": [
+            "blackCogwheel_01_glow_001.png",
+            "blackCogwheel_02_glow_001.png",
+            "blackCogwheel_03_glow_001.png",
+            "bladeTrap01_glow_001.png",
+            "bladeTrap02_glow_001.png",
+            "bladeTrap03_glow_001.png",
+            "blade_01_glow_001.png",
+            "blade_02_glow_001.png",
+            "blade_03_glow_001.png",
+            "blade_b_01_glow_001.png",
+            "blade_b_02_glow_001.png",
+            "blade_b_03_glow_001.png",
+            "blockOutlineOuter1_01_glow_001.png",
+            "blockOutlineOuter2_01_glow_001.png",
+            "blockOutlineOuter3_01_glow_001.png",
+            "blockOutlineThick_01_glow_001.png",
+            "blockOutlineThick_02_glow_001.png",
+            "blockOutlineThick_03_glow_001.png",
+            "blockOutlineThick_04_glow_001.png",
+            "blockOutlineThick_05_glow_001.png",
+            "blockOutlineThick_06_glow_001.png",
+            "blockOutlineThick_07_glow_001.png",
+            "blockOutlineThick_08_glow_001.png",
+            "blockOutlineThickb_01_glow_001.png",
+            "blockOutlineThickb_02_glow_001.png",
+            "blockOutlineThickb_03_glow_001.png",
+            "blockOutlineThickb_04_glow_001.png",
+            "blockOutlineThickb_05_glow_001.png",
+            "blockOutlineThickb_06_glow_001.png",
+            "blockOutlineThickb_08_glow_001.png",
+            "blockOutline_01_glow_001.png",
+            "blockOutline_02_glow_001.png",
+            "blockOutline_03_glow_001.png",
+            "blockOutline_04_glow_001.png",
+            "blockOutline_05_glow_001.png",
+            "blockOutline_06_glow_001.png",
+            "blockOutline_07_glow_001.png",
+            "blockOutline_08_glow_001.png",
+            "blockOutline_09_glow_001.png",
+            "blockOutline_10_glow_001.png",
+            "blockOutline_11_glow_001.png",
+            "blockOutline_12_glow_001.png",
+            "blockOutline_13_glow_001.png",
+            "blockOutline_14_glow_001.png",
+            "blockOutline_14new_glow_001.png",
+            "blockOutline_15_glow_001.png",
+            "blockOutline_15new_glow_001.png",
+            "blockOutline_16_glow_001.png",
+            "blockOutline_17_glow_001.png",
+            "boost_01_glow_001.png",
+            "boost_02_glow_001.png",
+            "boost_03_glow_001.png",
+            "boost_04_glow_001.png",
+            "boost_05_glow_001.png",
+            "brick_02_glow_001.png",
+            "bump_01_glow_001.png",
+            "bump_02_glow_001.png",
+            "bump_03_glow_001.png",
+            "colorPlank_01_glow_001.png",
+            "colorPlank_01_small_glow_001.png",
+            "colorSpike_01_glow_001.png",
+            "colorSpike_02_glow_001.png",
+            "colorSpike_03_glow_001.png",
+            "colorSpike_04_glow_001.png",
+            "colorSquare_01_small_glow_001.png",
+            "darkblade_01_glow_001.png",
+            "darkblade_02_glow_001.png",
+            "darkblade_03_glow_001.png",
+            "dashRing_01_glow_001.png",
+            "dashRing_02_glow_001.png",
+            "dropRing_01_glow_001.png",
+            "emptyGlow.png",
+            "gravJumpRing_01_glow_001.png",
+            "gravbump_01_glow_001.png",
+            "gravring_01_glow_001.png",
+            "iceSpike_01_glow_001.png",
+            "iceSpike_02_glow_001.png",
+            "iceSpike_03_glow_001.png",
+            "invis_plank_01_glow_001.png",
+            "invis_plank_01_small_glow_001.png",
+            "invis_spike_01_glow_001.png",
+            "invis_spike_02_glow_001.png",
+            "invis_spike_03_glow_001.png",
+            "invis_spike_04_glow_001.png",
+            "invis_square_01_glow_001.png",
+            "invis_square_01_small_glow_001.png",
+            "invis_triangle_02_glow_001.png",
+            "invis_triangle_04_glow_001.png",
+            "invisibleOutline_01_glow_001.png",
+            "invisibleOutline_02_glow_001.png",
+            "invisibleOutline_03_glow_001.png",
+            "invisibleOutline_b_01_glow_001.png",
+            "invisibleOutline_b_02_glow_001.png",
+            "invisibleOutline_b_03_glow_001.png",
+            "lightBlade_01_glow_001.png",
+            "lightBlade_02_glow_001.png",
+            "lightBlade_03_glow_001.png",
+            "lightsquare_01_01_glow_001.png",
+            "lightsquare_01_02_glow_001.png",
+            "lightsquare_01_03_glow_001.png",
+            "lightsquare_01_04_glow_001.png",
+            "lightsquare_01_06_glow_001.png",
+            "lightsquare_01_07_glow_001.png",
+            "lightsquare_02_01_glow_001.png",
+            "lightsquare_02_02_glow_001.png",
+            "lightsquare_02_03_glow_001.png",
+            "lightsquare_02_04_glow_001.png",
+            "lightsquare_02_06_glow_001.png",
+            "lightsquare_02_07_glow_001.png",
+            "lightsquare_02_08_glow_001.png",
+            "lightsquare_03_01_glow_001.png",
+            "lightsquare_03_02_glow_001.png",
+            "lightsquare_03_03_glow_001.png",
+            "lightsquare_03_04_glow_001.png",
+            "lightsquare_03_06_glow_001.png",
+            "lightsquare_03_07_glow_001.png",
+            "lightsquare_04_02_glow_001.png",
+            "lightsquare_04_sideLine_glow_001.png",
+            "lightsquare_05_01_glow_001.png",
+            "lightsquare_05_02_glow_001.png",
+            "lightsquare_05_03_glow_001.png",
+            "lightsquare_05_04_glow_001.png",
+            "lightsquare_05_06_glow_001.png",
+            "lightsquare_05_07_glow_001.png",
+            "plank_01_02_glow_001.png",
+            "plank_01_03_glow_001.png",
+            "plank_01_glow_001.png",
+            "plank_01_slope_01_glow_001.png",
+            "plank_01_slope_02_glow_001.png",
+            "plank_01_small_glow_001.png",
+            "plank_01_square_01_glow_001.png",
+            "plank_01_square_02_glow_001.png",
+            "playerDash2_001.png",
+            "playerDash2_002.png",
+            "playerDash2_003.png",
+            "playerDash2_004.png",
+            "playerDash2_005.png",
+            "playerDash2_006.png",
+            "playerDash2_007.png",
+            "playerDash2_008.png",
+            "playerDash2_009.png",
+            "playerDash2_010.png",
+            "playerDash2_011.png",
+            "playerDash2_012.png",
+            "playerDash2_outline_001.png",
+            "playerDash2_outline_002.png",
+            "playerDash2_outline_003.png",
+            "playerDash2_outline_004.png",
+            "playerDash2_outline_005.png",
+            "playerDash2_outline_006.png",
+            "playerDash2_outline_007.png",
+            "playerDash2_outline_008.png",
+            "playerDash2_outline_009.png",
+            "playerDash2_outline_010.png",
+            "playerDash2_outline_011.png",
+            "playerDash2_outline_012.png",
+            "ring_01_glow_001.png",
+            "ring_02_glow_001.png",
+            "ring_03_glow_001.png",
+            "ring_custom_01_glow_001.png",
+            "smallOutline_01_glow_001.png",
+            "smallOutline_02_glow_001.png",
+            "smallOutline_03_glow_001.png",
+            "smallOutline_04_glow_001.png",
+            "smallOutline_05_glow_001.png",
+            "spiderBump_glow_001.png",
+            "spiderRing_glow_001.png",
+            "spike_01_glow_001.png",
+            "spike_02_glow_001.png",
+            "spike_03_glow_001.png",
+            "spike_04_glow_001.png",
+            "spinBlade01_glow_001.png",
+            "spinBlade02_glow_001.png",
+            "square_01_glow_001.png",
+            "square_01_small_glow_001.png",
+            "square_02_glow_001.png",
+            "square_03_glow_001.png",
+            "square_04_glow_001.png",
+            "square_06_glow_001.png",
+            "square_07_glow_001.png",
+            "square_08_glow_001.png",
+            "square_b_01_glow_001.png",
+            "square_b_04_glow_001.png",
+            "square_b_05_glow_001.png",
+            "square_b_06_glow_001.png",
+            "square_f_01_glow_001.png",
+            "square_f_02_glow_001.png",
+            "square_f_03_glow_001.png",
+            "square_f_06_glow_001.png",
+            "square_f_07_glow_001.png",
+            "square_h_01_glow_001.png",
+            "square_h_02_glow_001.png",
+            "square_h_03_glow_001.png",
+            "square_h_04_glow_001.png",
+            "square_h_05_glow_001.png",
+            "square_h_06_glow_001.png",
+            "square_h_07_glow_001.png",
+            "square_h_08_glow_001.png",
+            "square_h_09_glow_001.png",
+            "square_h_10_glow_001.png",
+            "teleportRing_glow_001.png",
+            "triangle_b_01_glow_001.png",
+            "triangle_b_02_glow_001.png",
+            "triangle_b_square_01_glow_001.png",
+            "triangle_b_square_02_glow_001.png",
+            "triangle_h_01_glow_001.png",
+            "triangle_h_02_glow_001.png",
+            "triangle_h_square_01_glow_001.png",
+            "triangle_h_square_02_glow_001.png"
+          ],
+          "dict": [
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-21,22}",
+                "{47,46}",
+                "{89,90}",
+                "{{233,365},{47,46}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{60,62}",
+                "{60,62}",
+                "{{394,345},{60,62}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{48,48}",
+                "{48,48}",
+                "{{447,469},{48,48}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-10,0}",
+                "{24,35}",
+                "{44,35}",
+                "{{370,547},{24,35}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-8,0}",
+                "{18,34}",
+                "{34,34}",
+                "{{373,427},{18,34}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-7,1}",
+                "{17,29}",
+                "{31,31}",
+                "{{253,520},{17,29}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-21,22}",
+                "{47,46}",
+                "{89,90}",
+                "{{135,506},{47,46}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{67,68}",
+                "{67,68}",
+                "{{498,240},{67,68}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{48,49}",
+                "{48,49}",
+                "{{498,456},{48,49}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-21,22}",
+                "{47,47}",
+                "{89,91}",
+                "{{36,506},{47,47}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,8}",
+                "{65,59}",
+                "{65,75}",
+                "{{308,312},{65,59}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{18,46}",
+                "{18,46}",
+                "{{373,378},{18,46}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-17,17}",
+                "{8,9}",
+                "{42,43}",
+                "{{296,124},{8,9}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-19,19}",
+                "{11,12}",
+                "{49,50}",
+                "{{234,557},{11,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-22,23}",
+                "{17,18}",
+                "{63,66}",
+                "{{550,554},{17,18}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,1}",
+                "{30,15}",
+                "{30,17}",
+                "{{376,319},{30,15}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-2,15}",
+                "{36,14}",
+                "{40,44}",
+                "{{1,557},{36,14}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,15}",
+                "{38,14}",
+                "{40,44}",
+                "{{556,439},{38,14}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-11,12}",
+                "{8,6}",
+                "{30,30}",
+                "{{298,100},{8,6}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-11,11}",
+                "{8,8}",
+                "{30,30}",
+                "{{296,163},{8,8}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-10,11}",
+                "{10,8}",
+                "{30,30}",
+                "{{296,150},{10,8}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,7}",
+                "{23,15}",
+                "{25,29}",
+                "{{376,352},{23,15}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,15}",
+                "{30,14}",
+                "{30,44}",
+                "{{40,557},{30,14}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,2}",
+                "{30,24}",
+                "{30,30}",
+                "{{220,312},{30,24}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-3,15}",
+                "{38,24}",
+                "{48,54}",
+                "{{308,436},{38,24}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,14}",
+                "{45,23}",
+                "{49,53}",
+                "{{282,174},{45,23}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-9,9}",
+                "{12,12}",
+                "{30,30}",
+                "{{203,345},{12,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-9,9}",
+                "{12,12}",
+                "{30,30}",
+                "{{219,557},{12,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-6,9}",
+                "{18,12}",
+                "{30,30}",
+                "{{220,415},{18,12}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,16}",
+                "{30,23}",
+                "{30,57}",
+                "{{220,339},{30,23}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,40}",
+                "{40,40}",
+                "{{91,391},{40,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{30,11}",
+                "{30,11}",
+                "{{221,436},{30,11}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-1,1}",
+                "{38,38}",
+                "{40,40}",
+                "{{278,464},{38,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,1}",
+                "{40,38}",
+                "{40,40}",
+                "{{170,464},{40,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-14,0}",
+                "{12,30}",
+                "{40,30}",
+                "{{203,312},{12,30}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-12,12}",
+                "{6,6}",
+                "{30,30}",
+                "{{450,408},{6,6}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-14,14}",
+                "{9,10}",
+                "{37,38}",
+                "{{296,111},{9,10}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-13,14}",
+                "{11,11}",
+                "{37,39}",
+                "{{253,506},{11,11}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{30,11}",
+                "{30,11}",
+                "{{213,469},{30,11}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{25,25}",
+                "{25,25}",
+                "{{111,436},{25,25}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,25}",
+                "{40,25}",
+                "{{254,268},{40,25}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{30,25}",
+                "{30,25}",
+                "{{1,321},{30,25}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{1,0}",
+                "{38,25}",
+                "{40,25}",
+                "{{1,436},{38,25}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{38,39}",
+                "{38,39}",
+                "{{88,464},{38,39}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{50,13}",
+                "{50,13}",
+                "{{379,226},{50,13}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{68,39}",
+                "{68,39}",
+                "{{395,233},{68,39}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{76,13}",
+                "{76,13}",
+                "{{395,217},{76,13}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{28,29}",
+                "{28,29}",
+                "{{466,264},{28,29}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,-1}",
+                "{58,34}",
+                "{58,36}",
+                "{{498,371},{58,34}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{43,53}",
+                "{43,53}",
+                "{{394,408},{43,53}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{41,66}",
+                "{41,66}",
+                "{{185,268},{41,66}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{58,66}",
+                "{58,66}",
+                "{{498,310},{58,66}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{73,66}",
+                "{73,66}",
+                "{{498,171},{73,66}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{79,66}",
+                "{79,66}",
+                "{{506,1},{79,66}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{39,40}",
+                "{39,40}",
+                "{{45,464},{39,40}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,2}",
+                "{33,10}",
+                "{33,14}",
+                "{{1,354},{33,10}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,2}",
+                "{36,12}",
+                "{36,16}",
+                "{{559,371},{36,12}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,1}",
+                "{31,12}",
+                "{31,14}",
+                "{{73,557},{31,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,23}",
+                "{40,23}",
+                "{{282,222},{40,23}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{24,17}",
+                "{24,17}",
+                "{{72,360},{24,17}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{37,40}",
+                "{37,40}",
+                "{{29,321},{37,40}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{36,23}",
+                "{36,23}",
+                "{{459,396},{36,23}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{27,29}",
+                "{27,29}",
+                "{{466,295},{27,29}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,-1}",
+                "{19,20}",
+                "{19,22}",
+                "{{248,553},{19,20}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{25,25}",
+                "{25,25}",
+                "{{139,436},{25,25}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-22,22}",
+                "{47,47}",
+                "{91,91}",
+                "{{134,275},{47,47}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{61,70}",
+                "{61,70}",
+                "{{502,83},{61,70}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{49,50}",
+                "{49,50}",
+                "{{394,454},{49,50}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{2,0}",
+                "{44,46}",
+                "{48,46}",
+                "{{235,415},{44,46}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{2,0}",
+                "{44,46}",
+                "{48,46}",
+                "{{235,415},{44,46}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{41,42}",
+                "{41,42}",
+                "{{47,391},{41,42}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{1,-1}",
+                "{3,3}",
+                "{1,1}",
+                "{{191,115},{3,3}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{37,38}",
+                "{37,38}",
+                "{{400,506},{37,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,2}",
+                "{32,11}",
+                "{32,15}",
+                "{{1,506},{32,11}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{39,40}",
+                "{39,40}",
+                "{{92,275},{39,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,-1}",
+                "{37,38}",
+                "{37,40}",
+                "{{440,520},{37,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{36,25}",
+                "{36,25}",
+                "{{459,368},{36,25}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,-1}",
+                "{27,28}",
+                "{27,30}",
+                "{{124,361},{27,28}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,23}",
+                "{40,23}",
+                "{{282,265},{40,23}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{24,17}",
+                "{24,17}",
+                "{{343,549},{24,17}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{37,40}",
+                "{37,40}",
+                "{{160,325},{37,40}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{36,23}",
+                "{36,23}",
+                "{{155,365},{36,23}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{27,29}",
+                "{27,29}",
+                "{{14,361},{27,29}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,-1}",
+                "{19,20}",
+                "{19,22}",
+                "{{271,552},{19,20}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,40}",
+                "{40,40}",
+                "{{134,391},{40,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{25,25}",
+                "{25,25}",
+                "{{167,436},{25,25}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,40}",
+                "{40,40}",
+                "{{177,391},{40,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{1,0}",
+                "{68,40}",
+                "{70,40}",
+                "{{308,226},{68,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-2,-4}",
+                "{32,22}",
+                "{36,30}",
+                "{{550,519},{32,22}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,-4}",
+                "{44,20}",
+                "{44,28}",
+                "{{230,506},{44,20}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,-4}",
+                "{70,21}",
+                "{70,29}",
+                "{{502,147},{70,21}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-2,-5}",
+                "{32,23}",
+                "{36,33}",
+                "{{134,325},{32,23}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-2,-4}",
+                "{44,21}",
+                "{48,29}",
+                "{{474,217},{44,21}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-2,-6}",
+                "{68,25}",
+                "{72,37}",
+                "{{394,317},{68,25}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-21,21}",
+                "{44,45}",
+                "{86,87}",
+                "{{450,422},{44,45}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{59,62}",
+                "{59,62}",
+                "{{308,374},{59,62}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{43,44}",
+                "{43,44}",
+                "{{184,506},{43,44}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,40}",
+                "{40,40}",
+                "{{91,391},{40,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,14}",
+                "{30,12}",
+                "{30,40}",
+                "{{107,557},{30,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-1,1}",
+                "{38,38}",
+                "{40,40}",
+                "{{278,464},{38,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-12,12}",
+                "{6,6}",
+                "{30,30}",
+                "{{450,408},{6,6}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,1}",
+                "{40,38}",
+                "{40,40}",
+                "{{235,464},{40,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,30}",
+                "{40,30}",
+                "{{465,325},{40,30}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,40}",
+                "{40,40}",
+                "{{91,391},{40,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,14}",
+                "{30,12}",
+                "{30,40}",
+                "{{107,557},{30,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-1,1}",
+                "{38,38}",
+                "{40,40}",
+                "{{278,464},{38,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-12,12}",
+                "{6,6}",
+                "{30,30}",
+                "{{450,408},{6,6}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,1}",
+                "{40,38}",
+                "{40,40}",
+                "{{235,464},{40,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,30}",
+                "{40,30}",
+                "{{465,325},{40,30}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,12}",
+                "{30,6}",
+                "{30,30}",
+                "{{298,67},{30,6}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,40}",
+                "{40,40}",
+                "{{91,391},{40,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,14}",
+                "{30,12}",
+                "{30,40}",
+                "{{107,557},{30,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-1,1}",
+                "{38,38}",
+                "{40,40}",
+                "{{278,464},{38,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-12,12}",
+                "{6,6}",
+                "{30,30}",
+                "{{450,408},{6,6}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,1}",
+                "{40,38}",
+                "{40,40}",
+                "{{235,464},{40,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,30}",
+                "{40,30}",
+                "{{465,325},{40,30}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,14}",
+                "{20,12}",
+                "{20,40}",
+                "{{173,557},{20,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-14,0}",
+                "{12,20}",
+                "{40,20}",
+                "{{196,557},{12,20}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,40}",
+                "{40,40}",
+                "{{91,391},{40,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,14}",
+                "{30,12}",
+                "{30,40}",
+                "{{107,557},{30,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-1,1}",
+                "{38,38}",
+                "{40,40}",
+                "{{278,464},{38,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-12,12}",
+                "{6,6}",
+                "{30,30}",
+                "{{450,408},{6,6}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,1}",
+                "{40,38}",
+                "{40,40}",
+                "{{235,464},{40,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,30}",
+                "{40,30}",
+                "{{465,325},{40,30}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{30,23}",
+                "{30,23}",
+                "{{282,391},{30,23}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{1,0}",
+                "{37,23}",
+                "{39,23}",
+                "{{282,351},{37,23}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,23}",
+                "{40,23}",
+                "{{282,308},{40,23}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{38,39}",
+                "{38,39}",
+                "{{129,464},{38,39}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{68,39}",
+                "{68,39}",
+                "{{395,275},{68,39}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{24,17}",
+                "{24,17}",
+                "{{408,547},{24,17}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-1,0}",
+                "{21,22}",
+                "{23,22}",
+                "{{349,436},{21,22}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-2,0}",
+                "{34,23}",
+                "{38,23}",
+                "{{1,520},{34,23}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-21,0}",
+                "{88,50}",
+                "{144,50}",
+                "{{94,222},{88,50}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-22,0}",
+                "{90,48}",
+                "{144,50}",
+                "{{189,166},{90,48}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-23,1}",
+                "{92,48}",
+                "{144,50}",
+                "{{1,115},{92,48}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-24,0}",
+                "{94,48}",
+                "{144,50}",
+                "{{405,59},{94,48}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-24,0}",
+                "{94,48}",
+                "{144,50}",
+                "{{405,110},{94,48}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-24,0}",
+                "{96,48}",
+                "{144,50}",
+                "{{199,57},{96,48}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-22,0}",
+                "{90,48}",
+                "{144,50}",
+                "{{189,217},{90,48}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-22,0}",
+                "{90,50}",
+                "{144,50}",
+                "{{1,217},{90,50}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-23,0}",
+                "{92,48}",
+                "{144,50}",
+                "{{96,115},{92,48}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-23,0}",
+                "{92,48}",
+                "{144,50}",
+                "{{1,166},{92,48}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-21,1}",
+                "{88,48}",
+                "{144,50}",
+                "{{1,270},{88,48}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-19,0}",
+                "{84,48}",
+                "{144,50}",
+                "{{308,175},{84,48}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-20,0}",
+                "{92,55}",
+                "{148,55}",
+                "{{308,117},{92,55}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-21,0}",
+                "{94,55}",
+                "{148,55}",
+                "{{308,59},{94,55}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-22,0}",
+                "{96,55}",
+                "{148,55}",
+                "{{308,1},{96,55}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-23,0}",
+                "{98,53}",
+                "{148,55}",
+                "{{207,1},{98,53}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-24,0}",
+                "{100,53}",
+                "{148,55}",
+                "{{1,1},{100,53}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-24,0}",
+                "{100,53}",
+                "{148,55}",
+                "{{104,1},{100,53}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-22,0}",
+                "{96,55}",
+                "{148,55}",
+                "{{407,1},{96,55}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-21,0}",
+                "{94,55}",
+                "{148,55}",
+                "{{199,108},{94,55}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-22,0}",
+                "{96,55}",
+                "{148,55}",
+                "{{1,57},{96,55}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-22,0}",
+                "{96,55}",
+                "{148,55}",
+                "{{100,57},{96,55}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-20,0}",
+                "{92,53}",
+                "{148,55}",
+                "{{403,161},{92,53}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-19,0}",
+                "{90,53}",
+                "{148,55}",
+                "{{96,166},{90,53}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{39,40}",
+                "{39,40}",
+                "{{92,275},{39,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{42,43}",
+                "{42,43}",
+                "{{1,391},{42,43}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{39,40}",
+                "{39,40}",
+                "{{92,318},{39,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,40}",
+                "{40,40}",
+                "{{273,506},{40,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{15,11}",
+                "{15,11}",
+                "{{556,425},{15,11}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-1,1}",
+                "{22,23}",
+                "{24,25}",
+                "{{293,549},{22,23}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,1}",
+                "{24,23}",
+                "{24,25}",
+                "{{282,424},{24,23}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-6,0}",
+                "{12,15}",
+                "{24,15}",
+                "{{556,410},{12,15}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-4,4}",
+                "{7,7}",
+                "{15,15}",
+                "{{298,57},{7,7}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,3}",
+                "{36,17}",
+                "{36,23}",
+                "{{72,321},{36,17}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{47,49}",
+                "{47,49}",
+                "{{498,507},{47,49}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{37,40}",
+                "{37,40}",
+                "{{319,463},{37,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{36,23}",
+                "{36,23}",
+                "{{194,365},{36,23}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{27,29}",
+                "{27,29}",
+                "{{92,361},{27,29}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,-1}",
+                "{19,20}",
+                "{19,22}",
+                "{{248,553},{19,20}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-12,20}",
+                "{55,45}",
+                "{79,85}",
+                "{{498,408},{55,45}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-8,9}",
+                "{39,41}",
+                "{55,59}",
+                "{{1,464},{39,41}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,40}",
+                "{40,40}",
+                "{{91,391},{40,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{25,25}",
+                "{25,25}",
+                "{{111,436},{25,25}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,14}",
+                "{30,12}",
+                "{30,40}",
+                "{{107,557},{30,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-1,1}",
+                "{38,38}",
+                "{40,40}",
+                "{{278,464},{38,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-12,12}",
+                "{6,6}",
+                "{30,30}",
+                "{{450,408},{6,6}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,1}",
+                "{40,38}",
+                "{40,40}",
+                "{{235,464},{40,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,30}",
+                "{40,30}",
+                "{{465,325},{40,30}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,40}",
+                "{40,40}",
+                "{{91,391},{40,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,7}",
+                "{30,12}",
+                "{30,26}",
+                "{{140,557},{30,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,7}",
+                "{30,12}",
+                "{30,26}",
+                "{{140,557},{30,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,7}",
+                "{30,12}",
+                "{30,26}",
+                "{{140,557},{30,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,7}",
+                "{37,12}",
+                "{37,26}",
+                "{{379,279},{37,12}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,40}",
+                "{40,40}",
+                "{{91,391},{40,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,14}",
+                "{30,12}",
+                "{30,40}",
+                "{{107,557},{30,12}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-1,1}",
+                "{38,38}",
+                "{40,40}",
+                "{{278,464},{38,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,1}",
+                "{40,38}",
+                "{40,40}",
+                "{{235,464},{40,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,30}",
+                "{40,30}",
+                "{{465,325},{40,30}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,3}",
+                "{40,25}",
+                "{40,31}",
+                "{{254,311},{40,25}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,3}",
+                "{40,25}",
+                "{40,31}",
+                "{{254,311},{40,25}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,3}",
+                "{40,25}",
+                "{40,31}",
+                "{{254,311},{40,25}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,40}",
+                "{40,40}",
+                "{{316,506},{40,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-4,3}",
+                "{32,25}",
+                "{40,31}",
+                "{{42,436},{32,25}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{40,40}",
+                "{40,40}",
+                "{{91,391},{40,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,3}",
+                "{23,25}",
+                "{23,31}",
+                "{{46,361},{23,25}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,3}",
+                "{40,25}",
+                "{40,31}",
+                "{{254,311},{40,25}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,3}",
+                "{23,25}",
+                "{23,31}",
+                "{{195,436},{23,25}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,3}",
+                "{31,25}",
+                "{31,31}",
+                "{{77,436},{31,25}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{46,47}",
+                "{46,47}",
+                "{{86,506},{46,47}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{38,39}",
+                "{38,39}",
+                "{{88,464},{38,39}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{0,0}",
+                "{68,39}",
+                "{68,39}",
+                "{{395,233},{68,39}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-11,11}",
+                "{8,8}",
+                "{30,30}",
+                "{{253,354},{8,8}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-9,11}",
+                "{12,8}",
+                "{30,30}",
+                "{{296,135},{12,8}}"
+              ],
+              "true": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{1,-1}",
+                "{38,38}",
+                "{40,40}",
+                "{{359,506},{38,38}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{1,0}",
+                "{68,40}",
+                "{70,40}",
+                "{{308,269},{68,40}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-9,9}",
+                "{22,22}",
+                "{40,40}",
+                "{{318,549},{22,22}}"
+              ],
+              "false": ""
+            },
+            {
+              "key": [
+                "aliases",
+                "spriteOffset",
+                "spriteSize",
+                "spriteSourceSize",
+                "textureRect",
+                "textureRotated"
+              ],
+              "array": "",
+              "string": [
+                "{-17,9}",
+                "{36,22}",
+                "{70,40}",
+                "{{550,480},{36,22}}"
+              ],
+              "true": ""
+            }
+          ]
+        },
+        {
+          "key": [
+            "format",
+            "pixelFormat",
+            "premultiplyAlpha",
+            "realTextureFileName",
+            "size",
+            "smartupdate",
+            "textureFileName"
+          ],
+          "integer": 3,
+          "string": [
+            "RGBA8888",
+            "GJ_GameSheetGlow.png",
+            "{573,573}",
+            "$TexturePacker:SmartUpdate:55d54c189eee96c37daa3f1ee81e3a63:94a5a71a217d200e3e4ec2ed7758868d:85d3a05d1680d85110f4b1a069d5a7e3$",
+            "GJ_GameSheetGlow.png"
+          ],
+          "false": ""
+        }
+      ]
+    }
+  }
+}
