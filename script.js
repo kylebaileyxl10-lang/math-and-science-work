@@ -12,7 +12,6 @@ async function initGame() {
     try {
         if (bar) bar.style.width = '40%';
         
-        // Fetch XML manually to avoid Synchronous XMLHttpRequest errors
         console.log("Fetching project_data.xml...");
         const res = await fetch('assets/project_data.xml');
         if (!res.ok) throw new Error("Missing XML");
@@ -28,18 +27,27 @@ async function initGame() {
             if (liteEngineFound) {
                 clearInterval(check);
                 clearInterval(timer);
-                console.log("Engine found. Initializing Renderer...");
+                console.log("Engine found. Initializing SD Renderer...");
 
-                // The official hook for Cocos2d-JS Lite
+                // This is the official hook for the Lite Engine
                 cc.game.onStart = function() {
-                    console.log("Renderer Ready. Injecting Data.");
+                    console.log("Renderer Ready. Forcing Standard Definition...");
+                    
+                    // --- SD MODE FIX START ---
+                    // Prevents the engine from looking for '-hd' suffixes
+                    cc.view.enableRetina(false);
+                    cc.director.setContentScaleFactor(1.0);
+                    // --- SD MODE FIX END ---
+
                     if (loaderUI) loaderUI.style.display = 'none';
+                    
                     if (window.loadLevelLibrary) {
+                        console.log("Injecting Data into Library...");
                         loadLevelLibrary(xml);
                     }
                 };
 
-                // Added delay to ensure the DOM is painted
+                // Final safety delay for iPad browser rendering
                 setTimeout(() => {
                     try {
                         cc.game.run("gameCanvas");
