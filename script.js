@@ -1,91 +1,74 @@
-// --- PART 1: THE RECOVERY RENDERER ---
+// --- PART 1: THE COMPRESSION-AWARE RENDERER ---
 window.loadLevelLibrary = function(xmlData) {
-    console.log("Renderer: EMERGENCY RECOVERY TRIGGERED");
+    console.log("Renderer: Starting Compressed Data Recovery...");
     
     const MathLabScene = cc.Scene.extend({
         onEnter: function() {
             this._super();
-            console.log("Renderer: Scene entered. Initializing layers...");
-            this.addChild(new cc.LayerColor(cc.color(15, 15, 25))); 
+            this.addChild(new cc.LayerColor(cc.color(10, 10, 15))); 
             const gameLayer = new cc.Layer();
             this.addChild(gameLayer);
 
             try {
-                // Ignore XML keys and just find the massive block of numbers
-                const textSegments = xmlData.split(/[<>]/);
-                let levelString = "";
-                for (let segment of textSegments) {
-                    // Level data is the only segment likely to be over 5000 chars with commas and semicolons
-                    if (segment.length > 5000 && segment.includes(',') && segment.includes(';')) {
-                        levelString = segment;
-                        break;
-                    }
-                }
+                // 1. Find the compressed string inside the <k>k4</k> key
+                const k4Start = xmlData.indexOf('<k>k4</k><s>') + 9;
+                const k4End = xmlData.indexOf('</s>', k4Start);
+                let compressedData = xmlData.substring(k4Start, k4End);
 
-                if (levelString.length > 0) {
+                if (compressedData.length > 100) {
+                    console.log("Renderer: Compressed string found. Unzipping...");
+
+                    // 2. Decompress Gzip/Base64 data
+                    // Cocos2d-JS handles the Base64 conversion internally
+                    const unzipped = cc.Codec.GZip.gunzip(compressedData);
+                    const levelString = cc.Codec.Base64.decode(unzipped);
+                    
                     const objects = levelString.split(';');
-                    console.log("Renderer: SUCCESS! Found " + objects.length + " objects.");
+                    console.log("Renderer: SUCCESS! Unzipped " + objects.length + " objects.");
 
-                    objects.slice(0, 500).forEach(objStr => {
+                    // 3. Draw a test batch
+                    objects.slice(0, 200).forEach(objStr => {
                         const p = objStr.split(',');
-                        const xIndex = p.indexOf('2');
-                        const yIndex = p.indexOf('3');
-                        
-                        if (xIndex !== -1 && yIndex !== -1) {
+                        const x = parseFloat(p[p.indexOf('2') + 1]);
+                        const y = parseFloat(p[p.indexOf('3') + 1]);
+
+                        if (!isNaN(x) && !isNaN(y)) {
                             const sprite = new cc.Sprite("#GJ_GameSheet.png"); 
-                            sprite.setPosition(parseFloat(p[xIndex+1]) / 5, parseFloat(p[yIndex+1]) / 5);
-                            sprite.setScale(0.15);
+                            sprite.setPosition(x / 5, y / 5);
+                            sprite.setScale(0.2);
                             gameLayer.addChild(sprite);
                         }
                     });
-                } else {
-                    console.error("Renderer: Failed to find level string in data segment.");
                 }
             } catch (e) {
-                console.error("Renderer: CRASH during object generation", e);
+                console.error("Renderer: Failed to decompress data. Format mismatch.", e);
             }
 
-            const label = new cc.LabelTTF("Lab Active: " + gameLayer.childrenCount + " Objects", "Arial", 16);
-            label.setPosition(cc.winSize.width / 2, 40);
+            const label = new cc.LabelTTF("Lab Status: Data Decoded", "Arial", 16);
+            label.setPosition(cc.winSize.width / 2, 30);
             this.addChild(label);
         }
     });
     cc.director.runScene(new MathLabScene());
 };
 
-// --- PART 2: THE BOOTLOADER ---
+// --- PART 2: THE BOOTLOADER (V1.0.3) ---
 async function initGame() {
-    console.log("Boot: Process Started...");
-    const bar = document.getElementById('bar');
-    const status = document.getElementById('status');
     const loaderUI = document.getElementById('loader-ui');
-
     try {
-        if (status) status.innerHTML = "Forcing Data Sync...";
+        console.log("Boot: Fetching Data...");
         const res = await fetch('assets/project_data.xml');
         const xml = await res.text();
-        console.log("Boot: Data Sync Complete (" + xml.length + " bytes)");
         
-        if (bar) bar.style.width = '100%';
-
         let check = setInterval(() => {
             if (typeof cc !== 'undefined' && cc.game) {
                 clearInterval(check);
-                console.log("Boot: Engine Verified.");
-
                 cc.game.onStart = function() {
-                    console.log("Boot: Engine starting render phase...");
                     cc.view.enableRetina(false);
                     cc.director.setContentScaleFactor(1.0);
                     cc.loader.register(["plist"], cc._txtLoader); 
                     
-                    const resources = [
-                        "assets/GJ_GameSheet.plist", "assets/GJ_GameSheet.png",
-                        "assets/GJ_GameSheet02.plist", "assets/GJ_GameSheet02.png"
-                    ];
-                    
-                    cc.loader.load(resources, function() {
-                        console.log("Boot: All textures confirmed.");
+                    cc.loader.load(["assets/GJ_GameSheet.plist", "assets/GJ_GameSheet.png"], function() {
                         resources.forEach(file => {
                             if (file.endsWith(".plist")) {
                                 cc.spriteFrameCache.addSpriteFrames(file, file.replace(".plist", ".png"));
@@ -95,14 +78,9 @@ async function initGame() {
                         if (loaderUI) loaderUI.style.display = 'none';
                     });
                 };
-
-                if (!cc.game._prepared) {
-                    cc.game.run({"project_type": "javascript", "id": "gameCanvas", "renderMode": 1}); 
-                }
+                if (!cc.game._prepared) cc.game.run({"id": "gameCanvas", "renderMode": 1}); 
             }
         }, 500);
-    } catch (e) {
-        console.error("Boot: FATAL SYNC ERROR", e);
-    }
+    } catch (e) { console.error(e); }
 }
 initGame();
