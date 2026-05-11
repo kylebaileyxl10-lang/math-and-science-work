@@ -1,6 +1,6 @@
-// --- PART 1: THE DEEP RENDERER (DATA GRABBER) ---
+// --- PART 1: THE DATA SCANNER ---
 window.loadLevelLibrary = function(xmlData) {
-    console.log("Renderer: Starting Universal Data Grab...");
+    console.log("Renderer: Starting Deep Scan of 12MB Data...");
     
     const MathLabScene = cc.Scene.extend({
         onEnter: function() {
@@ -12,48 +12,90 @@ window.loadLevelLibrary = function(xmlData) {
             this.addChild(gameLayer);
 
             try {
-                // 1. Hunt for the data chunk between kS38 and the next key
-                let rawChunk = "";
-                if (xmlData.includes('kS38')) {
-                    rawChunk = xmlData.split('kS38')[1].split('</string>')[0];
-                    // Remove any remaining XML tags or noise
-                    rawChunk = rawChunk.substring(rawChunk.indexOf('>') + 1);
-                }
+                const s38Index = xmlData.indexOf('kS38');
+                if (s38Index !== -1) {
+                    const startTag = xmlData.indexOf('>', s38Index) + 1;
+                    const endTag = xmlData.indexOf('</string>', startTag);
+                    const objectString = xmlData.substring(startTag, endTag);
+                    
+                    const objects = objectString.split(';');
+                    console.log("Renderer: Found " + (objects.length - 1) + " objects!");
 
-                if (rawChunk.length > 10) {
-                    // 2. Split by semicolon (Geometry Dash object separator)
-                    const objects = rawChunk.split(';');
-                    console.log("Renderer: SUCCESS! Found " + objects.length + " data points.");
-
-                    // 3. Draw a testing grid of your objects
-                    let count = 0;
-                    for (let i = 0; i < Math.min(objects.length, 500); i++) {
-                        const p = objects[i].split(',');
-                        // Most GD objects use 1:ID, 2:X, 3:Y
-                        const x = parseFloat(p[p.indexOf('2') + 1]);
-                        const y = parseFloat(p[p.indexOf('3') + 1]);
+                    // Draw first 100 objects to verify the scanner
+                    objects.slice(0, 100).forEach(objStr => {
+                        if (!objStr) return;
+                        const p = objStr.split(',');
+                        const x = parseFloat(p[3]); 
+                        const y = parseFloat(p[5]); 
 
                         if (!isNaN(x) && !isNaN(y)) {
                             const sprite = new cc.Sprite("#GJ_GameSheet.png"); 
-                            sprite.setPosition(x / 5, y / 5); // Scale down so they fit
-                            sprite.setScale(0.2);
+                            sprite.setPosition(x, y);
+                            sprite.setScale(0.5);
                             gameLayer.addChild(sprite);
-                            count++;
                         }
-                    }
-                    console.log("Renderer: Sprites on screen: " + count);
-                } else {
-                    console.error("Renderer: Chunk too small. Data might be encrypted.");
+                    });
                 }
             } catch (e) {
                 console.error("Parser Crash:", e);
             }
 
-            const label = new cc.LabelTTF("Math Lab: " + (rawChunk.length > 0 ? "Data Loaded" : "No Data"), "Arial", 18);
+            const label = new cc.LabelTTF("Math Lab: Level Active", "Arial", 18);
             label.setPosition(winSize.width / 2, 30);
             this.addChild(label);
         }
     });
-
     cc.director.runScene(new MathLabScene());
 };
+
+// --- PART 2: THE BOOTLOADER ---
+async function initGame() {
+    const bar = document.getElementById('bar');
+    const status = document.getElementById('status');
+    const loaderUI = document.getElementById('loader-ui');
+
+    try {
+        console.log("Boot: Downloading level data...");
+        const res = await fetch('assets/project_data.xml');
+        const xml = await res.text();
+        console.log("Boot: Data Received (" + xml.length + " bytes)");
+        
+        if (bar) bar.style.width = '100%';
+
+        let check = setInterval(() => {
+            if (typeof cc !== 'undefined' && cc.game) {
+                clearInterval(check);
+                console.log("Boot: Engine Active.");
+
+                cc.game.onStart = function() {
+                    cc.view.enableRetina(false);
+                    cc.director.setContentScaleFactor(1.0);
+                    cc.loader.register(["plist"], cc._txtLoader); 
+                    
+                    const resources = [
+                        "assets/GJ_GameSheet.plist", "assets/GJ_GameSheet.png",
+                        "assets/GJ_GameSheet02.plist", "assets/GJ_GameSheet02.png"
+                    ];
+                    
+                    cc.loader.load(resources, function() {
+                        console.log("Boot: Assets Loaded.");
+                        resources.forEach(file => {
+                            if (file.endsWith(".plist")) {
+                                cc.spriteFrameCache.addSpriteFrames(file, file.replace(".plist", ".png"));
+                            }
+                        });
+                        window.loadLevelLibrary(xml);
+                        if (loaderUI) loaderUI.style.display = 'none';
+                    });
+                };
+
+                if (!cc.game._prepared) {
+                    cc.game.run({"project_type": "javascript", "id": "gameCanvas", "renderMode": 1}); 
+                }
+            }
+        }, 500);
+    } catch (e) {
+        console.error("Boot Error:", e);
+    }
+}
+initGame();
