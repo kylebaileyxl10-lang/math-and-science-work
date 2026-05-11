@@ -13,25 +13,44 @@ async function initGame() {
                 clearInterval(check);
 
                 cc.game.onStart = function() {
-                    // Manual override to prevent the 'init' crash
+                    console.log("Renderer Ready. Loading Sprite Maps...");
+                    
                     cc.view.enableRetina(false);
                     cc.director.setContentScaleFactor(1.0);
 
                     // Sync the JSON-content plists
                     cc.loader.register(["plist"], cc._txtLoader); 
                     
+                    // ALL resources found in your assets folder
                     const resources = [
                         "assets/GJ_GameSheet.plist", "assets/GJ_GameSheet.png",
-                        "assets/GJ_GameSheet02.plist", "assets/GJ_GameSheet02.png"
+                        "assets/GJ_GameSheet02.plist", "assets/GJ_GameSheet02.png",
+                        "assets/GJ_GameSheet03.plist", "assets/GJ_GameSheet03.png",
+                        "assets/GJ_GameSheet04.plist", "assets/GJ_GameSheet04.png",
+                        "assets/GJ_GameSheetGlow.plist", "assets/GJ_GameSheetGlow.png",
+                        "assets/GJ_GameSheetIcons.plist", "assets/GJ_GameSheetIcons.png",
+                        "assets/GJ_GameSheetEditor.plist", "assets/GJ_GameSheetEditor.png"
                     ];
                     
                     cc.loader.load(resources, function() {
+                        console.log("Assets Downloaded. Injecting into Memory...");
+
+                        // INJECTION LOOP: This is the fix for the black screen
+                        resources.forEach(file => {
+                            if (file.endsWith(".plist")) {
+                                const texturePath = file.replace(".plist", ".png");
+                                cc.spriteFrameCache.addSpriteFrames(file, texturePath);
+                                console.log("Memory Synced: " + file);
+                            }
+                        });
+
+                        console.log("Math Lab Booting...");
                         if (window.loadLevelLibrary) loadLevelLibrary(xml);
                         if (loaderUI) loaderUI.style.display = 'none';
                     });
                 };
 
-                // The Fix: If the engine hasn't prepared, we force it with a basic config
+                // The Fix: Manual boot to prevent the 'init' crash
                 if (!cc.game._prepared) {
                     const config = {
                         "project_type": "javascript",
@@ -45,7 +64,8 @@ async function initGame() {
         }, 500);
 
     } catch (e) {
-        status.innerHTML = "Error: Assets not found.";
+        status.innerHTML = "Error: Check assets folder.";
+        console.error(e);
     }
 }
 initGame();
