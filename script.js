@@ -5,12 +5,15 @@ async function initGame() {
     try {
         console.log("Fetching Lab Data...");
         const res = await fetch('assets/project_data.xml');
-        
-        // Safety Check 1: Did the file actually download?
-        if (!res.ok) throw new Error("XML file not found at assets/project_data.xml");
-        
         const xml = await res.text();
-        console.log("XML Loaded. Length:", xml.length); // Should be > 100
+        
+        // CHECK: Is the file empty or too small?
+        console.log("XML Data Received. Length:", xml.length);
+        if (xml.length < 100) {
+            console.error("CRITICAL ERROR: project_data.xml appears to be empty!");
+            if (status) status.innerHTML = "Error: Level Data is empty!";
+            return; 
+        }
 
         let check = setInterval(() => {
             if (typeof cc !== 'undefined' && cc.game) {
@@ -36,19 +39,14 @@ async function initGame() {
                             if (file.endsWith(".plist")) {
                                 const texturePath = file.replace(".plist", ".png");
                                 cc.spriteFrameCache.addSpriteFrames(file, texturePath);
+                                console.log("Synced to Memory: " + file);
                             }
                         });
 
-                        console.log("Assets Ready. Checking for level library...");
-
-                        // Safety Check 2: Does the level loader exist?
                         if (window.loadLevelLibrary) {
-                            console.log("Booting Level Library...");
+                            console.log("Booting Level Renderer...");
                             loadLevelLibrary(xml);
-                        } else {
-                            console.error("Error: loadLevelLibrary function is missing!");
                         }
-
                         if (loaderUI) loaderUI.style.display = 'none';
                     });
                 };
@@ -65,8 +63,7 @@ async function initGame() {
         }, 500);
 
     } catch (e) {
-        if (status) status.innerHTML = "Error: " + e.message;
-        console.error(e);
+        console.error("Fetch failed:", e);
     }
 }
 initGame();
