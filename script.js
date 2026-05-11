@@ -27,27 +27,28 @@ async function initGame() {
             if (liteEngineFound) {
                 clearInterval(check);
                 clearInterval(timer);
-                console.log("Engine found. Initializing SD Renderer...");
+                console.log("Engine found. Patching Loaders...");
 
-                // This is the official hook for the Lite Engine
                 cc.game.onStart = function() {
-                    console.log("Renderer Ready. Forcing Standard Definition...");
+                    console.log("Renderer Ready. Applying JSON Overrides.");
                     
-                    // --- SD MODE FIX START ---
-                    // Prevents the engine from looking for '-hd' suffixes
+                    // 1. FORCE STANDARD DEF (Stops the engine from looking for -hd files)
                     cc.view.enableRetina(false);
                     cc.director.setContentScaleFactor(1.0);
-                    // --- SD MODE FIX END ---
 
+                    // 2. JSON REGISTRY FIX 
+                    // This tells the engine: "If you see a JSON, treat it like a sprite map"
+                    cc.loader.register(["json"], cc._txtLoader); 
+                    
                     if (loaderUI) loaderUI.style.display = 'none';
                     
+                    // 3. LAUNCH LAB
                     if (window.loadLevelLibrary) {
-                        console.log("Injecting Data into Library...");
+                        console.log("Injecting Level Data...");
                         loadLevelLibrary(xml);
                     }
                 };
 
-                // Final safety delay for iPad browser rendering
                 setTimeout(() => {
                     try {
                         cc.game.run("gameCanvas");
