@@ -1,110 +1,55 @@
-/**
- * GEOMETRY DASH MATH LAB - STANDALONE BOOT SCRIPT
- * This version includes the internal renderer to fix the 'missing function' error.
- */
-
-// --- PART 1: THE RENDERER (The "Brain") ---
-// We define this here because your library.js/main.js files are missing.
 window.loadLevelLibrary = function(xmlData) {
     console.log("Renderer Started. Parsing Math Lab Data...");
     
     const MathLabScene = cc.Scene.extend({
         onEnter: function() {
             this._super();
-            
-            // 1. Set Background
-            const background = new cc.LayerColor(cc.color(20, 20, 20)); 
-            this.addChild(background);
-
-            // 2. Add Status Label
             const winSize = cc.director.getWinSize();
-            const label = new cc.LabelTTF("Math Lab: Level Data Loaded", "Arial", 28);
-            label.setPosition(winSize.width / 2, winSize.height / 2);
-            label.setColor(cc.color(76, 175, 80)); // Math Green
-            this.addChild(label);
+            
+            // 1. Background
+            const bg = new cc.LayerColor(cc.color(10, 10, 25)); 
+            this.addChild(bg);
 
-            console.log("Scene initialized. Assets are in memory.");
+            // 2. The Math Lab Layer (Where objects go)
+            const gameLayer = new cc.Layer();
+            this.addChild(gameLayer);
+
+            // 3. MINI-PARSER: Let's try to find some objects in that 12MB file
+            try {
+                // Geometry Dash levels usually store objects in a string after 'kS38'
+                const objectDataRaw = xmlData.split('kS38')[1]?.split('</string>')[0]?.split('>');
+                const objectString = objectDataRaw ? objectDataRaw[objectDataRaw.length - 1] : "";
+
+                if (objectString) {
+                    const objects = objectString.split(';');
+                    console.log("Found " + objects.length + " objects in Math Lab.");
+
+                    // Let's draw the first 100 objects as a test
+                    objects.slice(0, 100).forEach(objStr => {
+                        const props = objStr.split(',');
+                        const objID = props[1]; // Typically the 2nd value is the Item ID
+                        const x = parseFloat(props[3]);
+                        const y = parseFloat(props[5]);
+
+                        if (objID && x && y) {
+                            // Try to create a sprite from your sheets
+                            // We'll use a basic block if we aren't sure of the ID yet
+                            const sprite = new cc.Sprite("#GJ_GameSheet.png"); 
+                            sprite.setPosition(x, y);
+                            sprite.setScale(0.5);
+                            gameLayer.addChild(sprite);
+                        }
+                    });
+                }
+            } catch (e) {
+                console.warn("Object Parser Error (Non-Critical):", e);
+            }
+
+            const label = new cc.LabelTTF("Math Lab Active", "Arial", 20);
+            label.setPosition(winSize.width / 2, 40);
+            this.addChild(label);
         }
     });
 
-    try {
-        cc.director.runScene(new MathLabScene());
-    } catch (e) {
-        console.error("Renderer Crash:", e);
-    }
+    cc.director.runScene(new MathLabScene());
 };
-
-// --- PART 2: THE BOOTLOADER ---
-async function initGame() {
-    const bar = document.getElementById('bar');
-    const status = document.getElementById('status');
-    const loaderUI = document.getElementById('loader-ui');
-
-    try {
-        console.log("Fetching project_data.xml...");
-        if (status) status.innerHTML = "Downloading Math Lab Level...";
-        
-        const res = await fetch('assets/project_data.xml');
-        if (!res.ok) throw new Error("Could not find project_data.xml");
-        
-        const xml = await res.text();
-        console.log("XML Sync Complete. Size: " + xml.length + " bytes");
-        
-        if (bar) bar.style.width = '100%';
-
-        let check = setInterval(() => {
-            if (typeof cc !== 'undefined' && cc.game) {
-                clearInterval(check);
-
-                cc.game.onStart = function() {
-                    cc.view.enableRetina(false);
-                    cc.director.setContentScaleFactor(1.0);
-                    cc.loader.register(["plist"], cc._txtLoader); 
-                    
-                    const resources = [
-                        "assets/GJ_GameSheet.plist", "assets/GJ_GameSheet.png",
-                        "assets/GJ_GameSheet02.plist", "assets/GJ_GameSheet02.png",
-                        "assets/GJ_GameSheet03.plist", "assets/GJ_GameSheet03.png",
-                        "assets/GJ_GameSheet04.plist", "assets/GJ_GameSheet04.png",
-                        "assets/GJ_GameSheetGlow.plist", "assets/GJ_GameSheetGlow.png",
-                        "assets/GJ_GameSheetIcons.plist", "assets/GJ_GameSheetIcons.png"
-                    ];
-                    
-                    cc.loader.load(resources, function() {
-                        resources.forEach(file => {
-                            if (file.endsWith(".plist")) {
-                                const texturePath = file.replace(".plist", ".png");
-                                try {
-                                    cc.spriteFrameCache.addSpriteFrames(file, texturePath);
-                                } catch (e) {
-                                    console.warn("Sheet skip: " + file);
-                                }
-                            }
-                        });
-
-                        // Now it calls the function we defined in Part 1
-                        if (window.loadLevelLibrary) {
-                            window.loadLevelLibrary(xml);
-                        }
-                        
-                        if (loaderUI) loaderUI.style.display = 'none';
-                    });
-                };
-
-                if (!cc.game._prepared) {
-                    cc.game.run({
-                        "project_type": "javascript",
-                        "debugMode": 1,
-                        "id": "gameCanvas",
-                        "renderMode": 1
-                    }); 
-                }
-            }
-        }, 500);
-
-    } catch (e) {
-        console.error("Boot Critical Error:", e);
-    }
-}
-
-initGame();
