@@ -2,62 +2,50 @@ async function initGame() {
     const bar = document.getElementById('bar');
     const status = document.getElementById('status');
     const loaderUI = document.getElementById('loader-ui');
-    const startTime = Date.now();
-
-    const timer = setInterval(() => {
-        const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-        status.innerHTML = `Analyzing Math Data... (${elapsed}s)`;
-    }, 100);
 
     try {
-        if (bar) bar.style.width = '40%';
+        status.innerHTML = "Fetching Lab Data...";
         const res = await fetch('assets/project_data.xml');
-        if (!res.ok) throw new Error("Missing XML");
         const xml = await res.text();
-        if (bar) bar.style.width = '100%';
-
+        
         let check = setInterval(() => {
             if (typeof cc !== 'undefined' && cc.game) {
                 clearInterval(check);
-                clearInterval(timer);
 
                 cc.game.onStart = function() {
-                    console.log("Renderer Ready. Loading Full Library...");
-                    
+                    // Manual override to prevent the 'init' crash
                     cc.view.enableRetina(false);
                     cc.director.setContentScaleFactor(1.0);
 
-                    // Tell the engine to read these .plist files as JSON text
-                    cc.loader.register(["plist", "json"], cc._txtLoader); 
-
-                    // List every file from your screenshot
+                    // Sync the JSON-content plists
+                    cc.loader.register(["plist"], cc._txtLoader); 
+                    
                     const resources = [
                         "assets/GJ_GameSheet.plist", "assets/GJ_GameSheet.png",
-                        "assets/GJ_GameSheet02.plist", "assets/GJ_GameSheet02.png",
-                        "assets/GJ_GameSheet03.plist", "assets/GJ_GameSheet03.png",
-                        "assets/GJ_GameSheet04.plist", "assets/GJ_GameSheet04.png",
-                        "assets/GJ_GameSheetGlow.plist", "assets/GJ_GameSheetGlow.png",
-                        "assets/GJ_GameSheetIcons.plist", "assets/GJ_GameSheetIcons.png"
+                        "assets/GJ_GameSheet02.plist", "assets/GJ_GameSheet02.png"
                     ];
                     
                     cc.loader.load(resources, function() {
-                        console.log("All Math Lab textures synced!");
                         if (window.loadLevelLibrary) loadLevelLibrary(xml);
                         if (loaderUI) loaderUI.style.display = 'none';
                     });
                 };
 
+                // The Fix: If the engine hasn't prepared, we force it with a basic config
                 if (!cc.game._prepared) {
-                    cc.game.run("gameCanvas");
+                    const config = {
+                        "project_type": "javascript",
+                        "debugMode": 1,
+                        "id": "gameCanvas",
+                        "renderMode": 1
+                    };
+                    cc.game.run(config); 
                 }
             }
         }, 500);
 
     } catch (e) {
-        if (timer) clearInterval(timer);
-        status.innerHTML = "Error: Check /assets folder.";
-        console.error("Init Error:", e);
+        status.innerHTML = "Error: Assets not found.";
     }
 }
-
 initGame();
