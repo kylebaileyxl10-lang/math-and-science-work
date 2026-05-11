@@ -12,63 +12,61 @@ async function initGame() {
     try {
         if (bar) bar.style.width = '40%';
         
-        console.log("Fetching project_data.xml...");
+        // 1. Fetch XML and the SpriteSheet JSONs first
+        console.log("Pre-fetching Lab Assets...");
         const res = await fetch('assets/project_data.xml');
         if (!res.ok) throw new Error("Missing XML");
         const xml = await res.text();
         
         if (bar) bar.style.width = '100%';
 
-        let attempts = 0;
         let check = setInterval(() => {
-            attempts++;
             const liteEngineFound = (typeof cc !== 'undefined' && cc.game);
 
             if (liteEngineFound) {
                 clearInterval(check);
                 clearInterval(timer);
-                console.log("Engine found. Patching Loaders...");
 
                 cc.game.onStart = function() {
-                    console.log("Renderer Ready. Applying JSON Overrides.");
+                    console.log("Renderer Ready.");
                     
-                    // 1. FORCE STANDARD DEF (Stops the engine from looking for -hd files)
+                    // --- THE FIX FOR BLACK SCREEN & JSON ---
                     cc.view.enableRetina(false);
                     cc.director.setContentScaleFactor(1.0);
 
-                    // 2. JSON REGISTRY FIX 
-                    // This tells the engine: "If you see a JSON, treat it like a sprite map"
+                    // Tell the engine how to read your converted JSON files
                     cc.loader.register(["json"], cc._txtLoader); 
+
+                    // Manually add your sheets to the cache to bypass the "Sync XHR" block
+                    // Do this for your main gamesheet
+                    const sheetPath = "assets/GJ_GameSheet.json";
+                    const texturePath = "assets/GJ_GameSheet.png";
                     
-                    if (loaderUI) loaderUI.style.display = 'none';
-                    
-                    // 3. LAUNCH LAB
-                    if (window.loadLevelLibrary) {
-                        console.log("Injecting Level Data...");
-                        loadLevelLibrary(xml);
-                    }
+                    cc.loader.load([sheetPath, texturePath], function() {
+                        console.log("Textures Loaded. Starting Math Lab...");
+                        
+                        if (window.loadLevelLibrary) {
+                            loadLevelLibrary(xml);
+                        }
+                        
+                        if (loaderUI) loaderUI.style.display = 'none';
+                    });
                 };
 
                 setTimeout(() => {
                     try {
+                        // Pass the config ID to ensure it binds to the canvas
                         cc.game.run("gameCanvas");
                     } catch (e) {
                         console.error("Boot failure:", e);
                     }
                 }, 500); 
             }
-
-            if (attempts > 60) {
-                clearInterval(check);
-                clearInterval(timer);
-                status.innerHTML = "Sync Error: Please Refresh.";
-            }
         }, 500);
 
     } catch (e) {
         if (timer) clearInterval(timer);
-        status.innerHTML = "Error: Check /assets/ folder.";
-        console.error("Init Error:", e);
+        status.innerHTML = "Error: Assets not found.";
     }
 }
 
