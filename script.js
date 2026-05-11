@@ -11,12 +11,9 @@ async function initGame() {
 
     try {
         if (bar) bar.style.width = '40%';
-        
-        console.log("Pre-fetching project_data.xml...");
         const res = await fetch('assets/project_data.xml');
         if (!res.ok) throw new Error("Missing XML");
         const xml = await res.text();
-        
         if (bar) bar.style.width = '100%';
 
         let check = setInterval(() => {
@@ -25,28 +22,27 @@ async function initGame() {
                 clearInterval(timer);
 
                 cc.game.onStart = function() {
-                    console.log("Renderer Ready. Loading Sprite Library...");
+                    console.log("Renderer Ready. Loading Full Library...");
                     
                     cc.view.enableRetina(false);
                     cc.director.setContentScaleFactor(1.0);
 
-                    // Register both for your renamed JSON-content files
+                    // Tell the engine to read these .plist files as JSON text
                     cc.loader.register(["plist", "json"], cc._txtLoader); 
 
-                    // List ALL files found in your assets folder
+                    // List every file from your screenshot
                     const resources = [
                         "assets/GJ_GameSheet.plist", "assets/GJ_GameSheet.png",
                         "assets/GJ_GameSheet02.plist", "assets/GJ_GameSheet02.png",
+                        "assets/GJ_GameSheet03.plist", "assets/GJ_GameSheet03.png",
+                        "assets/GJ_GameSheet04.plist", "assets/GJ_GameSheet04.png",
+                        "assets/GJ_GameSheetGlow.plist", "assets/GJ_GameSheetGlow.png",
                         "assets/GJ_GameSheetIcons.plist", "assets/GJ_GameSheetIcons.png"
                     ];
                     
                     cc.loader.load(resources, function() {
-                        console.log("All sheets synced. Launching Math Lab...");
-                        
-                        if (window.loadLevelLibrary) {
-                            loadLevelLibrary(xml);
-                        }
-                        
+                        console.log("All Math Lab textures synced!");
+                        if (window.loadLevelLibrary) loadLevelLibrary(xml);
                         if (loaderUI) loaderUI.style.display = 'none';
                     });
                 };
@@ -59,7 +55,7 @@ async function initGame() {
 
     } catch (e) {
         if (timer) clearInterval(timer);
-        status.innerHTML = "Error: Check assets folder.";
+        status.innerHTML = "Error: Check /assets folder.";
         console.error("Init Error:", e);
     }
 }
