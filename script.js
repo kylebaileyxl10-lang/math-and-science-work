@@ -12,7 +12,7 @@ async function initGame() {
     try {
         if (bar) bar.style.width = '40%';
         
-        // 1. Fetch XML and the SpriteSheet JSONs first
+        // 1. Fetch XML first
         console.log("Pre-fetching Lab Assets...");
         const res = await fetch('assets/project_data.xml');
         if (!res.ok) throw new Error("Missing XML");
@@ -28,22 +28,24 @@ async function initGame() {
                 clearInterval(timer);
 
                 cc.game.onStart = function() {
-                    console.log("Renderer Ready.");
+                    console.log("Renderer Ready. Patching SpriteMaps...");
                     
-                    // --- THE FIX FOR BLACK SCREEN & JSON ---
+                    // Force Standard Definition for iPad Mini 4 stability
                     cc.view.enableRetina(false);
                     cc.director.setContentScaleFactor(1.0);
 
-                    // Tell the engine how to read your converted JSON files
-                    cc.loader.register(["json"], cc._txtLoader); 
+                    // --- THE JSON-PLIST HYBRID FIX ---
+                    // Since your file ends in .plist but is actually JSON text:
+                    cc.loader.register(["plist"], cc._txtLoader); 
 
-                    // Manually add your sheets to the cache to bypass the "Sync XHR" block
-                    // Do this for your main gamesheet
-                    const sheetPath = "assets/GJ_GameSheet.json";
+                    // We use the NEW filename you created in the assets folder
+                    const sheetPath = "assets/GJ_GameSheet.plist"; 
                     const texturePath = "assets/GJ_GameSheet.png";
                     
+                    console.log("Syncing: " + sheetPath);
+
                     cc.loader.load([sheetPath, texturePath], function() {
-                        console.log("Textures Loaded. Starting Math Lab...");
+                        console.log("Assets cached. Booting Math Lab logic...");
                         
                         if (window.loadLevelLibrary) {
                             loadLevelLibrary(xml);
@@ -53,20 +55,17 @@ async function initGame() {
                     });
                 };
 
-                setTimeout(() => {
-                    try {
-                        // Pass the config ID to ensure it binds to the canvas
-                        cc.game.run("gameCanvas");
-                    } catch (e) {
-                        console.error("Boot failure:", e);
-                    }
-                }, 500); 
+                // Added check to prevent the "init" binding error from image_395055.png
+                if (!cc.game._prepared) {
+                    cc.game.run("gameCanvas");
+                }
             }
         }, 500);
 
     } catch (e) {
         if (timer) clearInterval(timer);
         status.innerHTML = "Error: Assets not found.";
+        console.error("Init Error:", e);
     }
 }
 
