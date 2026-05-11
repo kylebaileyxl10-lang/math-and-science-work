@@ -1,27 +1,26 @@
 async function initGame() {
-    const bar = document.getElementById('bar');
     const status = document.getElementById('status');
     const loaderUI = document.getElementById('loader-ui');
 
     try {
-        status.innerHTML = "Fetching Lab Data...";
+        console.log("Fetching Lab Data...");
         const res = await fetch('assets/project_data.xml');
-        const xml = await res.text();
         
+        // Safety Check 1: Did the file actually download?
+        if (!res.ok) throw new Error("XML file not found at assets/project_data.xml");
+        
+        const xml = await res.text();
+        console.log("XML Loaded. Length:", xml.length); // Should be > 100
+
         let check = setInterval(() => {
             if (typeof cc !== 'undefined' && cc.game) {
                 clearInterval(check);
 
                 cc.game.onStart = function() {
-                    console.log("Renderer Ready. Loading Sprite Maps...");
-                    
                     cc.view.enableRetina(false);
                     cc.director.setContentScaleFactor(1.0);
-
-                    // Sync the JSON-content plists
                     cc.loader.register(["plist"], cc._txtLoader); 
                     
-                    // ALL resources found in your assets folder
                     const resources = [
                         "assets/GJ_GameSheet.plist", "assets/GJ_GameSheet.png",
                         "assets/GJ_GameSheet02.plist", "assets/GJ_GameSheet02.png",
@@ -33,38 +32,40 @@ async function initGame() {
                     ];
                     
                     cc.loader.load(resources, function() {
-                        console.log("Assets Downloaded. Injecting into Memory...");
-
-                        // INJECTION LOOP: This is the fix for the black screen
                         resources.forEach(file => {
                             if (file.endsWith(".plist")) {
                                 const texturePath = file.replace(".plist", ".png");
                                 cc.spriteFrameCache.addSpriteFrames(file, texturePath);
-                                console.log("Memory Synced: " + file);
                             }
                         });
 
-                        console.log("Math Lab Booting...");
-                        if (window.loadLevelLibrary) loadLevelLibrary(xml);
+                        console.log("Assets Ready. Checking for level library...");
+
+                        // Safety Check 2: Does the level loader exist?
+                        if (window.loadLevelLibrary) {
+                            console.log("Booting Level Library...");
+                            loadLevelLibrary(xml);
+                        } else {
+                            console.error("Error: loadLevelLibrary function is missing!");
+                        }
+
                         if (loaderUI) loaderUI.style.display = 'none';
                     });
                 };
 
-                // The Fix: Manual boot to prevent the 'init' crash
                 if (!cc.game._prepared) {
-                    const config = {
+                    cc.game.run({
                         "project_type": "javascript",
                         "debugMode": 1,
                         "id": "gameCanvas",
                         "renderMode": 1
-                    };
-                    cc.game.run(config); 
+                    }); 
                 }
             }
         }, 500);
 
     } catch (e) {
-        status.innerHTML = "Error: Check assets folder.";
+        if (status) status.innerHTML = "Error: " + e.message;
         console.error(e);
     }
 }
