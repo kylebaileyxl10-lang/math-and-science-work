@@ -1,10 +1,9 @@
-// --- GDRWeb v1.0.31: EMERGENCY ASSET BYPASS ---
-console.log("System: v1.0.31 - Using existing assets to bypass 404s");
+// --- GDRWeb v1.0.32: FOLDER PATH SYNC ---
+console.log("System: v1.0.32 - Syncing with real folder structure");
 
-// Mapping IDs to files I saw in your 'assets' search results
 const ID_MAP = { 
-    "1": "assets/pixel.png", 
-    "default": "assets/pixel.png" 
+    "1": "assets/GJ_squareB_01.png", // Using your actual square file
+    "default": "assets/GJ_squareB_01.png" 
 };
 
 window.loadGDRWeb = function(xmlData) {
@@ -13,49 +12,42 @@ window.loadGDRWeb = function(xmlData) {
     window.GDR = {
         allLevels: levelMatches.map(s => s.split("</s>")[0].replace("<s>", "").trim()),
         currentLevelIndex: 0,
-        selectedIcon: "assets/pixel.png"
+        // SYNC: Pointing to your 'assets/icons/' folder
+        selectedIcon: "assets/icons/player_01.png" 
     };
 
     cc.game.onStart = function() {
         const MainMenuScene = cc.Scene.extend({
             onEnter: function() {
                 this._super();
-                this.addChild(new cc.LayerColor(cc.color(125, 0, 255))); 
+                this.addChild(new cc.LayerColor(cc.color(20, 100, 255))); 
 
-                // BYPASS: Use sun.png as the logo since GJ_logo is missing
+                // Use your 'sun.png' as a placeholder logo for now
                 const logo = new cc.Sprite("assets/sun.png");
-                logo.setPosition(cc.winSize.width/2, cc.winSize.height - 120);
+                logo.setPosition(cc.winSize.width/2, cc.winSize.height - 100);
                 this.addChild(logo);
 
-                const titleLabel = new cc.LabelTTF("GDRWeb Engine", "Arial", 32);
-                titleLabel.setPosition(cc.winSize.width/2, cc.winSize.height - 200);
-                this.addChild(titleLabel);
-
-                // BYPASS: Use pixel.png for buttons
-                const playBtn = new cc.MenuItemImage("assets/pixel.png", "assets/pixel.png", function() {
+                // Use 'GJ_squareB_01.png' as the Play Button
+                const playBtn = new cc.MenuItemImage("assets/GJ_squareB_01.png", "assets/GJ_squareB_01.png", function() {
                     cc.director.runScene(new GameplayScene());
                 });
-                playBtn.setScale(4.0); // Make the pixel big enough to click
+                playBtn.setScale(2.0);
 
                 const menu = new cc.Menu(playBtn);
                 this.addChild(menu);
-                
-                const helpText = new cc.LabelTTF("Click the square to start", "Arial", 18);
-                helpText.setPosition(cc.winSize.width/2, 100);
-                this.addChild(helpText);
             }
         });
 
         const GameplayScene = cc.Scene.extend({
             onEnter: function() {
                 this._super();
-                const world = new cc.Layer();
                 this.addChild(new cc.LayerColor(cc.color(40, 125, 255)));
+                const world = new cc.Layer();
                 this.addChild(world);
 
-                const player = new cc.Sprite("assets/pixel.png");
+                // Load the player icon from your subfolder
+                const player = new cc.Sprite(window.GDR.selectedIcon);
                 player.setPosition(150, 150);
-                player.setColor(cc.color(0, 255, 0));
                 world.addChild(player);
 
                 try {
@@ -63,17 +55,17 @@ window.loadGDRWeb = function(xmlData) {
                     const bin = atob(raw.replace(/-/g, '+').replace(/_/g, '/'));
                     const data = pako.inflate(Uint8Array.from(bin, c => c.charCodeAt(0)), { to: 'string' });
                     
-                    data.split(';').slice(0, 2000).forEach(objStr => {
+                    data.split(';').slice(0, 3000).forEach(objStr => {
                         const p = objStr.split(',');
                         const id = p[p.indexOf('1') + 1], x = p[p.indexOf('2') + 1], y = p[p.indexOf('3') + 1];
                         if (id && x && y) {
-                            const s = new cc.Sprite("assets/pixel.png");
+                            const s = new cc.Sprite("assets/GJ_squareB_01.png");
                             s.setPosition(parseFloat(x)/4, (parseFloat(y)/4) + 100);
-                            s.setScale(0.5);
+                            s.setScale(0.4);
                             world.addChild(s);
                         }
                     });
-                } catch(e) { console.log("Render error, but continuing..."); }
+                } catch(e) { console.log("Render continuing..."); }
 
                 this.scheduleUpdate();
                 let vY = 0;
