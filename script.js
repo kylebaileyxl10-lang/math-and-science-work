@@ -1,29 +1,32 @@
-// --- GDRWeb v1.0.46: SCENE TRANSITION STABILITY ---
-console.log("System: v1.0.46 - Finalizing UI entry");
+// --- GDRWeb v1.0.47: CHILD COLLISION GUARD ---
+console.log("System: v1.0.47 - Deploying Single-Run Guard");
 
 window.loadGDRWeb = function(xmlData) {
+    let menuBuilt = false; // The Guard variable
+
     cc.game.onStart = function() {
         cc.view.enableRetina(false); 
         cc.view.setDesignResolutionSize(800, 450, cc.ResolutionPolicy.SHOW_ALL);
 
         cc.loader.loadTxt("assets/GJ_GameSheet.plist", function(err, textData) {
-            if (err) return console.error("Failed to fetch sheet text");
+            if (err) return console.error("Data Fetch Error");
 
             try {
                 const sheetJson = JSON.parse(textData);
                 cc.spriteFrameCache._addSpriteFramesByObject("assets/GJ_GameSheet.plist", sheetJson);
-                console.log("Success: Sheet Map Active");
-            } catch (e) { console.error("JSON Error"); }
+            } catch (e) { console.error("JSON Parse Error"); }
 
             const MainMenuScene = cc.Scene.extend({
                 onEnter: function() {
                     this._super();
-                    // Nuclear option to prevent "Child already added"
-                    this.removeAllChildren(true);
                     
+                    // GUARD CHECK: If menu exists, stop immediately
+                    if (menuBuilt) return; 
+                    
+                    this.removeAllChildren(true);
                     this.addChild(new cc.LayerColor(cc.color(20, 80, 180))); 
 
-                    // Your verified Black Cogwheel
+                    // Logo from verified sheet
                     const frame = cc.spriteFrameCache.getSpriteFrame("blackCogwheel_01_001.png");
                     if (frame) {
                         const logoNode = new cc.Sprite(frame);
@@ -39,10 +42,9 @@ window.loadGDRWeb = function(xmlData) {
                     });
                     
                     const menu = new cc.Menu(playBtn);
-                    // Use force reset on menu to ensure no ID collision
-                    menu.enabled = true;
                     this.addChild(menu);
                     
+                    menuBuilt = true; // Set guard to true so it never runs again
                     if (document.getElementById('status')) document.getElementById('status').style.display = 'none';
                 }
             });
@@ -84,10 +86,7 @@ window.loadGDRWeb = function(xmlData) {
                 }
             });
 
-            // ADDED DELAY: Wait 100ms for LoaderScene to fully exit before running MainMenu
-            setTimeout(() => {
-                cc.director.runScene(new MainMenuScene());
-            }, 100);
+            cc.director.runScene(new MainMenuScene());
         });
     };
     cc.game.run("gameCanvas");
