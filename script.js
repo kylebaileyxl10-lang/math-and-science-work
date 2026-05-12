@@ -1,9 +1,13 @@
-// --- GDRWeb v1.0.50: FINAL STABILITY SYNC ---
-console.log("System: v1.0.50 - Executing safe initialization");
+// --- GDRWeb v1.0.51: TOTAL COLLISION BLOCK ---
+console.log("System: v1.0.51 - Deploying Absolute Guard");
 
 window.loadGDRWeb = function(xmlData) {
+    // This variable exists outside the engine loop to track status
+    if (window.GDR_INITIALIZED) return;
+    window.GDR_INITIALIZED = true;
+
     cc.game.onStart = function() {
-        // --- SAFE VIEWPORT SETUP ---
+        // Safe viewport config
         if (cc.view) {
             cc.view.enableRetina(false);
             cc.view.setDesignResolutionSize(800, 450, cc.ResolutionPolicy.SHOW_ALL);
@@ -19,18 +23,20 @@ window.loadGDRWeb = function(xmlData) {
             const MainMenuScene = cc.Scene.extend({
                 onEnter: function() {
                     this._super();
+                    
+                    // Final guard: check children before adding anything
                     if (this.getChildrenCount() > 0) return;
 
-                    this.addChild(new cc.LayerColor(cc.color(20, 80, 180))); 
+                    const bg = new cc.LayerColor(cc.color(20, 80, 180));
+                    this.addChild(bg); 
 
-                    // Logo verification
+                    // Use verified cogwheel name
                     const frame = cc.spriteFrameCache.getSpriteFrame("blackCogwheel_01_001.png");
-                    const logoNode = frame ? new cc.Sprite(frame) : new cc.LabelTTF("GDRWeb Engine", "Arial", 36);
-                    logoNode.setPosition(400, 350);
-                    if (frame) logoNode.setScale(1.5);
-                    this.addChild(logoNode);
+                    const logo = frame ? new cc.Sprite(frame) : new cc.LabelTTF("GDRWeb Engine", "Arial", 36);
+                    logo.setPosition(400, 350);
+                    if (frame) logo.setScale(1.5);
+                    this.addChild(logo);
 
-                    // Play Button using confirmed asset
                     const playBtnSprite = new cc.Sprite("assets/GJ_squareB_01.png");
                     const playBtn = new cc.MenuItemSprite(playBtnSprite, playBtnSprite, function() {
                         cc.director.runScene(new GameplayScene());
@@ -50,7 +56,6 @@ window.loadGDRWeb = function(xmlData) {
                     const player = new cc.Sprite("assets/icons/player_01.png");
                     player.setPosition(150, 150);
                     this.addChild(player);
-
                     this.scheduleUpdate();
                     let vY = 0;
                     this.update = function(dt) {
@@ -65,7 +70,7 @@ window.loadGDRWeb = function(xmlData) {
         });
     };
 
-    // Use the engine bootstrap directly to avoid double-run threads
+    // Use the official bootstrap
     cc.game.run("gameCanvas");
 };
 
