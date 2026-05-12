@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>GDRWeb | Gameplay v1.0.24</title>
+    <title>GDRWeb | Visual Overhaul v1.0.26</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
         body { 
@@ -15,10 +15,12 @@
             height: 100vh; 
             color: #fff; 
             font-family: 'Segoe UI', sans-serif; 
-            user-select: none; /* Prevents text highlighting while clicking to jump */
+            /* CRITICAL: Prevents accidental highlighting while clicking to jump */
+            user-select: none;
+            -webkit-user-select: none;
         }
         #gameCanvas { 
-            box-shadow: 0 0 50px rgba(0, 255, 0, 0.1); 
+            box-shadow: 0 0 60px rgba(0, 100, 255, 0.2); 
             border: 2px solid #111; 
             background: #000;
             cursor: pointer;
@@ -31,21 +33,16 @@
         }
         .loading-text {
             font-size: 14px;
-            letter-spacing: 2px;
-            color: #0f0;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
+            letter-spacing: 3px;
+            color: #0af;
+            text-shadow: 0 0 10px #0af;
         }
     </style>
 </head>
 <body>
 
     <div id="loader-ui">
-        <div id="status" class="loading-text">BOOTING ENGINE...</div>
+        <div class="loading-text">SYNCING GEOMETRY...</div>
     </div>
 
     <canvas id="gameCanvas" width="800" height="450"></canvas>
@@ -53,7 +50,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="cocos2d.js"></script>
     
-    <script src="script.js?v=1.0.24"></script>
+    <script src="script.js?v=1.0.26"></script>
 
 </body>
 </html>
