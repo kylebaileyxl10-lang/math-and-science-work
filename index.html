@@ -2,44 +2,46 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>GDRWeb | Bypass Mode v1.0.31</title>
+    <title>GDRWeb | Asset Sync v1.0.32</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
         body { 
             margin: 0; 
-            background: radial-gradient(circle, #4b0082 0%, #000000 100%); 
+            background: radial-gradient(circle, #1464ff 0%, #000000 100%); 
             overflow: hidden; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             height: 100vh; 
             color: #fff; 
-            font-family: sans-serif; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
             user-select: none;
+            -webkit-user-select: none;
             touch-action: none;
         }
         #gameCanvas { 
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1); 
-            border: 1px solid #333; 
+            box-shadow: 0 0 50px rgba(20, 100, 255, 0.4); 
+            border: 2px solid #111; 
             background: #000;
         }
         #loader-ui { 
             position: absolute; 
             text-align: center; 
-            z-index: 10;
+            z-index: 100;
         }
         .loading-text {
-            font-size: 14px;
-            letter-spacing: 2px;
+            font-size: 16px;
+            letter-spacing: 3px;
+            font-weight: bold;
             color: #fff;
-            opacity: 0.8;
+            text-shadow: 0 0 10px #1464ff;
         }
     </style>
 </head>
 <body>
 
     <div id="loader-ui">
-        <div class="loading-text">BYPASSING ASSET ERRORS...</div>
+        <div class="loading-text">SYNCING FOLDER PATHS...</div>
     </div>
 
     <canvas id="gameCanvas" width="800" height="450"></canvas>
@@ -47,7 +49,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="cocos2d.js"></script>
     
-    <script src="script.js?v=1.0.31"></script>
+    <script src="script.js?v=1.0.32"></script>
 
 </body>
 </html>
