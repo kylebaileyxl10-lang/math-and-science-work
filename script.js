@@ -1,120 +1,137 @@
-// --- GDRWeb v1.0.27: THE FULL GAME SYSTEM ---
-console.log("System: v1.0.27 - Full Menu & Icons Engaged");
+// --- GDRWeb v1.0.29: THE ULTIMATE GD ENGINE ---
+console.log("System: v1.0.29 - Multi-Level & Full UI Engaged");
 
-// GLOBAL SETTINGS
 window.GDR = {
-    selectedIcon: "assets/GJ_square01.png",
-    currentLevel: "assets/project_data.xml",
-    levelData: null
+    selectedIcon: "assets/player_01.png", // Adjust based on your folder names
+    allLevels: [],
+    currentLevelIndex: 0
 };
 
 window.loadGDRWeb = function(xmlData) {
-    window.GDR.levelData = xmlData;
-    
+    // 1. EXTRACT ALL LEVELS FROM XML
+    const levelMatches = xmlData.split("<k>k4</k><s>");
+    levelMatches.shift(); // Remove the first split
+    window.GDR.allLevels = levelMatches.map(s => s.split("</s>")[0].trim());
+    console.log("Found " + window.GDR.allLevels.length + " levels in your save file!");
+
     cc.game.onStart = function() {
         
-        // --- SCENE 1: MAIN MENU ---
+        // --- SCENE 1: AUTHENTIC MAIN MENU ---
         const MainMenuScene = cc.Scene.extend({
             onEnter: function() {
                 this._super();
-                this.addChild(new cc.LayerColor(cc.color(10, 15, 30)));
-                
-                const title = new cc.LabelTTF("GDRWeb", "Arial", 48);
-                title.setPosition(cc.winSize.width/2, cc.winSize.height - 80);
-                this.addChild(title);
+                this.addChild(new cc.LayerColor(cc.color(40, 125, 255))); // GD Blue
 
-                const playBtn = new cc.MenuItemImage("assets/GJ_button_01.png", "assets/GJ_button_01.png", function() {
-                    cc.director.runScene(new LevelScene());
+                // Big Play Button
+                const playBtn = new cc.MenuItemImage("assets/GJ_playBtn_001.png", "assets/GJ_playBtn_001.png", function() {
+                    cc.director.runScene(new LevelSelectScene());
                 });
-                
-                const iconBtn = new cc.MenuItemImage(window.GDR.selectedIcon, window.GDR.selectedIcon, function() {
+
+                // Icon Kit Button (Bottom Left)
+                const iconBtn = new cc.MenuItemImage("assets/GJ_garageBtn_001.png", "assets/GJ_garageBtn_001.png", function() {
                     cc.director.runScene(new IconKitScene());
                 });
-                iconBtn.setScale(1.5);
+                iconBtn.setScale(0.7);
 
-                const menu = new cc.Menu(playBtn, iconBtn);
-                menu.alignItemsVerticallyWithPadding(50);
+                const menu = new cc.Menu(playBtn);
+                const sideMenu = new cc.Menu(iconBtn);
+                sideMenu.setPosition(80, 80);
+                this.addChild(menu);
+                this.addChild(sideMenu);
+            }
+        });
+
+        // --- SCENE 2: LEVEL SELECT (RobTop Style) ---
+        const LevelSelectScene = cc.Scene.extend({
+            onEnter: function() {
+                this._super();
+                this.addChild(new cc.LayerColor(cc.color(40, 125, 255)));
+
+                const levelText = new cc.LabelTTF("Level " + (window.GDR.currentLevelIndex + 1), "Arial", 32);
+                levelText.setPosition(cc.winSize.width/2, cc.winSize.height/2 + 100);
+                this.addChild(levelText);
+
+                const startBtn = new cc.MenuItemImage("assets/GJ_playBtn2_001.png", "assets/GJ_playBtn2_001.png", function() {
+                    cc.director.runScene(new GameplayScene());
+                });
+                startBtn.setScale(0.6);
+
+                const nextBtn = new cc.MenuItemFont(">", function() {
+                    window.GDR.currentLevelIndex = (window.GDR.currentLevelIndex + 1) % window.GDR.allLevels.length;
+                    cc.director.runScene(new LevelSelectScene());
+                });
+
+                const menu = new cc.Menu(startBtn, nextBtn);
+                menu.alignItemsHorizontallyWithPadding(50);
                 this.addChild(menu);
             }
         });
 
-        // --- SCENE 2: ICON KIT ---
+        // --- SCENE 3: THE ICON KIT ---
         const IconKitScene = cc.Scene.extend({
             onEnter: function() {
                 this._super();
-                this.addChild(new cc.LayerColor(cc.color(20, 20, 40)));
+                this.addChild(new cc.LayerColor(cc.color(30, 30, 30)));
                 
-                const backBtn = new cc.MenuItemFont("< BACK", function() {
-                    cc.director.runScene(new MainMenuScene());
-                });
+                // Add a grid of icons (using the files found in your assets folder)
+                const icons = [];
+                for(let i=1; i<=12; i++) {
+                    const name = "assets/player_" + (i < 10 ? "0"+i : i) + ".png";
+                    const item = new cc.MenuItemImage(name, name, function() {
+                        window.GDR.selectedIcon = name;
+                    });
+                    item.setScale(0.8);
+                    icons.push(item);
+                }
 
-                // Display your actual files from the assets folder
-                const icon1 = new cc.MenuItemImage("assets/GJ_square01.png", "assets/GJ_square01.png", function() {
-                    window.GDR.selectedIcon = "assets/GJ_square01.png";
-                });
-                
-                const icon2 = new cc.MenuItemImage("assets/GJ_square02.png", "assets/GJ_square02.png", function() {
-                    window.GDR.selectedIcon = "assets/GJ_square02.png";
-                });
+                const grid = new cc.Menu(...icons);
+                grid.alignItemsInColumns(4, 4, 4);
+                this.addChild(grid);
 
-                const menu = new cc.Menu(icon1, icon2, backBtn);
-                menu.alignItemsHorizontallyWithPadding(40);
-                this.addChild(menu);
+                const back = new cc.MenuItemFont("BACK", function() { cc.director.runScene(new MainMenuScene()); });
+                const bMenu = new cc.Menu(back);
+                bMenu.setPosition(60, 400);
+                this.addChild(bMenu);
             }
         });
 
-        // --- SCENE 3: THE GAMEPLAY ---
-        const LevelScene = cc.Scene.extend({
+        // --- SCENE 4: GAMEPLAY ---
+        const GameplayScene = cc.Scene.extend({
             onEnter: function() {
                 this._super();
-                if (document.getElementById('loader-ui')) document.getElementById('loader-ui').style.display = 'none';
-
-                const bg = new cc.LayerColor(cc.color(0, 102, 255)); 
-                this.addChild(bg);
                 const world = new cc.Layer();
+                this.addChild(new cc.LayerColor(cc.color(0, 102, 255)));
                 this.addChild(world);
 
-                // USE THE SELECTED ICON
                 const player = new cc.Sprite(window.GDR.selectedIcon);
-                player.setPosition(150, 200);
+                player.setPosition(150, 115);
                 player.setColor(cc.color(0, 255, 0));
                 world.addChild(player);
 
-                // Level Parsing Logic (same as v1.0.26)
-                try {
-                    const raw = window.GDR.levelData.split("<k>k4</k><s>")[1].split("</s>")[0].trim();
-                    const bin = atob(raw.replace(/-/g, '+').replace(/_/g, '/'));
-                    const data = pako.inflate(Uint8Array.from(bin, c => c.charCodeAt(0)), { to: 'string' });
-                    const objects = data.split(';');
+                // Parse the SPECIFIC level selected
+                const raw = window.GDR.allLevels[window.GDR.currentLevelIndex];
+                const bin = atob(raw.replace(/-/g, '+').replace(/_/g, '/'));
+                const data = pako.inflate(Uint8Array.from(bin, c => c.charCodeAt(0)), { to: 'string' });
+                
+                data.split(';').slice(0, 4000).forEach(objStr => {
+                    const p = objStr.split(',');
+                    const id = p[p.indexOf('1') + 1], x = p[p.indexOf('2') + 1], y = p[p.indexOf('3') + 1];
+                    if (id && x && y) {
+                        const s = new cc.Sprite("assets/GJ_square01.png");
+                        s.setPosition(parseFloat(x)/4, (parseFloat(y)/4) + 100);
+                        s.setScale(0.35);
+                        world.addChild(s);
+                    }
+                });
 
-                    objects.slice(0, 3000).forEach(objStr => {
-                        const p = objStr.split(',');
-                        const id = p[p.indexOf('1') + 1], x = p[p.indexOf('2') + 1], y = p[p.indexOf('3') + 1];
-                        if (id && x && y) {
-                            const s = new cc.Sprite("assets/GJ_square01.png");
-                            s.setPosition(parseFloat(x)/4, (parseFloat(y)/4) + 100);
-                            s.setScale(0.35);
-                            world.addChild(s);
-                        }
-                    });
-                } catch(e) { console.error(e); }
-
-                // Physics update loop...
                 this.scheduleUpdate();
                 let velY = 0;
                 this.update = function(dt) {
-                    world.x -= 320 * dt;
-                    player.x += 320 * dt;
-                    velY -= 35 * dt;
-                    player.y += velY;
+                    world.x -= 340 * dt; player.x += 340 * dt; velY -= 38 * dt; player.y += velY;
                     if (player.y <= 115) { player.y = 115; velY = 0; player.rotation = 0; }
-                    else { player.rotation += 300 * dt; }
+                    else { player.rotation += 320 * dt; }
                 };
-
-                cc.eventManager.addListener({
-                    event: cc.EventListener.MOUSE,
-                    onMouseDown: function() { velY = 13; }
-                }, this);
+                cc.eventManager.addListener({ event: cc.EventListener.MOUSE, onMouseDown: function() { velY = 14; }}, this);
             }
         });
 
