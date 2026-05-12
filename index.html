@@ -2,20 +2,66 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>GDRWeb | Final Render v1.0.20</title>
+    <title>GDRWeb | Full Level Render v1.0.21</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
-        body { margin: 0; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; color: #fff; font-family: sans-serif; }
-        #gameCanvas { box-shadow: 0 0 20px rgba(0, 255, 0, 0.1); background: #05050a; }
-        #loader-ui { position: absolute; text-align: center; pointer-events: none; }
+        body { 
+            margin: 0; 
+            background-color: #050505; 
+            overflow: hidden; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            color: #fff; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+        #gameCanvas { 
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.1); 
+            border: 2px solid #1a1a1a; 
+            background: #0a0a10;
+        }
+        #loader-ui { 
+            position: absolute; 
+            text-align: center; 
+            z-index: 10;
+        }
+        .loading-text {
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #0f0;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        .loading-bar { 
+            width: 240px; 
+            height: 2px; 
+            background: #222; 
+            margin: 15px auto; 
+            border-radius: 1px; 
+            overflow: hidden; 
+        }
+        .progress { 
+            width: 75%; 
+            height: 100%; 
+            background: #0f0; 
+            box-shadow: 0 0 10px #0f0;
+        }
     </style>
 </head>
 <body>
+
     <div id="loader-ui">
-        <div id="status">Rendering Level...</div>
+        <div class="loading-text">Analyzing Level Blueprint...</div>
+        <div class="loading-bar"><div class="progress"></div></div>
     </div>
+
     <canvas id="gameCanvas" width="800" height="450"></canvas>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="cocos2d.js"></script>
-    <script src="script.js?v=1.0.20"></script>
+    
+    <script src="script.js?v=1.0.21"></script>
+
 </body>
 </html>
