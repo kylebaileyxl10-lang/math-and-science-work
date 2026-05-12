@@ -5,55 +5,27 @@
     <title>GDRWeb | Math Analysis Lab</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
-        body {
-            margin: 0;
-            background-color: #000;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #fff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        #gameCanvas {
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
-            border: 1px solid #333;
-        }
-        #loader-ui {
-            position: absolute;
-            text-align: center;
-        }
-        .loading-bar {
-            width: 200px;
-            height: 4px;
-            background: #222;
-            margin-top: 10px;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        .progress {
-            width: 50%; /* This can be animated later */
-            height: 100%;
-            background: #0f0;
-        }
+        body { margin: 0; background-color: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; color: #fff; font-family: sans-serif; }
+        #gameCanvas { box-shadow: 0 0 20px rgba(0, 255, 0, 0.1); border: 1px solid #222; }
+        #loader-ui { position: absolute; text-align: center; }
+        .loading-bar { width: 200px; height: 4px; background: #222; margin-top: 10px; border-radius: 2px; overflow: hidden; }
+        .progress { width: 45%; height: 100%; background: #0f0; transition: width 0.3s; }
     </style>
 </head>
 <body>
 
     <div id="loader-ui">
-        <div style="font-size: 14px; letter-spacing: 1px;">Initializing Math Analysis...</div>
-        <div style="font-size: 10px; color: #888; margin-top: 5px;">Connecting to Lab Assets...</div>
-        <div class="loading-bar"><div class="progress"></div></div>
+        <div style="font-size: 14px;">Initializing Math Analysis...</div>
+        <div style="font-size: 10px; color: #666; margin-top: 5px;">Loading Sprites & Data...</div>
+        <div class="loading-bar"><div id="p-bar" class="progress"></div></div>
     </div>
 
     <canvas id="gameCanvas" width="800" height="450"></canvas>
 
-    <script src="pako.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="cocos2d.js"></script>
-
-    <script src="script.js?v=1.0.14"></script>
+    
+    <script src="script.js?v=1.0.15"></script>
 
 </body>
 </html>
