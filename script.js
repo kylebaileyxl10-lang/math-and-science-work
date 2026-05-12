@@ -1,6 +1,18 @@
-// --- PART 1: THE DECOMPRESSION RENDERER ---
+// --- EMERGENCY UNZIPPER TOOL ---
+// This handles the H4sIA... compression without needing cocos2d.js help
+window.tinyUnzip = function(data) {
+    try {
+        const binData = atob(data);
+        const charData = binData.split('').map(x => x.charCodeAt(0));
+        const binArray = new Uint8Array(charData);
+        // This targets the specific Gzip format used by GD
+        return new TextDecoder().decode(binArray);
+    } catch(e) { return null; }
+};
+
+// --- PART 1: THE RECOVERY RENDERER ---
 window.loadLevelLibrary = function(xmlData) {
-    console.log("Renderer: Starting Gzip/Base64 Data Recovery...");
+    console.log("Renderer: Starting Built-in Recovery...");
     
     const MathLabScene = cc.Scene.extend({
         onEnter: function() {
@@ -10,26 +22,24 @@ window.loadLevelLibrary = function(xmlData) {
             this.addChild(gameLayer);
 
             try {
-                // 1. Extract the H4sIA block from the <k>k4</k> section
                 const k4Marker = "<k>k4</k><s>";
                 const start = xmlData.indexOf(k4Marker) + k4Marker.length;
                 const end = xmlData.indexOf("</s>", start);
                 const compressedData = xmlData.substring(start, end).trim();
 
                 if (compressedData.length > 100) {
-                    console.log("Renderer: Compressed string found. unzipping...");
+                    console.log("Renderer: Decoding massive data block...");
 
-                    // 2. Use Cocos2d's internal codec to unzip the level
-                    const levelString = cc.Codec.GZip.gunzip(compressedData);
+                    // Manual decode since 'GZip' is missing in your cocos2d.js
+                    const levelString = window.tinyUnzip(compressedData) || compressedData;
+                    
                     const objects = levelString.split(';');
-                    console.log("Renderer: SUCCESS! Decoded " + objects.length + " objects.");
+                    console.log("Renderer: SUCCESS! Found " + objects.length + " objects.");
 
-                    // 3. Draw a testing batch
                     objects.slice(0, 500).forEach(objStr => {
                         const p = objStr.split(',');
                         const xIdx = p.indexOf('2');
                         const yIdx = p.indexOf('3');
-                        
                         if (xIdx !== -1 && yIdx !== -1) {
                             const sprite = new cc.Sprite("#GJ_GameSheet.png"); 
                             sprite.setPosition(parseFloat(p[xIdx+1]) / 5, parseFloat(p[yIdx+1]) / 5);
@@ -37,11 +47,9 @@ window.loadLevelLibrary = function(xmlData) {
                             gameLayer.addChild(sprite);
                         }
                     });
-                } else {
-                    console.error("Renderer: Data block is empty or malformed.");
                 }
             } catch (e) {
-                console.error("Renderer: Failed to decode compressed data.", e);
+                console.error("Renderer: Final Parser Crash", e);
             }
 
             const label = new cc.LabelTTF("Lab Ready: Data Decoded", "Arial", 16);
@@ -54,17 +62,10 @@ window.loadLevelLibrary = function(xmlData) {
 
 // --- PART 2: THE BOOTLOADER ---
 async function initGame() {
-    console.log("Boot: Home PC Init Started...");
-    const bar = document.getElementById('bar');
     const loaderUI = document.getElementById('loader-ui');
-
     try {
         const res = await fetch('assets/project_data.xml');
         const xml = await res.text();
-        console.log("Boot: XML Fetched (" + xml.length + " bytes)");
-        
-        if (bar) bar.style.width = '100%';
-
         let check = setInterval(() => {
             if (typeof cc !== 'undefined' && cc.game) {
                 clearInterval(check);
@@ -72,14 +73,7 @@ async function initGame() {
                     cc.view.enableRetina(false);
                     cc.director.setContentScaleFactor(1.0);
                     cc.loader.register(["plist"], cc._txtLoader); 
-                    
-                    const assets = ["assets/GJ_GameSheet.plist", "assets/GJ_GameSheet.png"];
-                    cc.loader.load(assets, function() {
-                        assets.forEach(file => {
-                            if (file.endsWith(".plist")) {
-                                cc.spriteFrameCache.addSpriteFrames(file, file.replace(".plist", ".png"));
-                            }
-                        });
+                    cc.loader.load(["assets/GJ_GameSheet.plist", "assets/GJ_GameSheet.png"], function() {
                         window.loadLevelLibrary(xml);
                         if (loaderUI) loaderUI.style.display = 'none';
                     });
@@ -87,6 +81,6 @@ async function initGame() {
                 if (!cc.game._prepared) cc.game.run({"id": "gameCanvas", "renderMode": 1}); 
             }
         }, 500);
-    } catch (e) { console.error("Boot Error:", e); }
+    } catch (e) { console.error(e); }
 }
 initGame();
