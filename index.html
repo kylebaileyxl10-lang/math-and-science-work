@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>GDRWeb | Menu & Engine v1.0.22</title>
+    <title>GDRWeb | UI Stable v1.0.23</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
         body { 
@@ -17,11 +17,10 @@
             font-family: 'Segoe UI', sans-serif; 
         }
         #gameCanvas { 
-            box-shadow: 0 0 40px rgba(0, 150, 255, 0.1); 
+            box-shadow: 0 0 40px rgba(0, 150, 255, 0.15); 
             border: 1px solid #1a1a1a; 
-            background: #000;
+            background: #050508;
         }
-        /* The loader-ui will now only show when the data is being parsed */
         #loader-ui { 
             position: absolute; 
             text-align: center; 
@@ -33,33 +32,21 @@
             letter-spacing: 2px;
             color: #0af;
         }
-        .loading-bar { 
-            width: 200px; 
-            height: 2px; 
-            background: #111; 
-            margin: 10px auto; 
-        }
-        .progress { 
-            width: 0%; 
-            height: 100%; 
-            background: #0af; 
-            transition: width 0.2s;
-        }
     </style>
 </head>
 <body>
 
     <div id="loader-ui">
-        <div class="loading-text">DECOMPRESSING LEVEL...</div>
-        <div class="loading-bar"><div id="p-bar" class="progress"></div></div>
+        <div class="loading-text">LOADING LEVEL DATA...</div>
     </div>
 
     <canvas id="gameCanvas" width="800" height="450"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+    
     <script src="cocos2d.js"></script>
     
-    <script src="script.js?v=1.0.22"></script>
+    <script src="script.js?v=1.0.23"></script>
 
 </body>
 </html>
