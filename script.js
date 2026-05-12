@@ -1,68 +1,56 @@
-// --- GDRWeb v1.0.42: UI OVERRIDE & CLEANUP ---
-console.log("System: v1.0.42 - Forced UI Reset");
+// --- GDRWeb v1.0.43: JSON-SHEET ADAPTATION ---
+console.log("System: v1.0.43 - Loading Sheets as JSON");
 
 window.loadGDRWeb = function(xmlData) {
-    
-    const gdr_resources = [
-        "assets/GJ_GameSheet.png",
-        "assets/GJ_GameSheet.plist",
-        "assets/GJ_GameSheet02.png",
-        "assets/GJ_GameSheet02.plist",
-        "assets/GJ_squareB_01.png",
-        "assets/icons/player_01.png"
-    ];
-
     cc.game.onStart = function() {
         cc.view.enableRetina(false); 
         cc.view.setDesignResolutionSize(800, 450, cc.ResolutionPolicy.SHOW_ALL);
 
-        cc.LoaderScene.preload(gdr_resources, function () {
-            
-            // Safety load plists
-            try {
-                cc.spriteFrameCache.addSpriteFrames("assets/GJ_GameSheet.plist");
-                cc.spriteFrameCache.addSpriteFrames("assets/GJ_GameSheet02.plist");
-            } catch(e) { console.log("Sheet map warning ignored."); }
+        // Load your sheet as a JSON object first
+        cc.loader.loadJson("assets/GJ_GameSheet.plist", function(err, jsonDict) {
+            if (err) return console.error("Could not load sheet JSON");
+
+            // Manually inject the frames into the cache to skip the "Not a plist" error
+            cc.spriteFrameCache._addSpriteFramesByObject("assets/GJ_GameSheet.plist", jsonDict);
+            console.log("Success: Injected JSON frames into Cache");
 
             const MainMenuScene = cc.Scene.extend({
                 onEnter: function() {
                     this._super();
-                    this.removeAllChildren(); // THE FIX: Wipes old children to prevent Assertion Error
+                    // Stop the "child already added" error by clearing the scene entirely
+                    this.removeAllChildren(true); 
                     
                     this.addChild(new cc.LayerColor(cc.color(20, 80, 180))); 
 
-                    // LOGO LOOKUP
-                    let logo;
-                    let frame = cc.spriteFrameCache.getSpriteFrame("GJ_logo_001.png") || 
-                                cc.spriteFrameCache.getSpriteFrame("GJ_logo_001");
+                    // Test with a name found in your screenshot: "blackCogwheel_01_001.png"
+                    let logoSprite;
+                    let frame = cc.spriteFrameCache.getSpriteFrame("blackCogwheel_01_001.png");
                     
                     if (frame) {
-                        logo = new cc.Sprite(frame);
+                        logoSprite = new cc.Sprite(frame);
+                        logoSprite.setScale(2.0);
                     } else {
-                        logo = new cc.LabelTTF("GDRWeb Engine", "Arial", 42);
+                        logoSprite = new cc.LabelTTF("GDRWeb: Using Text Mode", "Arial", 42);
                     }
-                    logo.setPosition(cc.winSize.width/2, cc.winSize.height - 100);
-                    this.addChild(logo);
+                    logoSprite.setPosition(cc.winSize.width/2, cc.winSize.height - 100);
+                    this.addChild(logoSprite);
 
-                    // PLAY BUTTON (Using verified squareB_01)
+                    // PLAY BUTTON (Using verified squareB_01 as a direct file)
                     const playBtnSprite = new cc.Sprite("assets/GJ_squareB_01.png");
                     const playBtn = new cc.MenuItemSprite(playBtnSprite, playBtnSprite, function() {
                         cc.director.runScene(new GameplayScene());
                     });
-                    playBtn.setScale(1.5);
                     
                     const menu = new cc.Menu(playBtn);
                     this.addChild(menu);
                     
-                    if (document.getElementById('status')) document.getElementById('status').style.display = 'none';
+                    document.getElementById('status').style.display = 'none';
                 }
             });
 
             const GameplayScene = cc.Scene.extend({
                 onEnter: function() {
                     this._super();
-                    this.removeAllChildren();
-                    
                     const world = new cc.Layer();
                     this.addChild(new cc.LayerColor(cc.color(10, 40, 90)));
                     this.addChild(world);
@@ -72,7 +60,7 @@ window.loadGDRWeb = function(xmlData) {
                     world.addChild(player);
 
                     try {
-                        const levelStr = xmlData.split("<k>k4</k>")[1].split("</s>")[0].replace("<s>", "").trim();
+                        const levelStr = xmlData.split("<k>k4</k>")[1].split("</s>")[0].trim();
                         const decoded = atob(levelStr.replace(/-/g, '+').replace(/_/g, '/'));
                         const data = pako.inflate(Uint8Array.from(decoded, c => c.charCodeAt(0)), { to: 'string' });
                         
@@ -82,25 +70,25 @@ window.loadGDRWeb = function(xmlData) {
                             if (id && x && y) {
                                 const b = new cc.Sprite("assets/GJ_squareB_01.png");
                                 b.setPosition(parseFloat(x)/4, (parseFloat(y)/4) + 120);
-                                b.setScale(0.4);
+                                b.setScale(0.3);
                                 world.addChild(b);
                             }
                         });
-                    } catch(e) { console.log("Level active."); }
+                    } catch(e) { console.log("Rendering..."); }
 
                     this.scheduleUpdate();
                     let vY = 0;
                     this.update = function(dt) {
                         world.x -= 300 * dt; player.x += 300 * dt; vY -= 35 * dt; player.y += vY;
                         if (player.y <= 115) { player.y = 115; vY = 0; player.rotation = 0; }
-                        else { player.rotation += 300 * dt; }
+                        else { player.rotation += 320 * dt; }
                     };
                     cc.eventManager.addListener({ event: cc.EventListener.MOUSE, onMouseDown: () => vY = 13 }, this);
                 }
             });
 
             cc.director.runScene(new MainMenuScene());
-        }, this);
+        });
     };
     cc.game.run("gameCanvas");
 };
