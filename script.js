@@ -4,7 +4,7 @@ console.log("Boot: Home PC Init v1.0.9 Started...");
 // 1. THE DECOMPRESSION ENGINE (Uses Pako)
 window.decompressLevel = function(base64String) {
     try {
-        // Geometry Dash uses URL-safe Base64; fix it before decoding
+        // Fix URL-safe Base64 and decode
         const normalized = base64String.replace(/-/g, '+').replace(/_/g, '/');
         const binaryString = atob(normalized);
         const bytes = new Uint8Array(binaryString.length);
@@ -12,16 +12,16 @@ window.decompressLevel = function(base64String) {
             bytes[i] = binaryString.charCodeAt(i);
         }
 
-        // Use Pako to "inflate" the Gzip data
+        // Use Pako to "inflate" the Gzip data (Fixes the GZip TypeError)
         const decompressed = pako.inflate(bytes, { to: 'string' });
         return decompressed;
     } catch (err) {
-        console.error("Pako Decompression failed!", err);
+        console.error("Renderer: Failed to decode compressed data.", err);
         return "";
     }
 };
 
-// 2. THE RENDERER (Finds and draws the level)
+// 2. THE RENDERER
 window.loadLevelLibrary = function(xmlData) {
     console.log("Renderer: Scanning XML for the largest project data...");
     
@@ -33,12 +33,11 @@ window.loadLevelLibrary = function(xmlData) {
             this.addChild(gameLayer);
 
             try {
-                // Split XML by the level data marker
                 const k4Marker = "<k>k4</k><s>";
                 const parts = xmlData.split(k4Marker);
                 let bestData = "";
 
-                // DEEP SCAN: Find the level with the most data (ignoring tiny test levels)
+                // DEEP SCAN: Find the actual level (ignoring tiny test files)
                 for (let i = 1; i < parts.length; i++) {
                     const levelSegment = parts[i].split("</s>")[0].trim();
                     if (levelSegment.length > bestData.length) {
@@ -47,20 +46,20 @@ window.loadLevelLibrary = function(xmlData) {
                 }
 
                 if (bestData.length > 0) {
-                    console.log("Renderer: Found Massive Level! (Raw Size: " + (bestData.length / 1024 / 1024).toFixed(2) + " MB)");
+                    console.log("Renderer: Found Massive Level! (" + (bestData.length / 1024 / 1024).toFixed(2) + " MB)");
                     
                     const decodedData = window.decompressLevel(bestData);
                     const objects = decodedData.split(';');
                     console.log("Renderer: SUCCESS! Found " + objects.length + " objects.");
 
-                    // Limit to 10k objects for performance stability
+                    // Render first 10,000 objects for performance
                     objects.slice(0, 10000).forEach(objStr => {
                         const p = objStr.split(',');
-                        const x = parseFloat(p[p.indexOf('2') + 1]);
-                        const y = parseFloat(p[p.indexOf('3') + 1]);
-                        if (!isNaN(x) && !isNaN(y)) {
+                        const xIndex = p.indexOf('2');
+                        const yIndex = p.indexOf('3');
+                        if (xIndex !== -1 && yIndex !== -1) {
                             const sprite = new cc.Sprite("#GJ_GameSheet.png"); 
-                            sprite.setPosition(x / 10, y / 10); 
+                            sprite.setPosition(parseFloat(p[xIndex + 1]) / 10, parseFloat(p[yIndex + 1]) / 10); 
                             sprite.setScale(0.1);
                             gameLayer.addChild(sprite);
                         }
@@ -78,17 +77,20 @@ window.loadLevelLibrary = function(xmlData) {
     cc.director.runScene(new MathLabScene());
 };
 
-// 3. THE BOOTLOADER (Fetches your 12.7MB file)
+// 3. THE BOOTLOADER
 cc.game.onStart = function() {
     fetch('project_data.xml')
         .then(response => {
-            console.log("Boot: XML Fetched (" + response.headers.get('content-length') + " bytes)");
+            if (!response.ok) throw new Error("HTTP error " + response.status);
             return response.text();
         })
         .then(data => {
+            console.log("Boot: XML Fetched (" + data.length + " bytes)");
             window.loadLevelLibrary(data);
         })
-        .catch(err => console.error("Boot Error: Could not reach project_data.xml", err));
+        .catch(err => {
+            console.error("Boot Error: Cannot find project_data.xml. Check your file name!", err);
+        });
 };
 
 cc.game.run("gameCanvas");
