@@ -1,6 +1,29 @@
-// --- V1.0.9: DEEP SCAN EXTRACTION ---
+// --- V1.0.9: DEEP SCAN & PAKO ENGINE ---
+console.log("Boot: Home PC Init v1.0.9 Started...");
+
+// 1. THE DECOMPRESSION ENGINE (Uses Pako)
+window.decompressLevel = function(base64String) {
+    try {
+        // Geometry Dash uses URL-safe Base64; fix it before decoding
+        const normalized = base64String.replace(/-/g, '+').replace(/_/g, '/');
+        const binaryString = atob(normalized);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+
+        // Use Pako to "inflate" the Gzip data
+        const decompressed = pako.inflate(bytes, { to: 'string' });
+        return decompressed;
+    } catch (err) {
+        console.error("Pako Decompression failed!", err);
+        return "";
+    }
+};
+
+// 2. THE RENDERER (Finds and draws the level)
 window.loadLevelLibrary = function(xmlData) {
-    console.log("Renderer: Scanning XML for the largest level...");
+    console.log("Renderer: Scanning XML for the largest project data...");
     
     const MathLabScene = cc.Scene.extend({
         onEnter: function() {
@@ -10,12 +33,12 @@ window.loadLevelLibrary = function(xmlData) {
             this.addChild(gameLayer);
 
             try {
-                // Find ALL level strings in the file
+                // Split XML by the level data marker
                 const k4Marker = "<k>k4</k><s>";
                 const parts = xmlData.split(k4Marker);
                 let bestData = "";
 
-                // Loop through every level found and keep the biggest one
+                // DEEP SCAN: Find the level with the most data (ignoring tiny test levels)
                 for (let i = 1; i < parts.length; i++) {
                     const levelSegment = parts[i].split("</s>")[0].trim();
                     if (levelSegment.length > bestData.length) {
@@ -24,13 +47,13 @@ window.loadLevelLibrary = function(xmlData) {
                 }
 
                 if (bestData.length > 0) {
-                    console.log("Renderer: Found Largest Level! (Raw Size: " + (bestData.length / 1024 / 1024).toFixed(2) + " MB)");
+                    console.log("Renderer: Found Massive Level! (Raw Size: " + (bestData.length / 1024 / 1024).toFixed(2) + " MB)");
                     
                     const decodedData = window.decompressLevel(bestData);
                     const objects = decodedData.split(';');
                     console.log("Renderer: SUCCESS! Found " + objects.length + " objects.");
 
-                    // Draw the level
+                    // Limit to 10k objects for performance stability
                     objects.slice(0, 10000).forEach(objStr => {
                         const p = objStr.split(',');
                         const x = parseFloat(p[p.indexOf('2') + 1]);
@@ -42,11 +65,9 @@ window.loadLevelLibrary = function(xmlData) {
                             gameLayer.addChild(sprite);
                         }
                     });
-                } else {
-                    console.error("Renderer: No level data found in XML!");
                 }
             } catch (e) { 
-                console.error("Deep Scan Error", e); 
+                console.error("Deep Scan Extraction Error", e); 
             }
 
             const label = new cc.LabelTTF("Math Lab: " + gameLayer.childrenCount + " Objects Rendered", "Arial", 16);
@@ -56,3 +77,18 @@ window.loadLevelLibrary = function(xmlData) {
     });
     cc.director.runScene(new MathLabScene());
 };
+
+// 3. THE BOOTLOADER (Fetches your 12.7MB file)
+cc.game.onStart = function() {
+    fetch('project_data.xml')
+        .then(response => {
+            console.log("Boot: XML Fetched (" + response.headers.get('content-length') + " bytes)");
+            return response.text();
+        })
+        .then(data => {
+            window.loadLevelLibrary(data);
+        })
+        .catch(err => console.error("Boot Error: Could not reach project_data.xml", err));
+};
+
+cc.game.run("gameCanvas");
