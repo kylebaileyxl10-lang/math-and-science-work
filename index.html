@@ -2,12 +2,13 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>GDRWeb | Asset Sync v1.0.32</title>
+    <title>GDRWeb | Spritesheet Engine v1.0.33</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
         body { 
             margin: 0; 
-            background: radial-gradient(circle, #1464ff 0%, #000000 100%); 
+            /* The classic GD blue gradient background */
+            background: radial-gradient(circle, #287dff 0%, #001a3d 100%); 
             overflow: hidden; 
             display: flex; 
             justify-content: center; 
@@ -20,28 +21,32 @@
             touch-action: none;
         }
         #gameCanvas { 
-            box-shadow: 0 0 50px rgba(20, 100, 255, 0.4); 
-            border: 2px solid #111; 
+            box-shadow: 0 0 80px rgba(0, 150, 255, 0.4); 
+            border: 3px solid #ffffff; 
             background: #000;
+            cursor: pointer;
+            border-radius: 4px;
         }
         #loader-ui { 
             position: absolute; 
             text-align: center; 
             z-index: 100;
+            pointer-events: none;
         }
         .loading-text {
-            font-size: 16px;
-            letter-spacing: 3px;
+            font-size: 18px;
             font-weight: bold;
+            letter-spacing: 5px;
             color: #fff;
-            text-shadow: 0 0 10px #1464ff;
+            text-shadow: 0 0 15px #00eaff;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
     <div id="loader-ui">
-        <div class="loading-text">SYNCING FOLDER PATHS...</div>
+        <div class="loading-text">SLICING GAMESHEETS...</div>
     </div>
 
     <canvas id="gameCanvas" width="800" height="450"></canvas>
@@ -49,7 +54,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="cocos2d.js"></script>
     
-    <script src="script.js?v=1.0.32"></script>
+    <script src="script.js?v=1.0.33"></script>
 
 </body>
 </html>
