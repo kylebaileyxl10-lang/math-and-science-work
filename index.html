@@ -2,58 +2,56 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>GDRWeb | Full Level Render v1.0.21</title>
+    <title>GDRWeb | Menu & Engine v1.0.22</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
         body { 
             margin: 0; 
-            background-color: #050505; 
+            background-color: #000; 
             overflow: hidden; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             height: 100vh; 
             color: #fff; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: 'Segoe UI', sans-serif; 
         }
         #gameCanvas { 
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.1); 
-            border: 2px solid #1a1a1a; 
-            background: #0a0a10;
+            box-shadow: 0 0 40px rgba(0, 150, 255, 0.1); 
+            border: 1px solid #1a1a1a; 
+            background: #000;
         }
+        /* The loader-ui will now only show when the data is being parsed */
         #loader-ui { 
             position: absolute; 
             text-align: center; 
             z-index: 10;
+            display: none; 
         }
         .loading-text {
-            font-size: 14px;
+            font-size: 12px;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #0f0;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            color: #0af;
         }
         .loading-bar { 
-            width: 240px; 
+            width: 200px; 
             height: 2px; 
-            background: #222; 
-            margin: 15px auto; 
-            border-radius: 1px; 
-            overflow: hidden; 
+            background: #111; 
+            margin: 10px auto; 
         }
         .progress { 
-            width: 75%; 
+            width: 0%; 
             height: 100%; 
-            background: #0f0; 
-            box-shadow: 0 0 10px #0f0;
+            background: #0af; 
+            transition: width 0.2s;
         }
     </style>
 </head>
 <body>
 
     <div id="loader-ui">
-        <div class="loading-text">Analyzing Level Blueprint...</div>
-        <div class="loading-bar"><div class="progress"></div></div>
+        <div class="loading-text">DECOMPRESSING LEVEL...</div>
+        <div class="loading-bar"><div id="p-bar" class="progress"></div></div>
     </div>
 
     <canvas id="gameCanvas" width="800" height="450"></canvas>
@@ -61,7 +59,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="cocos2d.js"></script>
     
-    <script src="script.js?v=1.0.21"></script>
+    <script src="script.js?v=1.0.22"></script>
 
 </body>
 </html>
