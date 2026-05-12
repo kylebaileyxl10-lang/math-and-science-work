@@ -1,10 +1,10 @@
-// --- GDRWeb v1.0.20: INDIVIDUAL ASSET ENGINE ---
-console.log("System: v1.0.20 - Loading Individual Assets...");
+// --- GDRWeb v1.0.21: FULL LEVEL RENDER ---
+console.log("System: v1.0.21 - Rendering Full Level...");
 
-// We use the exact names from your folder!
 const ID_MAP = {
-    "1": "assets/GJ_square01.png", // The basic block I saw in your folder
-    "8": "assets/GJ_button_01.png", // Placeholder for spike
+    "1": "assets/GJ_square01.png", // Block
+    "2": "assets/GJ_square02.png", // Block 2
+    "8": "assets/GJ_button_01.png", // Placeholder Spike
     "default": "assets/GJ_square01.png"
 };
 
@@ -13,37 +13,42 @@ window.loadLevelLibrary = function(xmlData) {
         const scene = new cc.Scene();
         const layer = new cc.Layer();
         scene.addChild(layer);
-        
+
         try {
-            const raw = xmlData.split("<k>k4</k><s>")[1].split("</s>")[0].trim();
-            const bin = atob(raw.replace(/-/g, '+').replace(/_/g, '/'));
+            // 1. DEEP SCAN for the biggest level
+            const parts = xmlData.split("<k>k4</k><s>");
+            let bestRaw = "";
+            for (let i = 1; i < parts.length; i++) {
+                const segment = parts[i].split("</s>")[0].trim();
+                if (segment.length > bestRaw.length) bestRaw = segment;
+            }
+
+            const bin = atob(bestRaw.replace(/-/g, '+').replace(/_/g, '/'));
             const data = pako.inflate(Uint8Array.from(bin, c => c.charCodeAt(0)), { to: 'string' });
             const objects = data.split(';');
 
-            console.log("Found: " + objects.length + " objects.");
+            console.log("Renderer: SUCCESS! Found " + objects.length + " objects.");
 
-            // Draw first 5000 objects
-            objects.slice(0, 5000).forEach(objStr => {
+            // 2. RENDER with 10k limit for stability
+            objects.slice(0, 10000).forEach(objStr => {
                 const p = objStr.split(',');
-                const id = p[p.indexOf('1') + 1];
-                const x = p[p.indexOf('2') + 1];
-                const y = p[p.indexOf('3') + 1];
+                const id = p[p.indexOf('1') + 1], x = p[p.indexOf('2') + 1], y = p[p.indexOf('3') + 1];
 
                 if (id && x && y) {
-                    const imgPath = ID_MAP[id] || ID_MAP["default"];
-                    const sprite = new cc.Sprite(imgPath);
+                    const sprite = new cc.Sprite(ID_MAP[id] || ID_MAP["default"]);
                     
-                    // Center the camera slightly
-                    sprite.setPosition(parseFloat(x) / 5, parseFloat(y) / 5);
+                    // SCALE & POSITION
+                    // GD units are large, so we divide by 4. 
+                    // We subtract 500 from Y to bring the level down into view.
+                    sprite.setPosition(parseFloat(x) / 4, (parseFloat(y) / 4) - 200);
                     sprite.setScale(0.3);
                     layer.addChild(sprite);
                 }
             });
 
             document.getElementById('loader-ui').style.display = 'none';
-        } catch (e) {
-            console.error("Render Error:", e);
-        }
+        } catch (e) { console.error("Final Render Error:", e); }
+        
         cc.director.runScene(scene);
     };
     cc.game.run("gameCanvas");
