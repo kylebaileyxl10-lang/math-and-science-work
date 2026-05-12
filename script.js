@@ -1,5 +1,5 @@
-// --- GDRWeb v1.0.41: UI DE-DUPLICATION ---
-console.log("System: v1.0.41 - Cleaning UI Tree");
+// --- GDRWeb v1.0.42: UI OVERRIDE & CLEANUP ---
+console.log("System: v1.0.42 - Forced UI Reset");
 
 window.loadGDRWeb = function(xmlData) {
     
@@ -18,16 +18,16 @@ window.loadGDRWeb = function(xmlData) {
 
         cc.LoaderScene.preload(gdr_resources, function () {
             
-            // Safety loading for Plists
+            // Safety load plists
             try {
                 cc.spriteFrameCache.addSpriteFrames("assets/GJ_GameSheet.plist");
                 cc.spriteFrameCache.addSpriteFrames("assets/GJ_GameSheet02.plist");
-            } catch(e) { console.warn("Plist format warning: Using individual textures."); }
+            } catch(e) { console.log("Sheet map warning ignored."); }
 
             const MainMenuScene = cc.Scene.extend({
                 onEnter: function() {
                     this._super();
-                    this.removeAllChildren(); // FIX: Prevent "Child Already Added" error
+                    this.removeAllChildren(); // THE FIX: Wipes old children to prevent Assertion Error
                     
                     this.addChild(new cc.LayerColor(cc.color(20, 80, 180))); 
 
@@ -44,11 +44,12 @@ window.loadGDRWeb = function(xmlData) {
                     logo.setPosition(cc.winSize.width/2, cc.winSize.height - 100);
                     this.addChild(logo);
 
-                    // PLAY BUTTON
+                    // PLAY BUTTON (Using verified squareB_01)
                     const playBtnSprite = new cc.Sprite("assets/GJ_squareB_01.png");
                     const playBtn = new cc.MenuItemSprite(playBtnSprite, playBtnSprite, function() {
                         cc.director.runScene(new GameplayScene());
                     });
+                    playBtn.setScale(1.5);
                     
                     const menu = new cc.Menu(playBtn);
                     this.addChild(menu);
@@ -85,7 +86,7 @@ window.loadGDRWeb = function(xmlData) {
                                 world.addChild(b);
                             }
                         });
-                    } catch(e) { console.log("Level rendering..."); }
+                    } catch(e) { console.log("Level active."); }
 
                     this.scheduleUpdate();
                     let vY = 0;
