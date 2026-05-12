@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>GDRWeb | Visual Overhaul v1.0.26</title>
+    <title>GDRWeb | Full Game System v1.0.27</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
         body { 
@@ -15,12 +15,13 @@
             height: 100vh; 
             color: #fff; 
             font-family: 'Segoe UI', sans-serif; 
-            /* CRITICAL: Prevents accidental highlighting while clicking to jump */
+            /* Prevents blue highlight boxes on mobile/touch */
+            -webkit-tap-highlight-color: transparent;
             user-select: none;
-            -webkit-user-select: none;
+            touch-action: none;
         }
         #gameCanvas { 
-            box-shadow: 0 0 60px rgba(0, 100, 255, 0.2); 
+            box-shadow: 0 0 50px rgba(0, 200, 255, 0.2); 
             border: 2px solid #111; 
             background: #000;
             cursor: pointer;
@@ -28,21 +29,21 @@
         #loader-ui { 
             position: absolute; 
             text-align: center; 
-            z-index: 10;
+            z-index: 20;
             pointer-events: none;
         }
         .loading-text {
             font-size: 14px;
-            letter-spacing: 3px;
-            color: #0af;
-            text-shadow: 0 0 10px #0af;
+            letter-spacing: 2px;
+            color: #0cf;
+            text-shadow: 0 0 15px #0cf;
         }
     </style>
 </head>
 <body>
 
     <div id="loader-ui">
-        <div class="loading-text">SYNCING GEOMETRY...</div>
+        <div class="loading-text">INITIALIZING GLOBAL SYSTEM...</div>
     </div>
 
     <canvas id="gameCanvas" width="800" height="450"></canvas>
@@ -50,7 +51,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="cocos2d.js"></script>
     
-    <script src="script.js?v=1.0.26"></script>
+    <script src="script.js?v=1.0.27"></script>
 
 </body>
 </html>
