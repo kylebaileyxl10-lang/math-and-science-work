@@ -1,42 +1,41 @@
-// --- GDRWeb v1.0.51: TOTAL COLLISION BLOCK ---
-console.log("System: v1.0.51 - Deploying Absolute Guard");
+// --- GDRWeb v1.0.52: MULTI-JSON BYPASS ---
+console.log("System: v1.0.52 - Purging Cache and Building Scene");
 
 window.loadGDRWeb = function(xmlData) {
-    // This variable exists outside the engine loop to track status
-    if (window.GDR_INITIALIZED) return;
-    window.GDR_INITIALIZED = true;
-
     cc.game.onStart = function() {
-        // Safe viewport config
         if (cc.view) {
             cc.view.enableRetina(false);
             cc.view.setDesignResolutionSize(800, 450, cc.ResolutionPolicy.SHOW_ALL);
         }
 
+        // PURGE: Clear any old data that might have come from other project.json files
+        cc.spriteFrameCache.removeSpriteFrames();
+
         cc.loader.loadTxt("assets/GJ_GameSheet.plist", function(err, textData) {
             if (!err && textData) {
                 try {
                     cc.spriteFrameCache._addSpriteFramesByObject("assets/GJ_GameSheet.plist", JSON.parse(textData));
-                } catch (e) { console.warn("Sheet skip"); }
+                } catch (e) { console.warn("JSON Sync failed"); }
             }
 
             const MainMenuScene = cc.Scene.extend({
                 onEnter: function() {
                     this._super();
                     
-                    // Final guard: check children before adding anything
-                    if (this.getChildrenCount() > 0) return;
-
+                    // THE FIX: Wipe this specific scene instance to kill the collision error
+                    this.removeAllChildren(true);
+                    
                     const bg = new cc.LayerColor(cc.color(20, 80, 180));
                     this.addChild(bg); 
 
-                    // Use verified cogwheel name
+                    // Logo verification
                     const frame = cc.spriteFrameCache.getSpriteFrame("blackCogwheel_01_001.png");
-                    const logo = frame ? new cc.Sprite(frame) : new cc.LabelTTF("GDRWeb Engine", "Arial", 36);
-                    logo.setPosition(400, 350);
-                    if (frame) logo.setScale(1.5);
-                    this.addChild(logo);
+                    const logoNode = frame ? new cc.Sprite(frame) : new cc.LabelTTF("GDRWeb Engine", "Arial", 36);
+                    logoNode.setPosition(400, 350);
+                    if (frame) logoNode.setScale(1.5);
+                    this.addChild(logoNode);
 
+                    // Play Button using confirmed square
                     const playBtnSprite = new cc.Sprite("assets/GJ_squareB_01.png");
                     const playBtn = new cc.MenuItemSprite(playBtnSprite, playBtnSprite, function() {
                         cc.director.runScene(new GameplayScene());
@@ -52,17 +51,11 @@ window.loadGDRWeb = function(xmlData) {
             const GameplayScene = cc.Scene.extend({
                 onEnter: function() {
                     this._super();
+                    this.removeAllChildren(true);
                     this.addChild(new cc.LayerColor(cc.color(10, 40, 90)));
                     const player = new cc.Sprite("assets/icons/player_01.png");
                     player.setPosition(150, 150);
                     this.addChild(player);
-                    this.scheduleUpdate();
-                    let vY = 0;
-                    this.update = function(dt) {
-                        vY -= 35 * dt; player.y += vY;
-                        if (player.y <= 115) { player.y = 115; vY = 0; }
-                    };
-                    cc.eventManager.addListener({ event: cc.EventListener.MOUSE, onMouseDown: () => vY = 13 }, this);
                 }
             });
 
@@ -70,7 +63,6 @@ window.loadGDRWeb = function(xmlData) {
         });
     };
 
-    // Use the official bootstrap
     cc.game.run("gameCanvas");
 };
 
