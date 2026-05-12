@@ -1,66 +1,70 @@
-// --- V1.0.14: THE SPRITE MAPPER ---
-console.log("Boot: Sprite Engine v1.0.14 Started...");
+// --- GDRWeb v1.0.15: SPRITE RENDERER ---
+console.log("Boot: Sprite Engine v1.0.15 Active");
 
-// 1. OBJECT ID MAPPING
-// You can add more IDs here as you find them!
 const ID_MAP = {
-    "1": "gj_block_01.png", // Standard Block
-    "8": "gj_spike_01.png", // Standard Spike
-    "22": "gj_saw_01.png",  // Sawblade
-    "default": "gj_block_01.png" 
+    "1": "gj_block_01.png", 
+    "8": "gj_spike_01.png",
+    "22": "gj_saw_01.png",
+    "default": "gj_block_01.png"
+};
+
+// DECOMPRESSION LOGIC
+window.decompressLevel = function(raw) {
+    try {
+        const bin = atob(raw.replace(/-/g, '+').replace(/_/g, '/'));
+        const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+        return pako.inflate(bytes, { to: 'string' });
+    } catch (e) {
+        console.error("Decompress Error:", e);
+        return "";
+    }
 };
 
 window.loadLevelLibrary = function(xmlData) {
     const loaderUI = document.getElementById('loader-ui');
-    
-    const MathLabScene = cc.Scene.extend({
-        onEnter: function() {
-            this._super();
-            this.addChild(new cc.LayerColor(cc.color(10, 10, 15))); 
-            const gameLayer = new cc.Layer();
-            this.addChild(gameLayer);
+    const pBar = document.getElementById('p-bar');
 
-            // Load the spritesheet metadata (.plist)
-            cc.spriteFrameCache.addSpriteFrames("assets/GJ_GameSheet.plist");
+    cc.game.onStart = function() {
+        const scene = new cc.Scene();
+        scene.addChild(new cc.LayerColor(cc.color(5, 5, 10)));
+        const gameLayer = new cc.Layer();
+        scene.addChild(gameLayer);
 
-            try {
-                const raw = xmlData.split("<k>k4</k><s>")[1].split("</s>")[0].trim();
-                const decoded = window.decompressLevel(raw);
-                const objects = decoded.split(';');
+        // Load your sheet from the assets folder
+        cc.spriteFrameCache.addSpriteFrames("assets/GJ_GameSheet.plist");
 
-                // We're rendering the first 10,000 to keep it smooth
-                objects.slice(0, 10000).forEach(objStr => {
-                    const p = objStr.split(',');
-                    
-                    // Find the keys
-                    const idIdx = p.indexOf('1'); // Key 1 = Object ID
-                    const xIdx = p.indexOf('2');  // Key 2 = X
-                    const yIdx = p.indexOf('3');  // Key 3 = Y
+        try {
+            const raw = xmlData.split("<k>k4</k><s>")[1].split("</s>")[0].trim();
+            const decoded = window.decompressLevel(raw);
+            const objects = decoded.split(';');
 
-                    if (idIdx !== -1 && xIdx !== -1 && yIdx !== -1) {
-                        const objID = p[idIdx + 1];
-                        const spriteName = ID_MAP[objID] || ID_MAP["default"];
-                        
-                        // Create the actual sprite from the sheet
-                        const sprite = new cc.Sprite("#" + spriteName);
-                        
-                        // Geometry Dash uses 30 units per block, so we scale down
-                        sprite.setPosition(parseFloat(p[xIdx+1]) / 4, parseFloat(p[yIdx+1]) / 4);
-                        sprite.setScale(0.5); 
-                        
-                        gameLayer.addChild(sprite);
-                    }
-                });
+            console.log("SUCCESS! Objects in Data: " + objects.length);
 
-                if (loaderUI) loaderUI.style.display = 'none';
-            } catch (e) { console.error("Sprite Render Error:", e); }
+            // Limit to 8000 for performance
+            objects.slice(0, 8000).forEach(objStr => {
+                const p = objStr.split(',');
+                const id = p[p.indexOf('1') + 1];
+                const x = p[p.indexOf('2') + 1];
+                const y = p[p.indexOf('3') + 1];
 
-            const label = new cc.LabelTTF("Math Lab: Level Sprites Active", "Arial", 16);
-            label.setPosition(cc.winSize.width / 2, 40);
-            this.addChild(label);
-        }
-    });
-    cc.director.runScene(new MathLabScene());
+                if (id && x && y) {
+                    const spriteName = ID_MAP[id] || ID_MAP["default"];
+                    const sprite = new cc.Sprite("#" + spriteName);
+                    sprite.setPosition(parseFloat(x) / 4, parseFloat(y) / 4);
+                    sprite.setScale(0.4);
+                    gameLayer.addChild(sprite);
+                }
+            });
+
+            if (loaderUI) loaderUI.style.display = 'none';
+        } catch (e) { console.error("Render Error:", e); }
+        cc.director.runScene(scene);
+    };
+    cc.game.run("gameCanvas");
 };
 
-// ... (Keep your existing Pako Decompressor and Bootloader from v1.0.13) ...
+// FETCH DATA
+fetch('project_data.xml?v=' + Date.now())
+    .then(r => r.text())
+    .then(window.loadLevelLibrary)
+    .catch(err => console.error("Failed to fetch project_data.xml", err));
