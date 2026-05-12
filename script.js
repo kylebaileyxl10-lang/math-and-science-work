@@ -1,81 +1,84 @@
-// --- GDRWeb v1.0.24: PLAYER PHYSICS & CAMERA ---
-console.log("System: v1.0.24 - Gameplay Physics Engaged");
+// --- GDRWeb v1.0.26: THE VISUAL OVERHAUL ---
+console.log("System: v1.0.26 - Polishing Visuals...");
 
 const ID_MAP = { "1": "assets/GJ_square01.png", "default": "assets/GJ_square01.png" };
 
 window.loadGDRWeb = function(xmlData) {
     cc.game.onStart = function() {
-        
-        // --- SCENE: THE LEVEL ---
         const LevelScene = cc.Scene.extend({
             onEnter: function() {
                 this._super();
+                if (document.getElementById('loader-ui')) document.getElementById('loader-ui').style.display = 'none';
+
+                // 1. THE BACKGROUND (The iconic GD Blue)
+                const bg = new cc.LayerColor(cc.color(0, 102, 255)); 
+                this.addChild(bg);
+
                 const world = new cc.Layer();
                 this.addChild(world);
 
-                // 1. THE PLAYER CUBE
+                // 2. THE GROUND (Scrolling Floor)
+                const ground = new cc.LayerColor(cc.color(0, 80, 200), 50000, 100);
+                ground.setPosition(0, 0);
+                world.addChild(ground);
+
+                // 3. THE PLAYER (Adding a glow effect)
                 const player = new cc.Sprite("assets/GJ_square01.png");
-                player.setPosition(100, 200);
-                player.setColor(cc.color(0, 255, 0)); // Classic Green
+                player.setPosition(150, 200);
+                player.setColor(cc.color(0, 255, 0));
                 world.addChild(player);
 
-                // 2. PARSE LEVEL
-                const parts = xmlData.split("<k>k4</k><s>");
-                const raw = parts[1].split("</s>")[0].trim();
-                const bin = atob(raw.replace(/-/g, '+').replace(/_/g, '/'));
-                const data = pako.inflate(Uint8Array.from(bin, c => c.charCodeAt(0)), { to: 'string' });
-                const objects = data.split(';');
+                try {
+                    const raw = xmlData.split("<k>k4</k><s>")[1].split("</s>")[0].trim();
+                    const bin = atob(raw.replace(/-/g, '+').replace(/_/g, '/'));
+                    const data = pako.inflate(Uint8Array.from(bin, c => c.charCodeAt(0)), { to: 'string' });
+                    const objects = data.split(';');
 
-                objects.slice(0, 8000).forEach(objStr => {
-                    const p = objStr.split(',');
-                    const id = p[p.indexOf('1') + 1], x = p[p.indexOf('2') + 1], y = p[p.indexOf('3') + 1];
-                    if (id && x && y) {
-                        const s = new cc.Sprite(ID_MAP[id] || ID_MAP["default"]);
-                        s.setPosition(parseFloat(x)/4, (parseFloat(y)/4));
-                        s.setScale(0.35);
-                        world.addChild(s);
-                    }
-                });
+                    objects.slice(0, 3000).forEach(objStr => {
+                        const p = objStr.split(',');
+                        const id = p[p.indexOf('1') + 1], x = p[p.indexOf('2') + 1], y = p[p.indexOf('3') + 1];
+                        if (id && x && y) {
+                            const s = new cc.Sprite(ID_MAP[id] || ID_MAP["default"]);
+                            // GD objects are slightly above the floor
+                            s.setPosition(parseFloat(x) / 4, (parseFloat(y) / 4) + 100);
+                            s.setScale(0.35);
+                            world.addChild(s);
+                        }
+                    });
+                } catch(e) { console.error(e); }
 
-                // 3. THE PHYSICS LOOP (The "GD Movement")
+                // 4. PHYSICS & AUTO-SCROLL
                 let velocityY = 0;
                 let isJumping = false;
-
                 this.scheduleUpdate();
+                
                 this.update = function(dt) {
-                    // Move world left (makes player look like they move right)
-                    const speed = 350 * dt;
-                    world.x -= speed;
-
-                    // Gravity
-                    velocityY -= 25 * dt;
+                    const scrollSpeed = 320 * dt;
+                    world.x -= scrollSpeed; // Move world
+                    player.x += scrollSpeed; // Keep player in view
+                    
+                    velocityY -= 35 * dt; // Gravity
                     player.y += velocityY;
 
-                    // Floor Collision (Basic)
-                    if (player.y <= 100) {
-                        player.y = 100;
+                    // Collision with the Blue Ground
+                    if (player.y <= 115) {
+                        player.y = 115;
                         velocityY = 0;
                         isJumping = false;
+                        player.setRotation(0); // Reset rotation on land
+                    } else {
+                        player.rotation += 300 * dt; // Rotate while jumping!
                     }
-
-                    // Camera Follow (Center player on screen)
-                    player.x += speed; 
                 };
 
-                // 4. CLICK TO JUMP
                 cc.eventManager.addListener({
                     event: cc.EventListener.MOUSE,
                     onMouseDown: function() {
-                        if (!isJumping) {
-                            velocityY = 12;
-                            isJumping = true;
-                        }
+                        if (!isJumping) { velocityY = 13; isJumping = true; }
                     }
                 }, this);
             }
         });
-
-        // Start with Menu (or skip to LevelScene to test immediately)
         cc.director.runScene(new LevelScene());
     };
     cc.game.run("gameCanvas");
