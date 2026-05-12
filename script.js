@@ -1,5 +1,5 @@
 // --- GDRWeb v1.0.52: MULTI-JSON BYPASS ---
-console.log("System: v1.0.52 - Purging Cache and Building Scene");
+console.log("System: v1.0.52 - Executing Forced Scene Reset");
 
 window.loadGDRWeb = function(xmlData) {
     cc.game.onStart = function() {
@@ -8,34 +8,33 @@ window.loadGDRWeb = function(xmlData) {
             cc.view.setDesignResolutionSize(800, 450, cc.ResolutionPolicy.SHOW_ALL);
         }
 
-        // PURGE: Clear any old data that might have come from other project.json files
+        // Wipe any accidental pre-loads from other project.json files
         cc.spriteFrameCache.removeSpriteFrames();
 
         cc.loader.loadTxt("assets/GJ_GameSheet.plist", function(err, textData) {
             if (!err && textData) {
                 try {
                     cc.spriteFrameCache._addSpriteFramesByObject("assets/GJ_GameSheet.plist", JSON.parse(textData));
-                } catch (e) { console.warn("JSON Sync failed"); }
+                } catch (e) { console.warn("JSON error"); }
             }
 
             const MainMenuScene = cc.Scene.extend({
                 onEnter: function() {
                     this._super();
                     
-                    // THE FIX: Wipe this specific scene instance to kill the collision error
+                    // Kill the "Child already added" error by wiping this specific instance
                     this.removeAllChildren(true);
                     
-                    const bg = new cc.LayerColor(cc.color(20, 80, 180));
-                    this.addChild(bg); 
+                    this.addChild(new cc.LayerColor(cc.color(20, 80, 180))); 
 
-                    // Logo verification
+                    // Check for Black Cogwheel
                     const frame = cc.spriteFrameCache.getSpriteFrame("blackCogwheel_01_001.png");
                     const logoNode = frame ? new cc.Sprite(frame) : new cc.LabelTTF("GDRWeb Engine", "Arial", 36);
                     logoNode.setPosition(400, 350);
                     if (frame) logoNode.setScale(1.5);
                     this.addChild(logoNode);
 
-                    // Play Button using confirmed square
+                    // Play Button using verified blue square
                     const playBtnSprite = new cc.Sprite("assets/GJ_squareB_01.png");
                     const playBtn = new cc.MenuItemSprite(playBtnSprite, playBtnSprite, function() {
                         cc.director.runScene(new GameplayScene());
