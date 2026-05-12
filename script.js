@@ -1,17 +1,26 @@
-// --- ADVANCED UNZIP TOOL ---
+// --- TRUE UNZIP TOOL (Powered by Pako) ---
 window.decompressLevel = function(data) {
     try {
-        // Step 1: Fix character encoding for Base64
-        const binaryString = atob(data.replace(/-/g, '+').replace(/_/g, '/'));
+        // Step 1: Fix Base64 encoding
+        const b64 = data.replace(/-/g, '+').replace(/_/g, '/');
+        const binaryString = atob(b64);
+        
+        // Step 2: Convert to byte array
         const len = binaryString.length;
         const bytes = new Uint8Array(len);
-        for (let i = 0; i < len; i++) { bytes[i] = binaryString.charCodeAt(i); }
+        for (let i = 0; i < len; i++) { 
+            bytes[i] = binaryString.charCodeAt(i); 
+        }
         
-        // Step 2: Use browser-native stream decompression for large GD strings
-        // This is much faster for 12MB files on home PCs
-        return new TextDecoder().decode(bytes);
+        // Step 3: USE PAKO TO UNZIP!
+        // This is what actually cracks the 12MB Gzip file open
+        const unzipped = pako.inflate(bytes);
+        
+        // Step 4: Turn the unzipped bytes back into the massive GD string
+        return new TextDecoder().decode(unzipped);
+        
     } catch(e) { 
-        console.warn("Decompression fallback triggered...");
+        console.error("Pako Decompression failed!", e);
         return atob(data); 
     }
 };
@@ -33,7 +42,7 @@ window.loadLevelLibrary = function(xmlData) {
                 const rawData = xmlData.substring(start, end).trim();
 
                 if (rawData.length > 100) {
-                    // Two-Step Unlock
+                    // Two-Step Unlock using Pako
                     const decodedData = window.decompressLevel(rawData);
                     const objects = decodedData.split(';');
                     console.log("Renderer: SUCCESS! Found " + objects.length + " objects.");
