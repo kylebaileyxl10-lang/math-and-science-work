@@ -2,21 +2,19 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>GDRWeb | Engine v1.0.16</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>GDRWeb Engine v1.0.17</title>
     <style>
         body { margin: 0; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; color: #fff; font-family: sans-serif; }
-        #gameCanvas { box-shadow: 0 0 20px rgba(0, 255, 0, 0.15); border: 1px solid #222; background: #05050a; }
-        #loader-ui { position: absolute; text-align: center; pointer-events: none; }
-        .loading-bar { width: 200px; height: 4px; background: #222; margin-top: 10px; border-radius: 2px; overflow: hidden; }
-        .progress { width: 30%; height: 100%; background: #0f0; transition: width 0.4s; }
+        #gameCanvas { border: 1px solid #333; background: #05050a; }
+        #overlay { position: absolute; text-align: center; width: 100%; pointer-events: none; }
+        .error-msg { color: #ff5555; font-weight: bold; background: rgba(0,0,0,0.8); padding: 10px; border: 1px solid #ff5555; display: none; }
     </style>
 </head>
 <body>
 
-    <div id="loader-ui">
-        <div id="status-text" style="font-size: 14px;">Initializing Lab...</div>
-        <div class="loading-bar"><div id="p-bar" class="progress"></div></div>
+    <div id="overlay">
+        <div id="status">Loading Math Lab...</div>
+        <div id="error-display" class="error-msg"></div>
     </div>
 
     <canvas id="gameCanvas" width="800" height="450"></canvas>
@@ -24,7 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="cocos2d.js"></script>
     
-    <script src="script.js?v=1.0.16"></script>
+    <script src="script.js?v=1.0.17"></script>
 
 </body>
 </html>
