@@ -1,66 +1,79 @@
-// --- GDRWeb v1.0.73: NESTED JSON COMPATIBILITY ---
-window.GDRWEB_VERSION = "1.0.73";
+// --- GDRWeb v1.0.74: FULL ASSET SYNC ---
+window.GDRWEB_VERSION = "1.0.74";
 
 cc.game.onStart = function() {
     cc.view.setDesignResolutionSize(1280, 720, cc.ResolutionPolicy.SHOW_ALL);
     cc.view.resizeWithBrowserSize(true);
 
-    const assetList = [
-        "assets/GJ_GameSheet.json", "assets/GJ_GameSheet.png",
-        "assets/GJ_GameSheet04.json", "assets/GJ_GameSheet04.png",
-        "assets/GJ_squareB_01.png"
-    ];
+    // List of all your uploaded assets
+    const sheetNames = ["", "02", "03", "04", "Glow", "Icons", "Editor"];
+    const assetList = ["assets/GJ_squareB_01.png"];
+    
+    sheetNames.forEach(s => {
+        assetList.push(`assets/GJ_GameSheet${s}.json`);
+        assetList.push(`assets/GJ_GameSheet${s}.png`);
+    });
 
     cc.loader.load(assetList, function() {
-        // --- SMART SPLICER: Handles both Standard and Nested JSON ---
-        const spliceSheet = (jsonPath) => {
-            const data = cc.loader.getRes(jsonPath);
+        
+        // --- IMPROVED SPLICER: Deep-dives into nested Plist-JSON ---
+        const spliceSheet = (name) => {
+            const data = cc.loader.getRes(`assets/GJ_GameSheet${name}.json`);
             if (!data) return;
-            
-            // Check if it's the Nested Plist format (like your GameSheet04)
+
+            let converted = { frames: {}, metadata: {} };
+
             if (data.plist && data.plist.dict) {
-                const frames = data.plist.dict[0].dict;
-                const keys = data.plist.dict[0].key;
-                let converted = { frames: {}, metadata: {} };
-                
-                // Maps the nested arrays into a format Cocos understands
-                keys.forEach((key, i) => {
-                    if (frames[i]) converted.frames[key] = frames[i];
+                const root = data.plist.dict[0];
+                const frameKeys = root.key.indexOf("frames");
+                const frameDict = root.dict[frameKeys];
+
+                // Digging into the nested "key" and "dict" arrays
+                frameDict.key.forEach((frameName, i) => {
+                    const rawData = frameDict.dict[i];
+                    let frameObj = {};
+                    rawData.key.forEach((k, j) => {
+                        // Map the string values (like "{0,0}") to the keys (like "spriteOffset")
+                        frameObj[k] = rawData.string[j];
+                    });
+                    converted.frames[frameName] = frameObj;
                 });
-                cc.spriteFrameCache._addSpriteFramesByObject(jsonPath, converted);
+                cc.spriteFrameCache._addSpriteFramesByObject(name, converted);
             } else {
-                // Standard format (like your GameSheet01)
-                cc.spriteFrameCache._addSpriteFramesByObject(jsonPath, data);
+                cc.spriteFrameCache._addSpriteFramesByObject(name, data);
             }
         };
 
-        spliceSheet("assets/GJ_GameSheet.json");
-        spliceSheet("assets/GJ_GameSheet04.json");
+        sheetNames.forEach(spliceSheet);
 
         const getSprite = (name) => {
             const frame = cc.spriteFrameCache.getSpriteFrame(name);
-            if (frame) return new cc.Sprite("#" + name);
-            console.warn("Resource Missing:", name);
-            return new cc.Sprite("assets/GJ_squareB_01.png");
+            return frame ? new cc.Sprite("#" + name) : new cc.Sprite("assets/GJ_squareB_01.png");
         };
 
+        // --- SCENES ---
         const MainMenuScene = cc.Scene.extend({
             onEnter: function() {
                 this._super();
-                this.addChild(new cc.LayerColor(cc.color(175, 0, 175))); // GD Purple
-
-                // LOGO (Found in GJ_GameSheet.json)
+                this.addChild(new cc.LayerColor(cc.color(175, 0, 175)));
+                
+                // Logo (from Sheet 01)
                 const logo = getSprite("GJ_logo_001.png");
                 logo.setPosition(640, 550);
                 this.addChild(logo);
 
-                // PLAY BUTTON (Found in GJ_GameSheet04.json)
-                const playBtn = new cc.MenuItemSprite(
-                    getSprite("GJ_playBtn_001.png"), 
-                    getSprite("GJ_playBtn_001.png"), 
-                    function() { cc.director.runScene(new LevelSelectScene()); }, this);
-                
-                const menu = new cc.Menu(playBtn);
+                // Play Button (from Sheet 04)
+                const playBtn = new cc.MenuItemSprite(getSprite("GJ_playBtn_001.png"), getSprite("GJ_playBtn_001.png"), function() {
+                    cc.director.runScene(new LevelSelectScene());
+                }, this);
+
+                // Creator Button (from Sheet 04)
+                const editBtn = new cc.MenuItemSprite(getSprite("GJ_creatorBtn_001.png"), getSprite("GJ_creatorBtn_001.png"), function() {
+                    console.log("Routing to: My Levels");
+                }, this);
+
+                const menu = new cc.Menu(editBtn, playBtn);
+                menu.alignItemsHorizontallyWithPadding(60);
                 menu.setPosition(640, 320);
                 this.addChild(menu);
             }
@@ -69,19 +82,20 @@ cc.game.onStart = function() {
         const LevelSelectScene = cc.Scene.extend({
             onEnter: function() {
                 this._super();
-                this.addChild(new cc.LayerColor(cc.color(0, 100, 255))); // Stereo Madness Blue
+                this.addChild(new cc.LayerColor(cc.color(0, 100, 255))); // Blue
+
                 const label = new cc.LabelTTF("Stereo Madness", "Arial", 60);
                 label.setPosition(640, 500);
                 this.addChild(label);
 
-                // BACK BUTTON
-                const backBtn = new cc.MenuItemSprite(
-                    getSprite("GJ_arrow_01_001.png"), 
-                    getSprite("GJ_arrow_01_001.png"), 
-                    function() { cc.director.runScene(new MainMenuScene()); }, this);
-                const backMenu = new cc.Menu(backBtn);
-                backMenu.setPosition(80, 640);
-                this.addChild(backMenu);
+                // Back Arrow (from Sheet 03)
+                const backBtn = new cc.MenuItemSprite(getSprite("GJ_arrow_01_001.png"), getSprite("GJ_arrow_01_001.png"), function() {
+                    cc.director.runScene(new MainMenuScene());
+                }, this);
+                
+                const menu = new cc.Menu(backBtn);
+                menu.setPosition(80, 640);
+                this.addChild(menu);
             }
         });
 
@@ -89,7 +103,4 @@ cc.game.onStart = function() {
     });
 };
 
-if (!window.GDR_STARTED) {
-    window.GDR_STARTED = true;
-    cc.game.run("gameCanvas");
-}
+cc.game.run("gameCanvas");
