@@ -1,19 +1,24 @@
-// --- GDRWeb v1.0.63: VERIFIED FRAME SYNC ---
-window.GDRWEB_VERSION = "1.0.63";
+// --- GDRWeb v1.0.64: VERIFIED LOGO SYNC ---
+window.GDRWEB_VERSION = "1.0.64";
 
 cc.game.onStart = function() {
     cc.view.setDesignResolutionSize(800, 450, cc.ResolutionPolicy.SHOW_ALL);
     cc.view.resizeWithBrowserSize(true);
 
+    // 1. Load the JSON Plist first
     cc.loader.loadTxt("assets/GJ_GameSheet.plist", function(err, textData) {
         if (!err && textData) {
             try {
                 const sheetData = JSON.parse(textData);
+                // Injects the frames we saw in your photo
                 cc.spriteFrameCache._addSpriteFramesByObject("assets/GJ_GameSheet.plist", sheetData);
-                console.log("System: JSON Sheet Injected. Found " + Object.keys(sheetData.frames).length + " frames.");
-            } catch (e) { console.error("JSON Error"); }
+                console.log("System: Sprite frames injected successfully.");
+            } catch (e) {
+                console.error("System: Failed to parse GJ_GameSheet.plist as JSON.");
+            }
         }
 
+        // 2. Load the actual image file
         cc.loader.load(["assets/GJ_GameSheet.png", "assets/GJ_squareB_01.png"], function() {
             
             const MainMenuScene = cc.Scene.extend({
@@ -21,35 +26,36 @@ cc.game.onStart = function() {
                     this._super();
                     this.removeAllChildren(true);
                     
-                    // Background: Pink
+                    // The classic pink background
                     this.addChild(new cc.LayerColor(cc.color(190, 0, 190))); 
 
-                    // --- LOGO BLOCK (Using verified name from your console) ---
-                    const logoFrame = cc.spriteFrameCache.getSpriteFrame("blackCogwheel_01_001.png");
-                    
-                    let logoNode;
+                    // --- LOGO (Verified from your image_4765b8.png) ---
+                    const logoFrame = cc.spriteFrameCache.getSpriteFrame("GJ_logo_001.png");
                     if (logoFrame) {
-                        logoNode = new cc.Sprite(logoFrame);
-                        logoNode.setScale(2.0); // Make it big like a logo
+                        const logo = new cc.Sprite(logoFrame);
+                        logo.setPosition(400, 350);
+                        logo.setScale(1.1);
+                        this.addChild(logo);
+                        console.log("System: Logo rendered successfully.");
                     } else {
-                        logoNode = new cc.LabelTTF("GDRWeb Engine", "Arial", 40);
+                        // Fallback text so the game doesn't crash if the name is wrong
+                        const errorLabel = new cc.LabelTTF("GEOMETRY DASH", "Arial", 40);
+                        errorLabel.setPosition(400, 350);
+                        this.addChild(errorLabel);
+                        console.warn("System: GJ_logo_001.png not found in cache.");
                     }
-                    
-                    logoNode.setPosition(400, 320);
-                    this.addChild(logoNode);
 
-                    // --- MAIN PLAY BUTTON ---
-                    // Using your confirmed squareB asset as a placeholder
-                    const playBtn = new cc.MenuItemSprite(
-                        new cc.Sprite("assets/GJ_squareB_01.png"), 
-                        new cc.Sprite("assets/GJ_squareB_01.png"), 
-                        function() {
-                            cc.director.runScene(new GameplayScene());
-                        }, this);
-                    playBtn.setScale(1.5);
+                    // --- PLAY BUTTON ---
+                    const playFrame = cc.spriteFrameCache.getSpriteFrame("GJ_playBtn_001.png");
+                    const btnTex = playFrame ? new cc.Sprite(playFrame) : new cc.Sprite("assets/GJ_squareB_01.png");
+                    
+                    const playBtn = new cc.MenuItemSprite(btnTex, btnTex, function() {
+                        cc.director.runScene(new GameplayScene());
+                    }, this);
+                    playBtn.setScale(1.4);
 
                     const menu = new cc.Menu(playBtn);
-                    menu.setPosition(400, 150);
+                    menu.setPosition(400, 180);
                     this.addChild(menu);
                 }
             });
@@ -57,19 +63,19 @@ cc.game.onStart = function() {
             const GameplayScene = cc.Scene.extend({
                 onEnter: function() {
                     this._super();
-                    this.addChild(new cc.LayerColor(cc.color(10, 20, 40)));
-                    const label = new cc.LabelTTF("LEVEL LOADING...", "Arial", 32);
+                    this.addChild(new cc.LayerColor(cc.color(20, 20, 20)));
+                    const label = new cc.LabelTTF("Level Loading...", "Arial", 30);
                     label.setPosition(400, 225);
                     this.addChild(label);
                 }
             });
 
-            // Start on the MENU, not the loading screen
             cc.director.runScene(new MainMenuScene());
         });
     });
 };
 
+// Prevent the "child already added" error
 if (!window.GDR_STARTED) {
     window.GDR_STARTED = true;
     cc.game.run("gameCanvas");
