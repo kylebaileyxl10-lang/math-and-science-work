@@ -1,54 +1,50 @@
-// --- GDRWeb v1.0.74: FULL ASSET SYNC ---
-window.GDRWEB_VERSION = "1.0.74";
+// --- GDRWeb v1.0.75: DEEP JSON MAPPING & UI ---
+window.GDRWEB_VERSION = "1.0.75";
 
 cc.game.onStart = function() {
     cc.view.setDesignResolutionSize(1280, 720, cc.ResolutionPolicy.SHOW_ALL);
     cc.view.resizeWithBrowserSize(true);
 
-    // List of all your uploaded assets
     const sheetNames = ["", "02", "03", "04", "Glow", "Icons", "Editor"];
     const assetList = ["assets/GJ_squareB_01.png"];
-    
     sheetNames.forEach(s => {
-        assetList.push(`assets/GJ_GameSheet${s}.json`);
-        assetList.push(`assets/GJ_GameSheet${s}.png`);
+        assetList.push(`assets/GJ_GameSheet${s}.json`, `assets/GJ_GameSheet${s}.png`);
     });
 
     cc.loader.load(assetList, function() {
         
-        // --- IMPROVED SPLICER: Deep-dives into nested Plist-JSON ---
         const spliceSheet = (name) => {
             const data = cc.loader.getRes(`assets/GJ_GameSheet${name}.json`);
-            if (!data) return;
+            if (!data || !data.plist) return;
 
             let converted = { frames: {}, metadata: {} };
+            const rootDict = data.plist.dict[0];
+            const frameIdx = rootDict.key.indexOf("frames");
+            const frameDict = rootDict.dict[frameIdx];
 
-            if (data.plist && data.plist.dict) {
-                const root = data.plist.dict[0];
-                const frameKeys = root.key.indexOf("frames");
-                const frameDict = root.dict[frameKeys];
-
-                // Digging into the nested "key" and "dict" arrays
-                frameDict.key.forEach((frameName, i) => {
-                    const rawData = frameDict.dict[i];
-                    let frameObj = {};
-                    rawData.key.forEach((k, j) => {
-                        // Map the string values (like "{0,0}") to the keys (like "spriteOffset")
-                        frameObj[k] = rawData.string[j];
-                    });
-                    converted.frames[frameName] = frameObj;
+            // --- DEEP MAPPER: Extracts values from Plist-JSON Arrays ---
+            frameDict.key.forEach((frameName, i) => {
+                const raw = frameDict.dict[i];
+                let fObj = {};
+                raw.key.forEach((k, j) => {
+                    // Check every possible type-array for the value at index j
+                    if (raw.string && raw.string[j] !== undefined) fObj[k] = raw.string[j];
+                    else if (raw.integer && raw.integer[j] !== undefined) fObj[k] = raw.integer[j];
+                    else if (raw.true !== undefined && raw.key[j] === k) fObj[k] = true;
+                    else if (raw.false !== undefined && raw.key[j] === k) fObj[k] = false;
                 });
-                cc.spriteFrameCache._addSpriteFramesByObject(name, converted);
-            } else {
-                cc.spriteFrameCache._addSpriteFramesByObject(name, data);
-            }
+                converted.frames[frameName] = fObj;
+            });
+            cc.spriteFrameCache._addSpriteFramesByObject(name, converted);
         };
 
-        sheetNames.forEach(spliceSheet);
+        // Load the simple ones first, then the deep ones
+        cc.spriteFrameCache._addSpriteFramesByObject("01", cc.loader.getRes("assets/GJ_GameSheet.json"));
+        ["03", "04", "Glow", "Icons"].forEach(spliceSheet);
 
-        const getSprite = (name) => {
-            const frame = cc.spriteFrameCache.getSpriteFrame(name);
-            return frame ? new cc.Sprite("#" + name) : new cc.Sprite("assets/GJ_squareB_01.png");
+        const getSprite = (n) => {
+            const f = cc.spriteFrameCache.getSpriteFrame(n);
+            return f ? new cc.Sprite("#" + n) : new cc.Sprite("assets/GJ_squareB_01.png");
         };
 
         // --- SCENES ---
@@ -56,21 +52,15 @@ cc.game.onStart = function() {
             onEnter: function() {
                 this._super();
                 this.addChild(new cc.LayerColor(cc.color(175, 0, 175)));
-                
-                // Logo (from Sheet 01)
                 const logo = getSprite("GJ_logo_001.png");
                 logo.setPosition(640, 550);
                 this.addChild(logo);
 
-                // Play Button (from Sheet 04)
                 const playBtn = new cc.MenuItemSprite(getSprite("GJ_playBtn_001.png"), getSprite("GJ_playBtn_001.png"), function() {
                     cc.director.runScene(new LevelSelectScene());
                 }, this);
 
-                // Creator Button (from Sheet 04)
-                const editBtn = new cc.MenuItemSprite(getSprite("GJ_creatorBtn_001.png"), getSprite("GJ_creatorBtn_001.png"), function() {
-                    console.log("Routing to: My Levels");
-                }, this);
+                const editBtn = new cc.MenuItemSprite(getSprite("GJ_creatorBtn_001.png"), getSprite("GJ_creatorBtn_001.png"), function(){});
 
                 const menu = new cc.Menu(editBtn, playBtn);
                 menu.alignItemsHorizontallyWithPadding(60);
@@ -82,17 +72,34 @@ cc.game.onStart = function() {
         const LevelSelectScene = cc.Scene.extend({
             onEnter: function() {
                 this._super();
-                this.addChild(new cc.LayerColor(cc.color(0, 100, 255))); // Blue
+                this.addChild(new cc.LayerColor(cc.color(0, 102, 255))); // Blue
 
-                const label = new cc.LabelTTF("Stereo Madness", "Arial", 60);
-                label.setPosition(640, 500);
-                this.addChild(label);
+                // Level Card
+                const title = new cc.LabelTTF("Stereo Madness", "Arial", 60);
+                title.setPosition(640, 520);
+                this.addChild(title);
 
-                // Back Arrow (from Sheet 03)
+                const diff = getSprite("difficulty_01_btn_001.png");
+                diff.setPosition(640, 360);
+                diff.setScale(1.2);
+                this.addChild(diff);
+
+                // Rewards (Stars & Orbs)
+                const starIcon = getSprite("GJ_starsIcon_001.png");
+                starIcon.setPosition(580, 240);
+                this.addChild(starIcon);
+                this.addChild(Object.assign(new cc.LabelTTF("1", "Arial", 30), {position: cc.p(620, 240)}));
+
+                const orbIcon = getSprite("currencyOrbIcon_001.png");
+                orbIcon.setPosition(670, 240);
+                orbIcon.setScale(0.8);
+                this.addChild(orbIcon);
+                this.addChild(Object.assign(new cc.LabelTTF("50", "Arial", 30), {position: cc.p(720, 240)}));
+
+                // Back Button
                 const backBtn = new cc.MenuItemSprite(getSprite("GJ_arrow_01_001.png"), getSprite("GJ_arrow_01_001.png"), function() {
                     cc.director.runScene(new MainMenuScene());
                 }, this);
-                
                 const menu = new cc.Menu(backBtn);
                 menu.setPosition(80, 640);
                 this.addChild(menu);
