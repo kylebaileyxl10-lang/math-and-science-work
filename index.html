@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>GDRWeb | v1.0.73</title>
+    <title>GDRWeb Engine | v1.0.74</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
-        /* Core Engine Styles */
+        /* Full-screen Dark Theme */
         body { 
             margin: 0; 
             background: #000; 
@@ -15,24 +15,25 @@
             justify-content: center; 
             align-items: center; 
             height: 100vh; 
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
         }
 
-        /* Canvas with "Glow" effect to match the GD Vibe */
+        /* HD Canvas with Glow */
         #gameCanvas { 
-            box-shadow: 0 0 100px rgba(190, 0, 190, 0.4); 
-            border: 1px solid #444; 
+            box-shadow: 0 0 80px rgba(175, 0, 175, 0.3); /* Purple glow matching GD theme */
+            border: 2px solid #222; 
             background: #000;
             cursor: pointer;
-            border-radius: 4px;
         }
 
-        #ui-overlay {
+        /* Version Info Overlay */
+        #engine-tag {
             position: absolute;
-            bottom: 20px;
-            color: rgba(255, 255, 255, 0.3);
-            text-transform: uppercase;
+            bottom: 10px;
+            left: 15px;
+            color: rgba(255, 255, 255, 0.2);
             font-size: 10px;
+            text-transform: uppercase;
             letter-spacing: 2px;
             pointer-events: none;
         }
@@ -42,16 +43,17 @@
 
     <canvas id="gameCanvas" width="1280" height="720"></canvas>
     
-    <div id="ui-overlay">GDRWeb Engine v1.0.73 | Native JSON Logic</div>
+    <div id="engine-tag">GDRWeb Build v1.0.74 | Full Asset Sync</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="cocos2d.js"></script>
     
-    <script src="script.js?v=1.0.73"></script>
+    <script src="script.js?v=1.0.74"></script>
+
     <script>
-        // Simple console check to ensure the DOM is ready
+        // Log to console when the page is ready
         window.addEventListener('load', function() {
-            console.log("DOM Ready: Initializing GDRWeb v1.0.73...");
+            console.log("System: index.html v1.0.74 ready.");
         });
     </script>
 
