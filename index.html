@@ -2,10 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>GDRWeb Engine | v1.0.75</title>
+    <title>GDRWeb Engine | v1.0.76</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
-        /* Full-screen Dark Theme */
         body { 
             margin: 0; 
             background: #000; 
@@ -17,16 +16,12 @@
             height: 100vh; 
             font-family: 'Segoe UI', Tahoma, sans-serif;
         }
-
-        /* HD Canvas with Glow */
         #gameCanvas { 
-            box-shadow: 0 0 80px rgba(175, 0, 175, 0.3); /* Purple glow matching GD theme */
+            box-shadow: 0 0 80px rgba(175, 0, 175, 0.3);
             border: 2px solid #222; 
             background: #000;
             cursor: pointer;
         }
-
-        /* Version Info Overlay */
         #engine-tag {
             position: absolute;
             bottom: 10px;
@@ -43,19 +38,12 @@
 
     <canvas id="gameCanvas" width="1280" height="720"></canvas>
     
-    <div id="engine-tag">GDRWeb Build v1.0.75 | Full Asset Sync</div>
+    <div id="engine-tag">GDRWeb Build v1.0.76 | The "True Root" Fix</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="cocos2d.js"></script>
     
-    <script src="script.js?v=1.0.75"></script>
-
-    <script>
-        // Log to console when the page is ready
-        window.addEventListener('load', function() {
-            console.log("System: index.html v1.0.75 ready.");
-        });
-    </script>
+    <script src="script.js?v=1.0.76"></script>
 
 </body>
 </html>
