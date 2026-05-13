@@ -2,59 +2,30 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>GDRWeb Engine | v1.0.60</title>
+    <title>GDRWeb Engine | v1.0.62</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
-        /* Authentic GD Dark Theme */
         body { 
             margin: 0; 
             background: #0a0a0a; 
             overflow: hidden; 
             display: flex; 
-            flex-direction: column;
             justify-content: center; 
             align-items: center; 
             height: 100vh; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #fff;
         }
-
         #gameCanvas { 
             box-shadow: 0 0 60px rgba(0, 150, 255, 0.3); 
             border: 3px solid #333; 
             background: #000;
-            border-radius: 4px;
-        }
-
-        #status {
-            margin-top: 15px;
-            color: #00eaff;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 12px;
-            text-shadow: 0 0 10px rgba(0, 234, 255, 0.5);
         }
     </style>
 </head>
 <body>
-
     <canvas id="gameCanvas" width="800" height="450"></canvas>
-    <div id="status">Syncing JSON Sprites...</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="cocos2d.js"></script>
-    
-    <script src="script.js?v=1.0.60"></script>
-
-    <script>
-        // Simple UI cleanup once engine starts
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                const status = document.getElementById('status');
-                if (status) status.innerText = "Engine v1.0.60 Active";
-            }, 2000);
-        });
-    </script>
-
+    <script src="script.js?v=1.0.62"></script>
 </body>
 </html>
