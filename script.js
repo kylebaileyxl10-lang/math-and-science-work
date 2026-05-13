@@ -1,74 +1,66 @@
-// --- GDRWeb v1.0.68: FULL UI RECONSTRUCTION ---
-window.GDRWEB_VERSION = "1.0.68";
+// --- GDRWeb v1.0.69: THE JSON TRANSITION ---
+window.GDRWEB_VERSION = "1.0.69";
 
 cc.game.onStart = function() {
     cc.view.setDesignResolutionSize(1280, 720, cc.ResolutionPolicy.SHOW_ALL);
     cc.view.resizeWithBrowserSize(true);
 
-    // List of assets found in your folder
-    const assets = [
-        "assets/GJ_GameSheet.plist", 
-        "assets/GJ_GameSheet.png",
-        "assets/GJ_squareB_01.png"
-    ];
+    // 1. Updated path to .json
+    const jsonPath = "assets/GJ_GameSheet.json";
+    const imagePath = "assets/GJ_GameSheet.png";
 
-    cc.loader.load(assets, function(err) {
-        if (err) return console.error("Asset Load Failed");
+    cc.loader.loadTxt(jsonPath, function(err, textData) {
+        if (!err && textData) {
+            try {
+                const sheetData = JSON.parse(textData);
+                // Force inject the JSON object directly
+                cc.spriteFrameCache._addSpriteFramesByObject(jsonPath, sheetData);
+                console.log("System: JSON Map Linked Successfully.");
+            } catch (e) { console.error("System: JSON Parse Error. Check your file content."); }
+        }
 
-        // Prepare the Sprite Cache
-        const plistData = cc.loader.getRes("assets/GJ_GameSheet.plist");
-        cc.spriteFrameCache.addSpriteFrames("assets/GJ_GameSheet.plist");
+        cc.loader.load([imagePath, "assets/GJ_squareB_01.png"], function() {
+            
+            const MainMenuScene = cc.Scene.extend({
+                onEnter: function() {
+                    this._super();
+                    this.removeAllChildren(true);
+                    this.addChild(new cc.LayerColor(cc.color(175, 0, 175))); // GD Pink
 
-        const MainMenuScene = cc.Scene.extend({
-            onEnter: function() {
-                this._super();
-                
-                // 1. BACKGROUND: Authentic Purple
-                const bg = new cc.LayerColor(cc.color(175, 0, 175));
-                this.addChild(bg);
+                    const getSprite = (name) => {
+                        const frame = cc.spriteFrameCache.getSpriteFrame(name);
+                        return frame ? new cc.Sprite("#" + name) : new cc.Sprite("assets/GJ_squareB_01.png");
+                    };
 
-                // HELPER: Grabs sprite from your map or uses square if missing
-                const getSprite = (name) => {
-                    const frame = cc.spriteFrameCache.getSpriteFrame(name);
-                    return frame ? new cc.Sprite("#" + name) : new cc.Sprite("assets/GJ_squareB_01.png");
-                };
+                    // Logo
+                    const logo = getSprite("GJ_logo_001.png");
+                    logo.setPosition(640, 550);
+                    this.addChild(logo);
 
-                // 2. MAIN LOGO
-                const logo = getSprite("GJ_logo_001.png");
-                logo.setPosition(640, 550);
-                logo.setScale(1.1);
-                this.addChild(logo);
+                    // Main Row
+                    const playBtn = new cc.MenuItemSprite(getSprite("GJ_playBtn_001.png"), getSprite("GJ_playBtn_001.png"), function(){});
+                    const iconBtn = new cc.MenuItemSprite(getSprite("GJ_iconBtn_001.png"), getSprite("GJ_iconBtn_001.png"));
+                    const editBtn = new cc.MenuItemSprite(getSprite("GJ_editBtn_001.png"), getSprite("GJ_editBtn_001.png"));
 
-                // 3. CENTER BUTTONS
-                const playBtn = new cc.MenuItemSprite(getSprite("GJ_playBtn_001.png"), getSprite("GJ_playBtn_001.png"), function(){}, this);
-                const iconBtn = new cc.MenuItemSprite(getSprite("GJ_iconBtn_001.png"), getSprite("GJ_iconBtn_001.png"), function(){}, this);
-                const editBtn = new cc.MenuItemSprite(getSprite("GJ_editBtn_001.png"), getSprite("GJ_editBtn_001.png"), function(){}, this);
+                    const centerMenu = new cc.Menu(iconBtn, playBtn, editBtn);
+                    centerMenu.alignItemsHorizontallyWithPadding(50);
+                    centerMenu.setPosition(640, 320);
+                    this.addChild(centerMenu);
 
-                const centerMenu = new cc.Menu(iconBtn, playBtn, editBtn);
-                centerMenu.alignItemsHorizontallyWithPadding(50);
-                centerMenu.setPosition(640, 320);
-                this.addChild(centerMenu);
+                    // Bottom Row
+                    const statsBtn = new cc.MenuItemSprite(getSprite("GJ_statsBtn_001.png"), getSprite("GJ_statsBtn_001.png"));
+                    const settBtn = new cc.MenuItemSprite(getSprite("GJ_settingsBtn_001.png"), getSprite("GJ_settingsBtn_001.png"));
+                    
+                    const bottomMenu = new cc.Menu(statsBtn, settBtn);
+                    bottomMenu.alignItemsHorizontallyWithPadding(30);
+                    bottomMenu.setPosition(640, 100);
+                    bottomMenu.setScale(0.8);
+                    this.addChild(bottomMenu);
+                }
+            });
 
-                // 4. BOTTOM BAR
-                const statsBtn = new cc.MenuItemSprite(getSprite("GJ_statsBtn_001.png"), getSprite("GJ_statsBtn_001.png"));
-                const settBtn = new cc.MenuItemSprite(getSprite("GJ_settingsBtn_001.png"), getSprite("GJ_settingsBtn_001.png"));
-                const scoreBtn = new cc.MenuItemSprite(getSprite("GJ_scoreBtn_001.png"), getSprite("GJ_scoreBtn_001.png"));
-                
-                const bottomMenu = new cc.Menu(statsBtn, settBtn, scoreBtn);
-                bottomMenu.alignItemsHorizontallyWithPadding(30);
-                bottomMenu.setPosition(640, 100);
-                bottomMenu.setScale(0.8);
-                this.addChild(bottomMenu);
-
-                // 5. SIDE REWARDS
-                const dailyBtn = new cc.MenuItemSprite(getSprite("GJ_dailyBtn_001.png"), getSprite("GJ_dailyBtn_001.png"));
-                const dailyMenu = new cc.Menu(dailyBtn);
-                dailyMenu.setPosition(1150, 350);
-                this.addChild(dailyMenu);
-            }
+            cc.director.runScene(new MainMenuScene());
         });
-
-        cc.director.runScene(new MainMenuScene());
     });
 };
 
