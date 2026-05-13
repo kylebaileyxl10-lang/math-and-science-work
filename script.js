@@ -1,59 +1,76 @@
-// --- GDRWeb v1.0.60: MANUAL JSON SPRITE INJECTION ---
-window.GDRWEB_VERSION = "1.0.60";
+// --- GDRWeb v1.0.62: JSON MAP LOGGER & SAFETY SYNC ---
+window.GDRWEB_VERSION = "1.0.62";
 
 cc.game.onStart = function() {
     cc.view.setDesignResolutionSize(800, 450, cc.ResolutionPolicy.SHOW_ALL);
     cc.view.resizeWithBrowserSize(true);
 
-    // 1. Fetch your JSON-based plist manually
+    // 1. Fetch JSON Plist
     cc.loader.loadTxt("assets/GJ_GameSheet.plist", function(err, textData) {
-        if (err) return console.error("Could not find GJ_GameSheet.plist");
+        if (!err && textData) {
+            try {
+                const sheetData = JSON.parse(textData);
+                
+                // LOGGING: Check frames to find the real Logo Name
+                const frameNames = Object.keys(sheetData.frames || {});
+                console.log("System: Found " + frameNames.length + " frames in JSON.");
+                console.log("First 5 Frame Names:", frameNames.slice(0, 5));
 
-        try {
-            const sheetData = JSON.parse(textData);
-            // Manually inject into cache to bypass "Not a plist" XML check
-            cc.spriteFrameCache._addSpriteFramesByObject("assets/GJ_GameSheet.plist", sheetData);
-            console.log("System: JSON Sheet injected successfully.");
-        } catch (e) {
-            console.error("JSON Parse Error: Make sure your plist is valid JSON.", e);
+                cc.spriteFrameCache._addSpriteFramesByObject("assets/GJ_GameSheet.plist", sheetData);
+            } catch (e) { console.error("JSON Error:", e); }
         }
 
-        // 2. Load the actual image texture
-        cc.loader.load("assets/GJ_GameSheet.png", function() {
+        // 2. Load Texture & Icons
+        cc.loader.load(["assets/GJ_GameSheet.png", "assets/GJ_squareB_01.png"], function() {
             
             const MainMenuScene = cc.Scene.extend({
                 onEnter: function() {
                     this._super();
                     this.removeAllChildren(true);
                     
-                    // Background: Authentic Pink/Purple
+                    // Background: Authentic GD Pink
                     this.addChild(new cc.LayerColor(cc.color(190, 0, 190))); 
 
-                    // LOGO: High center
-                    const logoFrame = cc.spriteFrameCache.getSpriteFrame("GJ_logo_001.png");
-                    const logo = logoFrame ? new cc.Sprite(logoFrame) : new cc.LabelTTF("GEOMETRY DASH", "Arial", 50);
-                    logo.setPosition(400, 350);
-                    this.addChild(logo);
+                    // --- LOGO BLOCK ---
+                    // Tries common names. If it fails, uses text to prevent crash
+                    const logoFrame = cc.spriteFrameCache.getSpriteFrame("GJ_logo_001.png") || 
+                                    cc.spriteFrameCache.getSpriteFrame("logo.png");
+                    
+                    let logoNode;
+                    if (logoFrame) {
+                        logoNode = new cc.Sprite(logoFrame);
+                        logoNode.setScale(1.2);
+                    } else {
+                        logoNode = new cc.LabelTTF("GEOMETRY DASH", "Arial", 50);
+                    }
+                    
+                    logoNode.setPosition(400, 350);
+                    this.addChild(logoNode);
 
-                    // MAIN PLAY BUTTON: Large center
-                    const playFrame = cc.spriteFrameCache.getSpriteFrame("GJ_playBtn_001.png");
-                    const playBtnSprite = playFrame ? new cc.Sprite(playFrame) : new cc.Sprite("assets/GJ_squareB_01.png");
-                    const playBtn = new cc.MenuItemSprite(playBtnSprite, playBtnSprite, function() {
+                    // --- MAIN PLAY BUTTON ---
+                    const playFrame = cc.spriteFrameCache.getSpriteFrame("GJ_playBtn_001.png") ||
+                                     cc.spriteFrameCache.getSpriteFrame("playBtn.png");
+                    
+                    const btnSprite = playFrame ? new cc.Sprite(playFrame) : new cc.Sprite("assets/GJ_squareB_01.png");
+                    
+                    const playBtn = new cc.MenuItemSprite(btnSprite, btnSprite, function() {
                         cc.director.runScene(new GameplayScene());
                     }, this);
                     playBtn.setScale(1.4);
 
-                    const mainRow = new cc.Menu(playBtn);
-                    mainRow.setPosition(400, 180);
-                    this.addChild(mainRow);
+                    const menu = new cc.Menu(playBtn);
+                    menu.setPosition(400, 180);
+                    this.addChild(menu);
                 }
             });
 
             const GameplayScene = cc.Scene.extend({
                 onEnter: function() {
                     this._super();
-                    this.addChild(new cc.LayerColor(cc.color(0, 0, 0)));
-                    this.addChild(new cc.LabelTTF("Level Loading...", "Arial", 30)).setPosition(400, 225);
+                    this.addChild(new cc.LayerColor(cc.color(10, 20, 40)));
+                    const label = new cc.LabelTTF("LEVEL LOADING...", "Arial", 32);
+                    label.setPosition(400, 225);
+                    this.addChild(label);
                 }
             });
 
@@ -62,6 +79,7 @@ cc.game.onStart = function() {
     });
 };
 
+// Start Execution Guard
 if (!window.GDR_STARTED) {
     window.GDR_STARTED = true;
     cc.game.run("gameCanvas");
