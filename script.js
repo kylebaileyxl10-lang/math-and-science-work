@@ -1,26 +1,19 @@
-// --- GDRWeb v1.0.62: JSON MAP LOGGER & SAFETY SYNC ---
-window.GDRWEB_VERSION = "1.0.62";
+// --- GDRWeb v1.0.63: VERIFIED FRAME SYNC ---
+window.GDRWEB_VERSION = "1.0.63";
 
 cc.game.onStart = function() {
     cc.view.setDesignResolutionSize(800, 450, cc.ResolutionPolicy.SHOW_ALL);
     cc.view.resizeWithBrowserSize(true);
 
-    // 1. Fetch JSON Plist
     cc.loader.loadTxt("assets/GJ_GameSheet.plist", function(err, textData) {
         if (!err && textData) {
             try {
                 const sheetData = JSON.parse(textData);
-                
-                // LOGGING: Check frames to find the real Logo Name
-                const frameNames = Object.keys(sheetData.frames || {});
-                console.log("System: Found " + frameNames.length + " frames in JSON.");
-                console.log("First 5 Frame Names:", frameNames.slice(0, 5));
-
                 cc.spriteFrameCache._addSpriteFramesByObject("assets/GJ_GameSheet.plist", sheetData);
-            } catch (e) { console.error("JSON Error:", e); }
+                console.log("System: JSON Sheet Injected. Found " + Object.keys(sheetData.frames).length + " frames.");
+            } catch (e) { console.error("JSON Error"); }
         }
 
-        // 2. Load Texture & Icons
         cc.loader.load(["assets/GJ_GameSheet.png", "assets/GJ_squareB_01.png"], function() {
             
             const MainMenuScene = cc.Scene.extend({
@@ -28,38 +21,35 @@ cc.game.onStart = function() {
                     this._super();
                     this.removeAllChildren(true);
                     
-                    // Background: Authentic GD Pink
+                    // Background: Pink
                     this.addChild(new cc.LayerColor(cc.color(190, 0, 190))); 
 
-                    // --- LOGO BLOCK ---
-                    // Tries common names. If it fails, uses text to prevent crash
-                    const logoFrame = cc.spriteFrameCache.getSpriteFrame("GJ_logo_001.png") || 
-                                    cc.spriteFrameCache.getSpriteFrame("logo.png");
+                    // --- LOGO BLOCK (Using verified name from your console) ---
+                    const logoFrame = cc.spriteFrameCache.getSpriteFrame("blackCogwheel_01_001.png");
                     
                     let logoNode;
                     if (logoFrame) {
                         logoNode = new cc.Sprite(logoFrame);
-                        logoNode.setScale(1.2);
+                        logoNode.setScale(2.0); // Make it big like a logo
                     } else {
-                        logoNode = new cc.LabelTTF("GEOMETRY DASH", "Arial", 50);
+                        logoNode = new cc.LabelTTF("GDRWeb Engine", "Arial", 40);
                     }
                     
-                    logoNode.setPosition(400, 350);
+                    logoNode.setPosition(400, 320);
                     this.addChild(logoNode);
 
                     // --- MAIN PLAY BUTTON ---
-                    const playFrame = cc.spriteFrameCache.getSpriteFrame("GJ_playBtn_001.png") ||
-                                     cc.spriteFrameCache.getSpriteFrame("playBtn.png");
-                    
-                    const btnSprite = playFrame ? new cc.Sprite(playFrame) : new cc.Sprite("assets/GJ_squareB_01.png");
-                    
-                    const playBtn = new cc.MenuItemSprite(btnSprite, btnSprite, function() {
-                        cc.director.runScene(new GameplayScene());
-                    }, this);
-                    playBtn.setScale(1.4);
+                    // Using your confirmed squareB asset as a placeholder
+                    const playBtn = new cc.MenuItemSprite(
+                        new cc.Sprite("assets/GJ_squareB_01.png"), 
+                        new cc.Sprite("assets/GJ_squareB_01.png"), 
+                        function() {
+                            cc.director.runScene(new GameplayScene());
+                        }, this);
+                    playBtn.setScale(1.5);
 
                     const menu = new cc.Menu(playBtn);
-                    menu.setPosition(400, 180);
+                    menu.setPosition(400, 150);
                     this.addChild(menu);
                 }
             });
@@ -74,12 +64,12 @@ cc.game.onStart = function() {
                 }
             });
 
+            // Start on the MENU, not the loading screen
             cc.director.runScene(new MainMenuScene());
         });
     });
 };
 
-// Start Execution Guard
 if (!window.GDR_STARTED) {
     window.GDR_STARTED = true;
     cc.game.run("gameCanvas");
