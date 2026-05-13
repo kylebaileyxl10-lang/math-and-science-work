@@ -1,82 +1,74 @@
-// --- GDRWeb v1.0.65: FULL AUTHENTIC MENU ---
-window.GDRWEB_VERSION = "1.0.65";
+// --- GDRWeb v1.0.68: FULL UI RECONSTRUCTION ---
+window.GDRWEB_VERSION = "1.0.68";
 
 cc.game.onStart = function() {
-    cc.view.setDesignResolutionSize(800, 450, cc.ResolutionPolicy.SHOW_ALL);
+    cc.view.setDesignResolutionSize(1280, 720, cc.ResolutionPolicy.SHOW_ALL);
     cc.view.resizeWithBrowserSize(true);
 
-    // Load the JSON Map first
-    cc.loader.loadTxt("assets/GJ_GameSheet.plist", function(err, textData) {
-        if (!err && textData) {
-            try {
-                const sheetData = JSON.parse(textData);
-                cc.spriteFrameCache._addSpriteFramesByObject("assets/GJ_GameSheet.plist", sheetData);
-            } catch (e) { console.error("JSON Error:", e); }
-        }
+    // List of assets found in your folder
+    const assets = [
+        "assets/GJ_GameSheet.plist", 
+        "assets/GJ_GameSheet.png",
+        "assets/GJ_squareB_01.png"
+    ];
 
-        // Load all required textures
-        const assets = ["assets/GJ_GameSheet.png", "assets/GJ_squareB_01.png"];
-        cc.loader.load(assets, function() {
-            
-            const MainMenuScene = cc.Scene.extend({
-                onEnter: function() {
-                    this._super();
-                    this.removeAllChildren(true);
-                    
-                    // 1. BACKGROUND: The Purple/Pink GD Gradient
-                    const bg = new cc.LayerGradient(cc.color(190, 0, 190), cc.color(80, 0, 80));
-                    this.addChild(bg); 
+    cc.loader.load(assets, function(err) {
+        if (err) return console.error("Asset Load Failed");
 
-                    // 2. THE LOGO
-                    const logo = new cc.Sprite("#GJ_logo_001.png");
-                    logo.setPosition(400, 340);
-                    logo.setScale(1.1);
-                    this.addChild(logo);
+        // Prepare the Sprite Cache
+        const plistData = cc.loader.getRes("assets/GJ_GameSheet.plist");
+        cc.spriteFrameCache.addSpriteFrames("assets/GJ_GameSheet.plist");
 
-                    // 3. MAIN CENTER BUTTONS (Icon Kit, Play, Editor)
-                    const playBtn = new cc.MenuItemSprite(
-                        new cc.Sprite("#GJ_playBtn_001.png"), 
-                        new cc.Sprite("#GJ_playBtn_001.png"), 
-                        function() { cc.director.runScene(new GameplayScene()); }, this);
-                    playBtn.setScale(1.3);
+        const MainMenuScene = cc.Scene.extend({
+            onEnter: function() {
+                this._super();
+                
+                // 1. BACKGROUND: Authentic Purple
+                const bg = new cc.LayerColor(cc.color(175, 0, 175));
+                this.addChild(bg);
 
-                    const iconBtn = new cc.MenuItemSprite(
-                        new cc.Sprite("#GJ_iconBtn_001.png"), 
-                        new cc.Sprite("#GJ_iconBtn_001.png"), 
-                        function(){}, this);
+                // HELPER: Grabs sprite from your map or uses square if missing
+                const getSprite = (name) => {
+                    const frame = cc.spriteFrameCache.getSpriteFrame(name);
+                    return frame ? new cc.Sprite("#" + name) : new cc.Sprite("assets/GJ_squareB_01.png");
+                };
 
-                    const editBtn = new cc.MenuItemSprite(
-                        new cc.Sprite("#GJ_editBtn_001.png"), 
-                        new cc.Sprite("#GJ_editBtn_001.png"), 
-                        function(){}, this);
+                // 2. MAIN LOGO
+                const logo = getSprite("GJ_logo_001.png");
+                logo.setPosition(640, 550);
+                logo.setScale(1.1);
+                this.addChild(logo);
 
-                    const centerMenu = new cc.Menu(iconBtn, playBtn, editBtn);
-                    centerMenu.alignItemsHorizontallyWithPadding(40);
-                    centerMenu.setPosition(400, 180);
-                    this.addChild(centerMenu);
+                // 3. CENTER BUTTONS
+                const playBtn = new cc.MenuItemSprite(getSprite("GJ_playBtn_001.png"), getSprite("GJ_playBtn_001.png"), function(){}, this);
+                const iconBtn = new cc.MenuItemSprite(getSprite("GJ_iconBtn_001.png"), getSprite("GJ_iconBtn_001.png"), function(){}, this);
+                const editBtn = new cc.MenuItemSprite(getSprite("GJ_editBtn_001.png"), getSprite("GJ_editBtn_001.png"), function(){}, this);
 
-                    // 4. BOTTOM BUTTON ROW (Stats, Settings, etc.)
-                    const statsBtn = new cc.MenuItemSprite(new cc.Sprite("#GJ_statsBtn_001.png"), new cc.Sprite("#GJ_statsBtn_001.png"));
-                    const settBtn = new cc.MenuItemSprite(new cc.Sprite("#GJ_settingsBtn_001.png"), new cc.Sprite("#GJ_settingsBtn_001.png"));
-                    
-                    const bottomMenu = new cc.Menu(statsBtn, settBtn);
-                    bottomMenu.alignItemsHorizontallyWithPadding(20);
-                    bottomMenu.setPosition(400, 60);
-                    bottomMenu.setScale(0.8);
-                    this.addChild(bottomMenu);
-                }
-            });
+                const centerMenu = new cc.Menu(iconBtn, playBtn, editBtn);
+                centerMenu.alignItemsHorizontallyWithPadding(50);
+                centerMenu.setPosition(640, 320);
+                this.addChild(centerMenu);
 
-            const GameplayScene = cc.Scene.extend({
-                onEnter: function() {
-                    this._super();
-                    this.addChild(new cc.LayerColor(cc.color(0, 0, 0)));
-                    this.addChild(new cc.LabelTTF("Level Loading...", "Arial", 30)).setPosition(400, 225);
-                }
-            });
+                // 4. BOTTOM BAR
+                const statsBtn = new cc.MenuItemSprite(getSprite("GJ_statsBtn_001.png"), getSprite("GJ_statsBtn_001.png"));
+                const settBtn = new cc.MenuItemSprite(getSprite("GJ_settingsBtn_001.png"), getSprite("GJ_settingsBtn_001.png"));
+                const scoreBtn = new cc.MenuItemSprite(getSprite("GJ_scoreBtn_001.png"), getSprite("GJ_scoreBtn_001.png"));
+                
+                const bottomMenu = new cc.Menu(statsBtn, settBtn, scoreBtn);
+                bottomMenu.alignItemsHorizontallyWithPadding(30);
+                bottomMenu.setPosition(640, 100);
+                bottomMenu.setScale(0.8);
+                this.addChild(bottomMenu);
 
-            cc.director.runScene(new MainMenuScene());
+                // 5. SIDE REWARDS
+                const dailyBtn = new cc.MenuItemSprite(getSprite("GJ_dailyBtn_001.png"), getSprite("GJ_dailyBtn_001.png"));
+                const dailyMenu = new cc.Menu(dailyBtn);
+                dailyMenu.setPosition(1150, 350);
+                this.addChild(dailyMenu);
+            }
         });
+
+        cc.director.runScene(new MainMenuScene());
     });
 };
 
