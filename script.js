@@ -1,5 +1,5 @@
-// --- GDRWeb v1.0.70: UI ROUTING & SCENE TRANSITIONS ---
-window.GDRWEB_VERSION = "1.0.70";
+// --- GDRWeb v1.0.71: LEVEL SELECTION RECONSTRUCTION ---
+window.GDRWEB_VERSION = "1.0.71";
 
 cc.game.onStart = function() {
     cc.view.setDesignResolutionSize(1280, 720, cc.ResolutionPolicy.SHOW_ALL);
@@ -13,87 +13,83 @@ cc.game.onStart = function() {
             try {
                 const sheetData = JSON.parse(textData);
                 cc.spriteFrameCache._addSpriteFramesByObject(jsonPath, sheetData);
-            } catch (e) { console.error("JSON Error"); }
+            } catch (e) { console.error("JSON Map Error"); }
         }
 
         cc.loader.load([imagePath, "assets/GJ_squareB_01.png"], function() {
             
-            // --- HELPER: Generates a blank room to travel to ---
-            const createSubScene = function(roomName) {
-                const Scene = cc.Scene.extend({
-                    onEnter: function() {
-                        this._super();
-                        this.addChild(new cc.LayerColor(cc.color(15, 15, 25))); // Dark background
-
-                        // Room Title
-                        const title = new cc.LabelTTF(roomName, "Arial", 45);
-                        title.setPosition(640, 360);
-                        this.addChild(title);
-
-                        // Back Button (Returns to Main Menu)
-                        const backBtn = new cc.MenuItemSprite(
-                            new cc.Sprite("assets/GJ_squareB_01.png"), 
-                            new cc.Sprite("assets/GJ_squareB_01.png"), 
-                            function() { cc.director.runScene(new MainMenuScene()); }, this
-                        );
-                        
-                        const menu = new cc.Menu(backBtn);
-                        menu.setPosition(80, 640); // Top left corner
-                        this.addChild(menu);
-                    }
-                });
-                return new Scene();
+            const getSprite = (name) => {
+                const frame = cc.spriteFrameCache.getSpriteFrame(name);
+                return frame ? new cc.Sprite("#" + name) : new cc.Sprite("assets/GJ_squareB_01.png");
             };
+
+            // --- NEW: LEVEL SELECTION SCENE ---
+            const LevelSelectScene = cc.Scene.extend({
+                onEnter: function() {
+                    this._super();
+                    
+                    // 1. BG Color (Stereo Madness Blue)
+                    this.addChild(new cc.LayerColor(cc.color(0, 100, 255)));
+
+                    // 2. SCROLLING GROUND
+                    const ground = getSprite("GJ_ground_01_001.png");
+                    ground.setAnchorPoint(0, 0);
+                    ground.setPosition(0, 0);
+                    ground.setScaleX(2.5); // Make it wide
+                    this.addChild(ground);
+
+                    // 3. LEVEL CARD UI
+                    const levelTitle = new cc.LabelTTF("Stereo Madness", "Arial", 60);
+                    levelTitle.setPosition(640, 500);
+                    this.addChild(levelTitle);
+
+                    const difficulty = getSprite("difficulty_01_btn_001.png");
+                    difficulty.setPosition(640, 350);
+                    difficulty.setScale(1.2);
+                    this.addChild(difficulty);
+
+                    // 4. NAVIGATION ARROWS
+                    const leftArrow = new cc.MenuItemSprite(getSprite("navArrowBtn_001.png"), getSprite("navArrowBtn_001.png"));
+                    leftArrow.setRotation(180);
+                    
+                    const rightArrow = new cc.MenuItemSprite(getSprite("navArrowBtn_001.png"), getSprite("navArrowBtn_001.png"));
+
+                    const navMenu = new cc.Menu(leftArrow, rightArrow);
+                    navMenu.alignItemsHorizontallyWithPadding(900);
+                    navMenu.setPosition(640, 360);
+                    this.addChild(navMenu);
+
+                    // 5. BACK BUTTON
+                    const backBtn = new cc.MenuItemSprite(getSprite("GJ_arrow_01_001.png"), getSprite("GJ_arrow_01_001.png"), function() {
+                        cc.director.runScene(new MainMenuScene());
+                    }, this);
+                    
+                    const backMenu = new cc.Menu(backBtn);
+                    backMenu.setPosition(80, 640);
+                    this.addChild(backMenu);
+                }
+            });
 
             // --- MAIN MENU SCENE ---
             const MainMenuScene = cc.Scene.extend({
                 onEnter: function() {
                     this._super();
-                    this.removeAllChildren(true);
                     this.addChild(new cc.LayerColor(cc.color(175, 0, 175))); 
-
-                    const getSprite = (name) => {
-                        const frame = cc.spriteFrameCache.getSpriteFrame(name);
-                        return frame ? new cc.Sprite("#" + name) : new cc.Sprite("assets/GJ_squareB_01.png");
-                    };
 
                     const logo = getSprite("GJ_logo_001.png");
                     logo.setPosition(640, 550);
                     this.addChild(logo);
 
-                    // --- BUTTON WIRING ---
-                    // 1. Icon Kit
-                    const iconBtn = new cc.MenuItemSprite(getSprite("GJ_iconBtn_001.png"), getSprite("GJ_iconBtn_001.png"), function() {
-                        cc.director.runScene(createSubScene("ICON KIT ROUTE\n(Select your cube here later)"));
-                    }, this);
-
-                    // 2. Play Main Levels
                     const playBtn = new cc.MenuItemSprite(getSprite("GJ_playBtn_001.png"), getSprite("GJ_playBtn_001.png"), function() {
-                        cc.director.runScene(createSubScene("LEVEL SELECT ROUTE\n(Stereo Madness, Back on Track, etc)"));
+                        cc.director.runScene(new LevelSelectScene()); // Transitions to Level Select
                     }, this);
 
-                    // 3. Creator Menu
-                    const editBtn = new cc.MenuItemSprite(getSprite("GJ_editBtn_001.png"), getSprite("GJ_editBtn_001.png"), function() {
-                        cc.director.runScene(createSubScene("CREATOR ROUTE\n(Create, Saved, My Levels)"));
-                    }, this);
-
-                    const centerMenu = new cc.Menu(iconBtn, playBtn, editBtn);
-                    centerMenu.alignItemsHorizontallyWithPadding(50);
-                    centerMenu.setPosition(640, 320);
-                    this.addChild(centerMenu);
-
-                    // Bottom Row
-                    const statsBtn = new cc.MenuItemSprite(getSprite("GJ_statsBtn_001.png"), getSprite("GJ_statsBtn_001.png"));
-                    const settBtn = new cc.MenuItemSprite(getSprite("GJ_settingsBtn_001.png"), getSprite("GJ_settingsBtn_001.png"));
-                    const bottomMenu = new cc.Menu(statsBtn, settBtn);
-                    bottomMenu.alignItemsHorizontallyWithPadding(30);
-                    bottomMenu.setPosition(640, 100);
-                    bottomMenu.setScale(0.8);
-                    this.addChild(bottomMenu);
+                    const menu = new cc.Menu(playBtn);
+                    menu.setPosition(640, 320);
+                    this.addChild(menu);
                 }
             });
 
-            // Boot up the engine into the Main Menu
             cc.director.runScene(new MainMenuScene());
         });
     });
